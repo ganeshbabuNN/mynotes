@@ -15,7 +15,6 @@
 #Conditional Column Creation with Logic
 #Advanced Patterns
 #Pipe + Modification Workflow
-#Common Mistakes
 #.by inside mutate()
 #pick() (Column selection inside mutate)
 #reframe() vs mutate()
@@ -279,7 +278,7 @@ flights %>%
   relocate(gain, speed, .after = distance)
 
 #Common Mistakes
-#===============
+#---------------
 #Using mutate() instead of summarise()
 flights %>% mutate(mean_delay = mean(arr_delay)) |> select(flight,mean_delay)
 #Forgetting na.rm = TRUE

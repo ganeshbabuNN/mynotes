@@ -13,8 +13,6 @@
 #Handling NA While Combining
 #Performance Tips
 #Real-World Workflow
-#Common Mistakes
-#Quick Syntax Summary
 #Non-Equi Joins (Advanced Matching Logic)
 #Rolling / Closest Match Joins
 #Semi Join & Anti Join (Filtering via Combine)
@@ -338,7 +336,7 @@ flights %>%
 #Final output
 
 #Common Mistakes
-#===============
+#---------------
 ##Wrong join key
 ##Duplicate rows after join
 ##Using bind_cols() instead of join
@@ -346,7 +344,7 @@ flights %>%
 ##Not checking row counts
 
 #Quick Syntax Summary
-#====================
+#--------------------
 #Task	Function
 #Stack rows-->	bind_rows()
 #Stack columns-->	bind_cols()
