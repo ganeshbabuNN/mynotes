@@ -1,0 +1,68 @@
+UV Introductions
+UV Commands
+UV flow
+
+
+UV Introductions
+=================
+
+UV vs PIP
+=========
+pip: The standard package management system for Python, used to install and manage software packages from the Python Package Index (PyPI). It supports managing project dependencies via requirements.txt files and is the foundational tool in the Python ecosystem. 
+
+uv: A high-performance Python package installer and resolver written in Rust, designed to be a drop-in replacement for common pip and pip-tools workflows. It focuses on speed and reliability, offering features like dependency resolution, locking, installation, and virtual environment management.
+
+Both tools are essential for Python developers, with pip being the default choice due to its long-standing presence and integration with Python, while uv offers a faster and more efficient alternative for modern development workflows
+
+UV Commands
+==========
+
+python in UV:
+uv python list #list of python version available in uV
+uv python install latest #latest version of python
+uv python install 3.12
+uv python install 3.14
+uv python pin 3.12  #Set as Default:
+uv python pin latest #set latest verion 
+	
+Check UV installed :
+uv --version
+
+Install UV (if not installed)
+pip install uv
+
+Initialize Project
+uv init
+
+Check Installed Packages
+uv pip list
+
+Check Available Python Versions
+uv python list
+
+Create Virtual Environment
+Specific version:
+uv venv env --python cpython-3.12.18-windows-x86_64-none #here you are creating env if you don't specify it creates its default .venv
+Generic:
+uv venv <your-env-name> --python <your-python-version>
+
+.venv\Scripts\activate  #activate the environment
+.venv\Scripts\deactivate.bat #deactivate the environment.
+
+Install Packages:
+Single package:
+uv add <package_name>
+uv pip install <package_name>
+From requirements file:
+uv add -r requirements.txt #.toml will appear if you do via this.
+uv pip install -r requirements.txt # this is better instead of add
+
+##clean all the dependencies
+uv lock --upgrade
+uv sync --clean
+
+
+UV flow
+=======
+init → python → venv → add → lock → sync → run → test → export → deploy
+

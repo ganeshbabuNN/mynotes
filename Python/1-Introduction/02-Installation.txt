@@ -11,10 +11,23 @@ Intro
 
 install python software
 =======================
+
+Install via installer:
+----------------------
 1)login to https://www.python.org/
 2)click on download and python 3.8.5
 3)click on the install icon and Click next next button
 4)Write a Code.
+
+Install or upgrade via ClI:
+---------------------------
+Open PowerShell or CMD as an Administrator (Right-click "Start" > "Terminal (Admin)").
+winget search Python.Python #Search for available versions:
+Upgrade Python:
+winget upgrade Python.Python #If you already have a version installed via winget, run:
+winget install Python.Python.3.14 #If you want to install a specific new version (like 3.14) alongside your current one:
+
+
 
 For Setting up the Python in Windows using atom 
 =================================================
@@ -31,6 +44,7 @@ show indent Guide,soft tab, Tab length (modify to 4 for python)
 
 runner:
 	python:"/Library/python3"  //provide the latest version of installation version.
+	
 
 For Setuppting up in Mac using Eclipse
 ========================================

@@ -145,6 +145,10 @@ purchase_amount > 5000
 
 #Best Practices
 ##Use all.equal() for numeric comparison
+#Why all.equal()
+(0.1+0.2)==0.3
+#the system calculates internall the base 10  int their binary system base2. 0.30000000000000000000000044
+all.equal((0.1+0.2),0.3)
 
 #When to Use / Not Use
 ##Use in conditions
@@ -159,29 +163,45 @@ purchase_amount > 5000
 #&(and)			This operator is known as the Element-wise Logical AND operator. This operator takes the first element of both the vector and returns TRUE if both the elements are TRUE.	 
 #|(or)			This operator is called the Element-wiseLogical OR operator. This operator takes the first element of both the vector and returns TRUE if one of them is TRUE.	 
 #!(not)			This operator is known as Element-wise Logical NOT operator. This operator takes the first element of the vector and gives the opposite logical value as a result.	
-#&&			called as Logical AND operator.This operator takes the first element of both the vector and gives TRUE as a result, only if both are TRUE.		
-#|| 			caled Logical OR operator.This operator takes the first element of both the vector and gives the result TRUE, if one of them is true.
+#&&			    called as short-circuit AND operator.This operator takes the first element of both the vector and gives TRUE as a result, only if both are TRUE.		
+#|| 			called short-cuircuit OR operator.This operator takes the first element of both the vector and gives the result TRUE, if one of them is true.
 #EXOR     
 #EXNOR 
+
+#the short-circuit works on scalar, normal logical works on vectors
+
+v1<- c(TRUE,FALSE,TRUE)
+v2<- c(TRUE,TRUE,FALSE)
 
 #& AND(Vector-wise)
 TRUE & TRUE
 TRUE & FALSE
 FALSE & TRUE
 FALSE & FALSE
+v1 & v2
 
 #|(OR)
 TRUE & TRUE
 TRUE & FALSE
 FALSE & TRUE
 FALSE & FALSE
+v1 & v2
 
 #'(')
 c(TRUE,FALSE)
+
 #!(NOT)
 !TRUE
-#&&(AND(first value only))
+!v1
+
+
+#&& AND short-circuit
 TRUE&&FALSE
+v1 && v2 #it does not work on vector
+
+# || OR short-circuit
+TRUE||FALSE
+v1 || v2 #it does not work on vector
 
 #EXOR(Exclusive OR) returns TRUe only if two inputs are different. if both are same
 #it returns false
@@ -375,21 +395,29 @@ bitwXor(5,3)
 
 #General Precedence Rules (High → Low)
 #-------------------------------------
+#Ref : https://search.r-project.org/R/refmans/base/html/Syntax.html
 #Operator --> Category
 #-----------------------
-#() -- Parentheses
-#^,** --exponentiation (Right-to-Left )
-#+,-(unary) -sign (Right-to-Left )
-#*,/,%%,%/%--- multiple,divide,modulus
-#+,- --- additions, subtraction
-#: --- sequence
-#<,<=,>,==,!= ------Relational 
-#! --- logical NOT
-#& --- logical AND (vectorized)
-#| --- logical OR 
-#&& --- logical AND(short-ciruit)
-#<-,->,= --- assignment (Right-to-Left )
-#~ ---- formula (Right-to-Left)
+
+#:: :::	--> access variables in a namespace
+#$ @	--> component / slot extraction
+#[ [[	--> indexing
+#^		--> exponentiation (right to left)
+#- +	--> unary minus and plus(?Right-to-Left )
+#:		--> sequence operator
+#%any% |>	--> special operators (including %% and %/%)
+#* /	--> multiply, divide
+#+ -	--> (binary) add, subtract
+#< > <= >= == !=	--> ordering and comparison
+#!	--> negation
+#& &&	--> logical AND, Shortcurcuit AND
+#| ||	--> logical OR, Shortcurcuit OR
+#~	--> as in formulae (Right-to-Left)
+#-> ->>	--> rightwards assignment (?Right-to-Left )
+#<- <<-	--> assignment (?right to left)
+#=	--> assignment (right to left)
+#?	--> help (unary and binary)
+
 ##Higher priority operators are evaluated first.
 
 #Operator Associativity in R
@@ -632,6 +660,8 @@ FALSE&TRUE
 FALSE&FALSE
 TRUE&TRUE
 
+!TRUE&TRUE
+
 # |-(logical OR)
 TRUE|FALSE
 FALSE|TRUE
@@ -661,13 +691,13 @@ v2 <- c(TRUE, TRUE, FALSE)
 
 v1 & v2   # Returns: TRUE FALSE FALSE (Checks every pair)
 v1 && v2  # Returns: TRUE (Only checks the first pair: TRUE && TRUE)
-v1[1] && v2[1]
+v1[1] && v2[1] #works only on scalar not vector
 
 #&& (Logical AND)
 #If the first condition is TRUE, it returns TRUE immediately.
 v1 | v2   # Returns: TRUE FALSE FALSE (Checks every pair)
 v1 || v2  # Returns: TRUE (Only checks the first pair: TRUE && TRUE)
-v1[1] && v2[1]
+v1[1] && v2[1] #works only on scalar not vector
 
 #difference between Logical and shorcuit operator are 
 ##logical operator will Compares every element in two vectors.
@@ -697,6 +727,7 @@ df$age >= 18 & df$salary > 25000
 #Comparisons first:
 #df$age >= 18 → TRUE TRUE TRUE FALSE
 #df$salary > 25000 → FALSE TRUE TRUE FALSE
+
 #Logical AND:
 #TRUE & FALSE = FALSE
 #TRUE & TRUE = TRUE

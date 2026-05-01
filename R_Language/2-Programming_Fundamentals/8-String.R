@@ -78,6 +78,7 @@ x <- "R"
 length(x)
 #Multiple strings:
 languages <- c("R", "Python", "SQL")
+
 length(languages)
 
 #check whether a variable is of character type
@@ -322,7 +323,7 @@ Syntax
 paste0(...)
 
 #Equivalent to:
-paste(..., sep = "")
+paste(...,)
 
 #Basic Example
 paste0("Hello", "R")
@@ -534,6 +535,7 @@ letters[c(1, 5, 14)] #-the first, fifth and fourteenth letters of the alphabet
 
 #Example:
 #\' : Single Quote : Used when your string is wrapped in single quotes, but you need to include a literal single quote inside it.
+# output: "He said, "R is powerful."
 cat('It\'s a beautiful day in the neighborhood.') #
 #\" : Double Quote : Used when your string is wrapped in double quotes, and you need to include literal double quotes (like for speech).
 cat("The professor said, \"R is powerful for statistics.\"")
@@ -547,9 +549,19 @@ cat("Errorrr\b\b") #try in base R ,RStudio: Often ignores \b entirely or just mo
 #In many modern consoles, this allows you to "overwrite" what was previously written.
 cat("Loading... 0%\r") # try in base R
 cat("Loading... 100%\n")
+cat("helloworld\rGoodbye")
 #\\ : Single Backslash :Because the backslash is the "escape character" itself, 
 #if you want to print an actual backslash (like in a file path), you have to escape the escape.
 cat("The file is located at C:\\Users\\Documents\\Data")
+cat("c:\users\documents\data.csv")
+cat("c:\\users\\documents\\data.csv")
+
+#Raw string
+##Raw Strings to avoid escaping altogether
+# Syntax: r"(content)"
+path <- r"(C:\Users\Documents\data.csv)"
+cat(path)
+# Output: C:\Users\Documents\data.csv
 
 #String Regular expressions
 #==========================

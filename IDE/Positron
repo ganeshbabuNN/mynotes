@@ -1,0 +1,5 @@
+#Python
+#======
+https://youtu.be/Dw04bDgUTmg - Your First Python Project in Positron
+
+pip freeze > requirements.txt

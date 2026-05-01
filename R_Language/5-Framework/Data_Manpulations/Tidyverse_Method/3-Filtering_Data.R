@@ -21,7 +21,6 @@
 #Filtering After Joining
 #Filtering Top N Values
 #Filtering with Date-Time Logic
-#Filtering Rows Based on Another Table 
 #Filtering Using Cumulative Logic
 #Filtering by Frequency
 #Filtering Based on Computed Conditions
@@ -29,9 +28,12 @@
 #Filtering Using Lead/Lag for Change Detection
 #Filtering Rows That Are Duplicates
 #Filtering with "Predicate(where) Functions"
-#Filtering using the "Invert" of a Join
 #Filtering Using relocate() + conditions (pipeline logic)
 #Filtering Nested Data
+#Filtering joins
+#Filtering Rows Based on Another Table 
+#Filtering using the "Invert" of a Join
+#Filter Syntax Sematics
 #Practical Business Scenarios
 
 library(dplyr)
@@ -471,7 +473,7 @@ flights %>%
 # The mean of a logical is the percentage/proportion.
 flights %>%
   group_by(origin) %>%
-  filter(mean(is.na(round(dep_time,2)) > 0.05))
+  filter(round(mean(is.na(dep_time)),2) >0.05)
   
 flights %>%
   group_by(origin) %>%
@@ -568,6 +570,9 @@ flights %>%
 
 #Filtering Using near() (Floating Point Comparison)
 #==================================================
+near(6.0000000000000067,6) #valid and acept
+near(6.000000067,6) #not valid and coz of 6e8 
+
 #get the list of the near() values for exp
 weather |> select(origin,temp,dewp) |> filter(between(temp,30,40)) |> distinct(temp) |> arrange(temp) |> pull(temp)
 #Only catches 39 (plus invisible decimals).
@@ -679,6 +684,27 @@ flights %>%
 # Keep flights that do NOT go to JFK or LGA
 flights %>%
   filter(!str_detect(dest, "JFK|LGA")) |> select(carrier,dest) |> distinct(dest)
+  
+#Finding destinations that start with 'S' and end with 'C':
+flights |> 
+  filter(str_detect(dest,"^S.C$")) |> select(carrier,dest) 
+
+#if_any, if_all
+#Extract only the number from the tailnum.N14228 -> 14228
+flights |> select(carrier,tailnum) |> 
+  mutate(tail_digit = str_extract(tailnum,"\\d+"))
+
+#Replace "N" at the start of tail numbers with "USA-"
+flights |> select(carrier,tailnum) |> 
+ mutate(new_tail = str_replace(tailnum,"^N","USA-"))
+
+#Find the tail number that have double letters N3ALAA 
+flights |> select(carrier,tailnum) |> 
+  filter(str_detect(tailnum,"([A-Z])\\1")) |> distinct()
+
+#find the destinations that ends with either 'A' or 'N'
+flights |> select(carrier,dest) |> 
+  filter(str_detect(dest,"[AN]$"))  
 
 #Advanced: Filtering Multiple Columns
 #If you want to search for a pattern across multiple columns at once (e.g., any column that mentions "New"), use if_any() or if_all().
@@ -707,6 +733,11 @@ flights |> group_by(carrier) |> n_groups()
 #n()- Counts rows inside each group.
 flights |> group_by(carrier,origin) |> summarise(num_of_flights_per_orgin=n())
 flights |> group_by(dest) |> summarise(num_of_dest = n())
+
+#get the  unique of carrier and flight
+flights |> select(carrier,flight,year,month,day) |> 
+  summarise(u_car = n_distinct(carrier),
+            u_fligh = n_distinct(flight))
 
 #Filtering After Joining (Real World Scenario)
 #=============================================
@@ -760,14 +791,6 @@ flights %>%
                  as.POSIXct("2013-01-01"),
                  as.POSIXct("2013-01-15")))
 
-#Filtering Rows Based on Another Table (Semi Join Concept)
-#=========================================================
-#Flights going to airports in California:
-airports %>%
-  filter(tzone %in% "America/Chicago")
-
-flights %>%
-  semi_join(ca_airports, by = c("dest" = "faa"))
 
 #Filtering Using Cumulative Logic
 #===============================
@@ -930,6 +953,7 @@ dim(cust_tailnums)
 flights |> semi_join(cust_tailnums,by="tailnum") |> 
   select(carrier,tailnum) |> 
   distinct(tailnum)
+  
 ##dyanmic
 new_planes<- planes |> filter(year>2010,str_starts(tailnum,"N101")) |> select(seats,tailnum)
 #Perform the semi_join(Columns from the first table only)
@@ -946,6 +970,19 @@ flights |> distinct(carrier, dest)
 ##.keep_all = TRUE: Ensures you keep all other columns in the dataset
 flights |> distinct(carrier, dest,.keep_all = TRUE)
 
+#using dplyr
+flights |> 
+  group_by(flight,year,month,day,carrier) |> 
+  filter(n()>1) |> 
+  ungroup() |> 
+  relocate(flight,year,month,day,carrier,everything())
+ 
+#using add_count() 
+flights |> 
+  add_count(flight,year,month,day,carrier) |> 
+  filter(n>1) |> 
+  select(-n) #drop that column.
+  
 #The "Investigation" Way: get_dupes()
 #------------------------------------
 #If you want to see which rows are duplicates (to see the actual data that is repeating), the janitor package has the best tool for this.
@@ -955,7 +992,7 @@ flights |>
 #This will return every row that shares those exact values, 
 #along with a dupe_count column so you can see how many times that specific combination appeared.
 
-#The "Logic" Way: duplicated()
+#The "Logic" Way: duplicated() #not working 
 #-----------------------------
 #If you want to stay within dplyr without extra packages, you can use the base R duplicated() function inside a filter().
 #To see the duplicates:
@@ -1007,18 +1044,6 @@ mini_flights |> filter(!duplicated(pick(day, carrier, flight)))
 weather |> 
   filter(if_any(where(is.numeric), ~ .x > 100))
   
-#Filtering using the "Invert" of a Join (anti_join)
-#=======================================
-#You mentioned semi_join, but its "evil twin" anti_join is the ultimate data-cleaning tool. 
-#It finds the "orphans" or the "mismatches."
-
-#EX: Find all flights where the plane's tailnum does not exist in the planes table (detecting data gaps)
-flights |> 
-  anti_join(planes, by = "tailnum") |> glimpse() |> select(flight,tailnum)
-
-#check in planes datasets
-planes |> filter(tailnum %in% c("N302DN","N308DN"))  
-
 #Filtering Based on Percentiles
 #==============================
 #R calculates one single threshold for the entire dataset .its too advanced.
@@ -1039,7 +1064,6 @@ flights %>%
 
 #The "Verify and Filter" Pipeline
 #A common workflow is to use relocate() to move the column you are about to filter on to the first position. This is a "sanity check" for your code.
-
 flights %>%
   # 1. Bring the target column to position 1
   relocate(air_time) %>% 
@@ -1079,7 +1103,6 @@ long_delay_carriers <- nested_flights %>%
 #map_lgl(data, ...): This "maps" over the data column. The lgl stands for logical, meaning it expects a TRUE or FALSE for every row
 #any(.x$arr_delay > 500): For each carrier's mini-table (.x), it checks if any row meets the criteria.
 
-
 #Filtering the Nested Data Itself
 #Sometimes you don't want to remove the carrier; you just want to filter the rows inside the nested tables (e.g., keep all carriers, but remove all on-time flights from their nested data).
 only_delayed_nested <- nested_flights %>%
@@ -1090,6 +1113,167 @@ only_delayed_nested <- nested_flights %>%
 #You can also filter carriers based on an aggregate value of their nested data (like average delay)
 high_avg_carriers <- nested_flights %>%
   filter(map_dbl(data, ~ mean(.x$arr_delay, na.rm = TRUE)) > 20)  
+  
+#Filtering joins
+#===============
+#Filtering joins filter rows from x based on the presence or absence of matches in y:
+#Table A: Heroes
+heroes <- tribble(
+  ~name,    ~pub_id,
+  "ChotaBeem",  1,
+  "BalaGanesh", 3
+)
+
+# Table B: Pubs
+pubs <- tribble(
+  ~pub_id, ~pub_name,
+  1,       "ChotaBeem",
+  2,       "JaiHanuman"
+)
+#semi_join()
+##Keeps rows in the left table only if they have a match in the right (but adds no new columns).
+semi_join(heroes, pubs, by = "pub_id")
+##Result: Only ChotaBeem (He has a matching publisher)
+
+#anti_join()
+##Keeps rows in the left table only if they don't have a match in the right.
+anti_join(heroes, pubs, by = "pub_id")
+## Result: Only BalaGanesh (Pub_id 3 is not in the Pubs table)
+
+#Filtering Rows Based on Another Table (Semi Join Concept)
+#=========================================================
+#Flights going to airports in California:
+airports %>%
+  filter(tzone %in% "America/Chicago")
+
+flights %>%
+  semi_join(ca_airports, by = c("dest" = "faa"))
+  
+#Filtering using the "Invert" of a Join (anti_join)
+#=================================================
+#You mentioned semi_join, but its "evil twin" anti_join is the ultimate data-cleaning tool. 
+#It finds the "orphans" or the "mismatches."
+
+#EX: Find all flights where the plane's tailnum does not exist in the planes table (detecting data gaps)
+flights |> 
+  anti_join(planes, by = "tailnum") |> glimpse() |> select(flight,tailnum)
+
+#check in planes datasets
+planes |> filter(tailnum %in% c("N302DN","N308DN"))  
+
+#Filter Syntax Sematics
+#======================
+
+#filter()-Keeps rows where condition is TRUE
+#-------
+#syntax: filter(.data, ..., .by = NULL, .preserve = FALSE)
+##.data --> input dataset
+filter(flights, arr_delay > 30)
+##... (Conditions) --> Logical expressions used to filter rows
+##Key Points:
+  ##Multiple conditions = AND (&)
+  ##Use | for OR
+  ##Supports functions (is.na, between, etc.)
+filter(flights, arr_delay > 30, origin == "JFK")
+##.by (New in dplyr 1.1+) -->Temporary grouping inside filter() without group_by()
+filter(flights, arr_delay <=min(arr_delay,na.rm = TRUE), .by = month)
+###equivalent to above code
+flights %>%
+  group_by(month) %>%
+  filter(arr_delay == max(arr_delay)) %>%
+  ungroup()
+##.preserve --> Controls grouping structure after filtering
+#lets a take a simple example.
+df <- data.frame(
+  group = c("A", "A", "B", "B"),
+  value = c(10, 20, 5, 8)
+)
+df
+##preserve = FALSE After filtering, groups that have no rows left are dropped
+df %>%
+  group_by(group) %>%
+  filter(value > 15,.preserve = FALSE) %>%
+  summarise(n = n())
+##preserve = TRUE -All original groups (months) are preserved
+##Even if a group has zero rows after filtering, it still exists internally
+##So no group becomes empty
+df %>%
+  group_by(group) %>%
+  filter(value > 15,.preserve = TRUE) %>%
+  summarise(n = n())
+  
+#filter_out()
+#-----------
+#filter_out()	Removes rows where condition is TRUE
+#flights delayed more than 1 hour
+flights %>%
+  filter(arr_delay > 60)
+#Remove flights delayed more than 1 hour
+flights %>%
+  filter_out(arr_delay > 60)
+ ##equivalent 
+flights %>%
+  filter(!arr_delay > 60)
+  
+#filter_all() → apply condition to ALL columns
+#-------------
+#helper functions
+#all_vars() -All conditions must be TRUE
+#any_vars() -At least one condition must be TRUE
+#These are now replaced by if_all() and if_any() with across()
+
+#Keeps rows where ALL columns satisfy condition
+#Keep rows where all numeric values are positive
+flights %>%
+  select(dep_delay, arr_delay, distance) %>%
+  filter_all(all_vars(. > 0))
+  
+#filter_all() equivalent:
+flights %>%
+  filter(if_all(c(dep_delay, arr_delay), ~ . > 0))
+
+#filter_if() → apply condition based on column TYPE
+#-----------
+#Applies condition to columns that satisfy a predicate
+#Remove rows where any numeric value is negative
+flights %>%
+  select(dep_delay, arr_delay, distance) %>%
+  filter_if(is.numeric, all_vars(. >= 0))
+  
+#Keep rows where all numeric columns are NOT NA
+flights %>%
+  select(dep_delay, arr_delay, distance) %>%
+  filter_if(is.numeric, all_vars(!is.na(.)))
+  
+#filter_if() equivalent:
+flights %>%
+  filter(if_all(where(is.numeric), ~ !is.na(.)))
+  
+#filter_at() → apply condition to SELECTED columns
+#-----------
+#You choose specific columns
+#Keep rows where dep_delay & arr_delay > 0
+flights %>%
+  filter_at(vars(dep_delay, arr_delay), all_vars(. > 0))
+  
+#Any delay > 60
+flights %>%
+  filter_at(vars(dep_delay, arr_delay), any_vars(. > 60))
+  
+#filter_at() equivalent:
+flights %>%
+  filter(if_any(c(dep_delay, arr_delay), ~ . > 60))
+  
+#Old Function->New Approach
+#filter_all()->if_all()
+#filter_if()->if_all(where())
+#filter_at()->if_any() / if_all()
+
+#In Nutshell
+#filter_all() = apply to all columns
+#filter_if() = apply to columns by condition (type)
+#filter_at() = apply to specific columns
+#Modern across() unifies everything
 
 #Practical Business Scenarios
 #============================

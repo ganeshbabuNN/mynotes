@@ -399,9 +399,10 @@ class(s1)
 #1)Vectors
 #2)List
 #3)Matricesss
-#4)Arrays
 #5)Factors
 #6)DataFrame
+
+#4)Arrays
 
 #Vectors
 #--------
@@ -460,6 +461,36 @@ daily_sales <- c(100, 120, 90)
 #Mistake
 ##Mixing types unintentionally
 
+##CRUD operations
+#Create
+x <- c(10,20,30,40)
+x
+class(x)
+
+#Read
+##always the index starts with 1 not Zero
+x #full vector
+x[2] # 2 element
+x[c(3,4)] #read indiviual element
+x[2:4] #range of values
+x[-1] #reading reverse #it drops the first element and display remaining
+x[c(-1,2)] #does not work
+x[c(-1:-2)] #drops first two elements
+x[c(-1,-3)] #drops first and 2 elements
+
+#update
+x[3] <-33
+x
+x[1:2] <- 20 #it updates all the sequence
+x
+x[c(1,2)] <- 50
+x
+
+#delete
+x<-x[-2] #removes second element
+x
+
+
 #list
 #----
 #Heterogeneous container.
@@ -480,6 +511,25 @@ employee
 
 #Use When:
 ##Nested or complex data
+
+##CRUD Operations
+#Create
+my_list <- list(name = "Ganesh", age = 25, scores = c(80, 90))
+
+#read
+my_list
+my_list$name #access the name using $
+my_list["name"] #access the name using subset operator
+my_list[c("name","scores")]
+
+#update
+my_list$age <- 26
+my_list
+
+#delte
+my_list$age <- NULL
+my_list
+
 
 #Matrix
 #--------
@@ -514,6 +564,29 @@ a%%b #modulus
 
 #Real-World Example:
 ##Survey response grids
+
+##CURD Operations
+#Create
+m <- matrix(1:9, nrow = 3)
+m
+
+#Read
+m
+m[2, 3]   # row 2, column 3
+m[2]
+m[1:6]
+m[c(3,6,8)]
+
+#update
+m[1, 1] <- 100
+
+#Delete
+(R does not directly delete like vectors, but you can remove rows/cols)
+m <- m[-1, ]   # remove 1st row
+m <- m[, -2]   # remove 2nd column
+m
+
+
 
 #arrays
 #------
@@ -657,14 +730,16 @@ as.POSIXlt(character(1))
 #typeof() tells you the low-level storage type used by R’s C engine.
 #Think: “In memory, what kind of object is this?”
 
-x <- 10
-typeof(x)
-#[1] "double"
-
-#Even though 10 looks like an integer, R stores it as double.
-y <- 10L
-typeof(y)
-#[1] "integer"
+a<-3
+b<-4L #Even though 10 looks like an integer, R stores it as double.
+c<-"ga"
+d <- factor(c("a","b"))
+e <- as.Date("2026-01-13")
+typeof(a)
+typeof(b)
+typeof(c)
+typeof(d)
+typeof(e)
 
 #class() → What kind of object R thinks it is
 ----------------------------------------------
@@ -673,25 +748,16 @@ typeof(y)
 #*It controls how functions behave on the object (methods).
 #Think like “What category of object is this for R functions?”
 
-#Example: Date
-d <- as.Date("2026-01-13")
-typeof(d)
-#"double"
-class(d)
-#"Date"
-
-#So:
-#Internally: stored as a double
-#Conceptually: treated as a Date
-
-#Example: Factor
-f <- factor(c("A", "B", "A"))
-typeof(f)
-#"integer"
-class(f)
-#"factor"
-#Internally: integer
-#Conceptually: categorical variable
+a<-3
+b<-4L
+c<-"ga"
+d <- factor(c("a","b"))
+e <- as.Date("2026-01-13")
+class(a)
+class(b)
+class(c) #Internally: integer #Conceptually: categorical variable
+class(d) #Internally: integer #Conceptually: categorical variable
+class(e) ##Internally: stored as a double  #Conceptually: treated as a Date
 
 #mode() → Legacy / user-level type
 ----------------------------------
@@ -700,29 +766,16 @@ class(f)
 #Think:“What general type does this belong to?”
 #It groups many internal types together.
 
-#Example
-x <- 10
-typeof(x)
-#"double"
-mode(x)
-#"numeric"
-
-f <- factor(c("A","B","A"))
-f
-typeof(f)
-#"integer"
-mode(f)
-#"numeric"
-
-d <- as.Date("2026-01-13")
-typeof(d)
-#"double"
-mode(d)
-
-d <- "ganesh"
-typeof(d)
-#"double"
-mode(d)
+a<-3
+b<-4L
+c<-"ga"
+d <- factor(c("a","b"))
+e <- as.Date("2026-01-13")
+mode(a) #"numeric"
+mode(b) #"numeric"
+mode(c)
+mode(d) #"numeric"
+mode(e) #"numeric"
 
 #So:
 #mode() hides details
@@ -754,20 +807,10 @@ str(df)
 
 #Checking Data Types
 #-------------------
-typeof(x)   # low-level type
-class(x)    # high-level class
-str(x)      # structure of object
-
-#To test the type data type
-#--------------------------
-#use is methods
-is.numeric(23.2)
-is.integer(32L)
-is.character('A')
-is.vector(4)
-is.matrix(x)
-is.data.frame(df)
-is.logical(0)
+typeof(a) #low -level type
+class(a) # high level type object way
+mode(a) # legacy high level system
+str(a) # structure of an mode #glimpse()
 
 #Concept with One Object
 #------------------------
@@ -807,6 +850,35 @@ class(RFSTDTC)   # "Date"
 #Ref: object<->class
 #https://youtu.be/m_MQYyJpIjg //layman understanding of a Oops
 
+#To test the type data type
+#--------------------------
+#primitive type
+is.numeric(23.2)
+is.double(23)
+is.character("addd")
+is.integer(43L)
+is.integer(43)
+is.complex(3+2i)
+is.logical(TRUE)
+is.logical(F)
+is.logical(T)
+is.logical(1) #FALSE
+
+#special value
+is.null(NULL)
+is.na(NA)
+is.nan(NaN)
+is.infinite(Inf)
+is.infinite(-Inf)
+
+#data structure
+is.vector(c(3,3,4))
+is.list(list(3,3,3))
+is.matrix(matrix(c(3,3,3,3)))
+is.factor(factor(c(3,3)))
+is.array(array(c(3,3,3)))
+is.data.frame(flights)
+
 #Missingness Semantics
 #=======================
 #Missingness Semantics or Handling missing values in R, one of the common tasks in data analysis is handling missing values.
@@ -819,6 +891,7 @@ class(RFSTDTC)   # "Date"
 x<- NA #In R, NA (Not Available) is technically a logical constant by default based on the Coercion Hierarchy. 
 typeof(x) 
 class(x)
+length(x)
 
 
 #So R actually has different kinds of NA, one for each type.
@@ -857,6 +930,7 @@ c(charToRaw("ganes"),NA)
 y <- c(1, 2, NULL, 4)
 y
 length(y) #(The NULL was ignored entirely)
+length(NULL)
 
 #NaN and Inf
 #-----------

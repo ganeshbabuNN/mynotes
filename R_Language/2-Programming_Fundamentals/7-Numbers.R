@@ -190,11 +190,61 @@ x
 #3)Base 8 (Octal) — Represent any number using 8 digits [0–7]
 #4)Base 16(Hexadecimal) — Represent any number using 10 digits and 6 characters [0–9, A, B, C, D, E, F]
  
-a=363
-print((a) ,"Decimal system")
-print(bin(a) ,"binary system")
-print(oct(a) ,"octal system")
-print(hex(a) ,"hex system")
+# Character → All Formats (including HTML)
+c <- "Sarang"
+dec <- utf8ToInt(c) 
+cat("Decimal:", dec, "\n")
+cat("Char   :", c, "\n")
+bin <- paste(rev(as.integer(intToBits(dec))[1:8]), collapse="")
+cat("Binary :", bin, "\n")
+cat("Hex    :", format(as.hexmode(dec)), "\n")
+cat("Oct    :", format(as.octmode(dec)), "\n")
+cat("HTML   :", paste0("&#", dec, ";"), "\n")
+
+#Binary → All Formats (including HTML)
+b <- "01000001"
+dec <- strtoi(b, base = 2)
+cat("Binary :", b, "\n")
+cat("Decimal:", dec, "\n")
+cat("Char   :", intToUtf8(dec), "\n")
+bin <- paste(rev(as.integer(intToBits(dec))[1:8]), collapse="")
+cat("Binary :", bin, "\n")
+cat("Hex    :", format(as.hexmode(dec)), "\n")
+cat("Oct    :", format(as.octmode(dec)), "\n")
+cat("HTML   :", paste0("&#", dec, ";"), "\n")
+
+#Octal → All Formats (including HTML)
+o <- "101"
+dec <- strtoi(o, base = 8)
+cat("Decimal:", dec, "\n")
+cat("Char   :", intToUtf8(dec), "\n")
+bin <- paste(rev(as.integer(intToBits(dec))[1:8]), collapse="")
+cat("Binary :", bin, "\n")
+cat("Oct    :", format(as.octmode(dec)), "\n")
+cat("Hex    :", format(as.hexmode(dec)), "\n")
+cat("HTML   :", paste0("&#", dec, ";"), "\n")
+
+#Unicode → All Formats (including HTML)
+u <- "0CA8"   # Kannada "ನ"=0CA8
+dec <- strtoi(u, base = 16)
+cat("Decimal:", dec, "\n")
+cat("Char   :", intToUtf8(dec), "\n")
+bin <- paste(rev(as.integer(intToBits(dec))[1:16]), collapse="")
+cat("Binary :", bin, "\n")
+cat("Hex    :", format(as.hexmode(dec)), "\n")
+cat("Oct    :", format(as.octmode(dec)), "\n")
+cat("HTML   :", paste0("&#", dec, ";"), "\n")
+
+#Decimal → All Formats (including HTML)
+dec <- 65 #2308= ऄ
+cat("Decimal:", dec, "\n")
+cat("Char   :", intToUtf8(dec), "\n")
+bin <- paste(rev(as.integer(intToBits(dec))[1:8]), collapse="")
+cat("Binary :", bin, "\n")
+cat("Oct    :", format(as.octmode(dec)), "\n")
+cat("Hex    :",format(as.hexmode(dec)), "\n")
+cat("HTML   :", paste0("&#", dec, ";"), "\n")
+#ref https://www.w3schools.com/charsets/ref_utf_hindi.asp
   
 #Ref
 #https://www.quora.com/What-is-the-use-of-number-system-in-computer
@@ -242,6 +292,8 @@ prod(c(2, 3, 4)) #prod() – Product of Elements
 
 #Rounding & Precision Control (*IMP*)
 --------------------------------------------
+round(3.456)
+round(3.556)
 round(3.456, 2) #round() – Round to Nearest
 ceiling(4.1)   # 5 #ceiling()
 ceiling(3.1) #ceiling() – Round Up irespective of decimal limit like 0.5 to 1..etc
@@ -252,8 +304,15 @@ trunc(5.9) #trunc() – Truncate Decimal Part
 signif(123.456, 4) #signif() – Significant Digits
 rank(c(100, 50, 75)) #Ranking, Ordering & Position Functions
 order(c(100, 50, 75)) #order() – Sorting Index
-which.min(x) #which.min() 
-which.max(x) #which.max() – Position of Min/Max
+#Assign the index 1,2,3
+#find the small value: 50
+#next smallest value : 76
+#next : 100
+#output
+#2,3,1
+
+which.min(x) #which.min() -Return Position of Min/Max
+which.max(x) #which.max() – Return Position of Min/Max
 
 #Handling Missing Values in Numeric Functions(*IMP*)
 #---------------------------------------------
@@ -297,7 +356,18 @@ IQR(c(10, 20, 30, 40)) #IQR() – Interquartile Range
 #--------------------
 cumsum(c(2, 4, 6)) #cumsum() – Cumulative Sum
 cumprod(c(2, 3, 4)) #cumprod() – Cumulative Product
+cummin(x)
+#looks 1st element 1: min 1
+#looks 2st element 1 and 2. min 1
+#looks 3st element 1 2 and 3. min 1
+#looks 3st element 1 2 3 and 4. min 1
+#looks 3st element 1 2 3 4 5. min 1
 cummax(c(1, 5, 3, 8)) #cummax() / cummin() – Running Max / Min
+#looks 1st element 1: min 1
+#looks 2st element 1 and 2. min 2
+#looks 3st element 1 2 and 3. min 3
+#looks 3st element 1 2 3 and 4. min 4
+#looks 3st element 1 2 3 4 5. min 5
 
 library(dplyr)
 cummean(c(10, 20, 30))
