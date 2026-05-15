@@ -32,8 +32,23 @@
 
 #Two main types:
 #Type	Description
-#Wide -> Long	Columns become rows
-#Long -> Wide	Rows become columns
+#Wide -> Long Columns become rows
+#Long -> Wide Rows become columns
+
+#Wide to Long (Rows):
+#Long to Wide (Columns):
+
+#differ version of the jargons used.
+#tidyr 1.0.0-->pivot longer-->pivot wider
+#tidyr < 1.0.0-->gather-->spread
+#reshape(2)-->melt-->cast
+#spreadsheets-->unpivot-->pivot
+#databases-->fold-->unfold
+#powerBI&PowerQUery->unpivot->pivot
+#ApacheSPark-->stack(),explode()--> pivot()
+#SQL->unpivot-->PIVOT
+#Julia->stack()-->unstack()
+#python->Melt()->pivot()/Pivot_table()
 
 #Wide -> Long (pivot_longer)
 #===========================

@@ -1,3 +1,4 @@
+#intro
 #Tidyverse packages
 #Sample Datasets
 #data frame and tibble
@@ -9,6 +10,19 @@
 #Quiz
 #Assignment
 #Resources
+
+#intro
+#=====
+
+#Domain ->container-->Entry-->Element
+#RelationDB->table->Record/tuple->field/attribute
+#NoSQL->Collection->Document->key/field/attribute
+#JSON/JS->Array->Object->Property
+#Excel->Sheet->Row-->Column/cell
+#Matrix->Matrix->Vector->Scalar
+#ClinicalData->Domain->observation->Variables
+#R->Dataframe-->Rows-->Variables
+#SAS->Datasets-->Observations->Variables.
 
 #Tidyverse packages
 #=================

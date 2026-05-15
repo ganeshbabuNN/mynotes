@@ -1,0 +1,96 @@
+1. Check Conda
+conda --version
+conda env list
+
+2. Create ML Environment
+conda create -n ml python=3.12 -y
+#activate conda
+Conda activate ml
+Conda deactivate
+
+#discover env
+conda info --envs
+
+3.Disable Base Auto-Activation
+conda config --set auto_activate_base false
+
+4. Setup ML Auto-Activation
+Windows PowerShell
+# Create/edit profile
+notepad $PROFILE
+# If error: New-Item -Path $PROFILE -Type File -Force
+
+# Add this line:
+conda activate ml
+
+# Save, then reload
+. $PROFILE
+Linux/Mac
+# For Bash - edit ~/.bashrc
+# For Zsh - edit ~/.zshrc
+nano ~/.bashrc  # or ~/.zshrc
+
+# Add this line:
+conda activate ml
+
+# Save and reload
+source ~/.bashrc  # or ~/.zshrc
+
+5. Activate Environment
+conda activate ml
+
+6. Navigate to Project
+cd path/to/your/project
+
+7. Install Requirements
+pip install -r requirements.txt
+
+8. Install PyTorch
+Visit https://pytorch.org/get-started/locally/
+Select the latest PyTorch and Install.
+pip install torch torchvision --index-url https://download.pytorch.org/whl/cu128
+
+9. Verify GPU
+import torch
+torch.cuda.is_available()  # Should return True
+torch.cuda.get_device_name(0)  # Shows GPU name
+exit()
+
+10. Setup Jupyter Kernel
+Open notebook in VS Code
+Install ipykernel if prompted
+Select kernel: ml (Python 3.12.4)
+Test: import torch; torch.cuda.is_available()
+
+Troubleshooting
+Conda not recognized:
+	• Windows: Add Conda to PATH
+		a. Find Anaconda/Miniconda installation path (usually C:\Users\YourName\anaconda3 or C:\ProgramData\anaconda3)
+		b. Add these paths to System Environment Variables:
+		c. C:\Users\YourName\anaconda3
+		d. C:\Users\YourName\anaconda3\Scripts
+		e. C:\Users\YourName\anaconda3\Library\bin
+	• Restart terminal/PowerShell
+	• Or use Anaconda Prompt instead
+	
+Linux/Mac: Initialize conda
+	source ~/anaconda3/bin/activate  # or ~/miniconda3/bin/activate
+	conda init bash  # or conda init zsh
+Then restart terminal
+GPU not detected:
+
+Check drivers: nvidia-smi
+Reinstall PyTorch with correct CUDA version
+
+PowerShell execution error:
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+
+Kernel not showing:
+pip install ipykernel
+python -m ipykernel install --user --name ml
+
+Quick Commands
+conda env list              # List environments
+conda activate ml           # Activate
+conda deactivate           # Deactivate
+pip list                   # List packages

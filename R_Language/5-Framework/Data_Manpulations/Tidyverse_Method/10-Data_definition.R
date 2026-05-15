@@ -45,10 +45,8 @@
 #Creating Analysis-Ready Dataset (Final Layer)
 
 #introduction
-#Creating Variables -> mutate()
-
-#introduction
 #============
+#Creating Variables -> mutate()
 #Data definition = creating new variables, recoding, renaming, typing, structuring
 
 library(tidyverse)
@@ -503,6 +501,10 @@ flights %>%
   mutate(
     ratio = with(., distance / air_time)
   )
+ 
+#the above does not work.
+#with() is base R functions
+with (flights,distance/air_time)
 
 #Defensive Programming in Pipelines
 #==================================

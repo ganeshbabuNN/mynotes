@@ -1167,6 +1167,7 @@ planes |> filter(tailnum %in% c("N302DN","N308DN"))
 #filter()-Keeps rows where condition is TRUE
 #-------
 #syntax: filter(.data, ..., .by = NULL, .preserve = FALSE)
+
 ##.data --> input dataset
 filter(flights, arr_delay > 30)
 ##... (Conditions) --> Logical expressions used to filter rows
@@ -1175,6 +1176,7 @@ filter(flights, arr_delay > 30)
   ##Use | for OR
   ##Supports functions (is.na, between, etc.)
 filter(flights, arr_delay > 30, origin == "JFK")
+
 ##.by (New in dplyr 1.1+) -->Temporary grouping inside filter() without group_by()
 filter(flights, arr_delay <=min(arr_delay,na.rm = TRUE), .by = month)
 ###equivalent to above code
@@ -1182,6 +1184,7 @@ flights %>%
   group_by(month) %>%
   filter(arr_delay == max(arr_delay)) %>%
   ungroup()
+  
 ##.preserve --> Controls grouping structure after filtering
 #lets a take a simple example.
 df <- data.frame(
@@ -1194,6 +1197,7 @@ df %>%
   group_by(group) %>%
   filter(value > 15,.preserve = FALSE) %>%
   summarise(n = n())
+  
 ##preserve = TRUE -All original groups (months) are preserved
 ##Even if a group has zero rows after filtering, it still exists internally
 ##So no group becomes empty

@@ -107,6 +107,26 @@ install.packages('reshape2')
 library(reshape2)
 }
 
+#de-install the Packages
+#------------------------
+# Check which packages are currently loaded
+pacman::p_loaded()
+
+#detach() functions
+#The detach() function is your go-to tool for unloading packages. 
+detach("package:package_name", unload=TRUE)
+detach("package:nycflights13", unload=TRUE)
+
+#for multiple packages
+# Create a character vector containing the names of the packages to be detached
+packages <- c("ggplot2", "dplyr")
+# Detach each package from the search path
+for (pkg in packages) {
+  detach(paste0("package:", pkg), character.only = TRUE)
+}
+# Unload all currently loaded packages using pacman
+pacman::p_unload(pacman::p_loaded(), character.only = TRUE)
+
 #Base Packages (Loaded Automatically)
 #-----------------------------------
 #Package-->Purpose

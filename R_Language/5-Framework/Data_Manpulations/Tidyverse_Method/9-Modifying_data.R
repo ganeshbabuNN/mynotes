@@ -316,6 +316,8 @@ flights %>%
     avg_delay = rowMeans(pick(dep_delay, arr_delay), na.rm = TRUE)
   )
 #Cleaner than c_across()
+#in mutate , by default it takes the columwise operation 
+#for rowwise() , you need tp explicity provide rowwise() / rowMeans+pick()
 
 #reframe() vs mutate()
 #=====================
@@ -327,6 +329,22 @@ flights %>%
     top_delay = head(sort(arr_delay, decreasing = TRUE), 3),
     .by = carrier
   )
+  
+ #equivalent way
+ flights |> 
+  group_by(carrier) |> 
+  arrange(desc(arr_delay)) |> slice_head(n=3)
+  
+flights |> 
+  slice_max(arr_delay,n=3,by=carrier)
+
+flights |> 
+  arrange(carrier,desc(arr_delay)) |> 
+  mutate(
+    row_id=row_number(),
+    .by=carrier
+  ) |> filter(row_id <=3) 
+  
 
 #mutate() with List Columns
 #==========================
@@ -728,20 +746,7 @@ flights %>%
 
 #Real Pipeline Example
 #----------------------
-delay_pipeline <- function(data, threshold = 30) {
-  data %>%
-    mutate(
-      speed = calc_speed(distance, air_time),
-      delay_flag = delay_flag(arr_delay, threshold)
-    ) %>%
-    group_by(carrier) %>%
-    summarise(
-      avg_delay = safe_mean(arr_delay),
-      avg_speed = safe_mean(speed)
-    )
-}
 
-delay_pipeline(flights, 45)
 
 #key_takeway
 #-----------
@@ -755,7 +760,32 @@ delay_pipeline(flights, 45)
   
 #Quiz
 #====
-  
+
+#Design a function to execute the below pipe
+delay_pipeline <- function(data, threshold = 30) {
+  data %>%
+    mutate(
+      speed = calc_speed(distance, air_time),
+      delay_flag = delay_flag(arr_delay, threshold)
+    ) %>%
+    group_by(carrier) %>%
+    summarise(
+      avg_delay = safe_mean(arr_delay),
+      avg_speed = safe_mean(speed)
+    )
+}
+calc_speed <-function(a,b){
+
+}
+
+delay_flag <-function(a,b){
+
+}
+safe_mean <-function(a){
+
+}
+delay_pipeline(flights) #this function returnt he dataframe
+
 #Assignment
 #==========
 AE<-read_csv("https://raw.githubusercontent.com/ganeshbabuNN/datasets/refs/heads/master/clinical_datasets/sdtm/daibetes/csv/ae.csv")
