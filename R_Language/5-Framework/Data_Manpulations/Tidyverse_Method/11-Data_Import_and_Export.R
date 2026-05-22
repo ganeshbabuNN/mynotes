@@ -11,10 +11,25 @@
 #Handling the JSON files
 #Handling the XML files
 #Handling YAML Files in R
+#Handling HTML Files in R
+#Handling PDF files in R
+#Handling ZIP / Compressed Files in R
+#Handling SQLite Databases in R
+#Handling APIs/REST Data Import in R
+#Handling SAS / SPSS / Stata Files in R
+#Handling Google Sheets in R
+#Handling HDF5 Files in R
 #Handling parquet Files(Big Data)
 #Handling Feather Files(Big Data)
 #Handling Arrow Files(Big Data)
 #Handling with mySQL Database
+#Handling NetCDF Files in R
+#Handling ODS/OpenDocument Files in R
+#Handling Clipboard Files in R
+#Handling Streaming / Chunked File Reading in R
+#Handling File System Operations in R
+#Handling Encoding in R
+#Handling Memory-Efficient File Handling in R
 #Validating Data after import 
 
 #Introductions
@@ -1812,6 +1827,75 @@ write_xml(root, "flights.xml")
 #  </flight>
 #</flights>
 
+#manually created File
+Employee.xml
+------------
+<RECORDS>
+   <EMPLOYEE>
+      <ID>1</ID>
+      <NAME>Rick</NAME>
+      <SALARY>623.3</SALARY>
+      <STARTDATE>1/1/2012</STARTDATE>
+      <DEPT>IT</DEPT>
+   </EMPLOYEE>
+	
+   <EMPLOYEE>
+      <ID>2</ID>
+      <NAME>Dan</NAME>
+      <SALARY>515.2</SALARY>
+      <STARTDATE>9/23/2013</STARTDATE>
+      <DEPT>Operations</DEPT>
+   </EMPLOYEE>
+   
+   <EMPLOYEE>
+      <ID>3</ID>
+      <NAME>Michelle</NAME>
+      <SALARY>611</SALARY>
+      <STARTDATE>11/15/2014</STARTDATE>
+      <DEPT>IT</DEPT>
+   </EMPLOYEE>
+   
+   <EMPLOYEE>
+      <ID>4</ID>
+      <NAME>Ryan</NAME>
+      <SALARY>729</SALARY>
+      <STARTDATE>5/11/2014</STARTDATE>
+      <DEPT>HR</DEPT>
+   </EMPLOYEE>
+   
+   <EMPLOYEE>
+      <ID>5</ID>
+      <NAME>Gary</NAME>
+      <SALARY>843.25</SALARY>
+      <STARTDATE>3/27/2015</STARTDATE>
+      <DEPT>Finance</DEPT>
+   </EMPLOYEE>
+   
+   <EMPLOYEE>
+      <ID>6</ID>
+      <NAME>Nina</NAME>
+      <SALARY>578</SALARY>
+      <STARTDATE>5/21/2013</STARTDATE>
+      <DEPT>IT</DEPT>
+   </EMPLOYEE>
+   
+   <EMPLOYEE>
+      <ID>7</ID>
+      <NAME>Simon</NAME>
+      <SALARY>632.8</SALARY>
+      <STARTDATE>7/30/2013</STARTDATE>
+      <DEPT>Operations</DEPT>
+   </EMPLOYEE>
+   
+   <EMPLOYEE>
+      <ID>8</ID>
+      <NAME>Guru</NAME>
+      <SALARY>722.5</SALARY>
+      <STARTDATE>6/17/2014</STARTDATE>
+      <DEPT>Finance</DEPT>
+   </EMPLOYEE>	
+</RECORDS>
+
 #Read XML File
 #-------------
 xml_data <- read_xml("flights.xml")
@@ -1862,7 +1946,6 @@ flights_parsed <- data.frame(
   )
 
 )
-
 flights_parsed
 
 #Convert Data Types
@@ -1874,7 +1957,6 @@ flights_parsed <- flights_parsed %>%
     day = as.integer(day),
     flight_number = as.integer(flight_number)
   )
-
 str(flights_parsed)
 
 #XML Attributes Example
@@ -2105,6 +2187,2043 @@ write_yaml(
 #Indentation	Hierarchy
 #---	New documen
 
+
+#Handling HTML Files in R
+#=========================
+
+#Introductions
+#--------------
+#HTML (HyperText Markup Language) files are commonly used for:
+##Web pages
+##Reports
+##Tables
+##Web scraping
+##Dashboards
+
+#In R, HTML handling usually involves:
+##Writing HTML files
+##Reading HTML files
+##Extracting tables/data
+##Generating reports
+#We will use simple examples first.
+
+setwd("C:\\Users\\ganes\\Downloads\\R_test\\testing")
+
+#1. Create a Simple HTML File in R
+#---------------------------------
+#Use writeLines().
+html_content <- '
+<html>
+<head>
+  <title>My First HTML</title>
+</head>
+<body>
+<h1>Flight Report</h1>
+<p>This is a simple HTML file created using R.</p>
+</body>
+</html>
+'
+writeLines(html_content, "simple.html")
+
+#2. Read HTML File
+#-----------------
+html_read <- readLines("simple.html")
+html_read
+
+#3. Open HTML File in Browser
+#----------------------------
+browseURL("simple.html")
+
+#4. Create HTML Table from Data Frame
+#------------------------------------
+#Use a simple data frame.
+df <- data.frame(
+  Name = c("Ganesh", "Ravi", "Anu"),
+  Age = c(28, 30, 25),
+  City = c("Bangalore", "Mysore", "Chennai")
+)
+df
+
+#5. Convert Data Frame to HTML Table
+#---------------------------------
+#Use the htmlTable package.
+install.packages("htmlTable")
+library(htmlTable)
+html_table <- htmlTable(df)
+cat(html_table)
+
+#6. Save HTML Table to File
+writeLines(
+  html_table,
+  "table.html"
+)
+#open
+browseURL("table.html")
+
+#7. Read HTML Tables from Web Pages
+#---------------------------------
+#Use rvest.
+install.packages("rvest")
+library(rvest)
+
+#8. Read HTML from URL
+#---------------------
+webpage <- read_html(
+  "https://en.wikipedia.org/wiki/List_of_countries_by_population"
+)
+
+#9. Extract Tables from HTML
+#---------------------
+tables <- html_table(webpage)
+length(tables)
+#View first table:
+tables[[1]]
+
+#10. Read Local HTML File
+#---------------------
+local_html <- read_html("simple.html")
+local_html
+
+browseURL("simple.html")
+
+#11. Extract HTML Elements
+#---------------------
+html_elements(local_html, "h1") %>%
+  html_text()
+
+#Extract Paragraph
+#------------------
+html_elements(local_html, "p") %>%
+  html_text()
+
+#12. Extract Links
+#------------------
+html_links <- '
+<html>
+<body>
+<a href="https://www.google.com">Google</a>
+<a href="https://www.r-project.org">R Project</a>
+</body>
+</html>
+'
+writeLines(html_links, "links.html")
+browseURL("links.html")
+#Read and extract:
+links_page <- read_html("links.html")
+html_elements(links_page, "a") %>%
+  html_attr("href")
+
+#13. Generate Full HTML Report
+#-----------------------------
+report <- '
+<html>
+<head>
+<title>Flight Summary</title>
+</head>
+<body>
+<h1>Flight Delay Report</h1>
+<table border="1">
+<tr>
+  <th>Carrier</th>
+  <th>Average Delay</th>
+</tr>
+<tr>
+  <td>UA</td>
+  <td>12.5</td>
+</tr>
+<tr>
+  <td>AA</td>
+  <td>8.2</td>
+</tr>
+</table>
+</body>
+</html>
+'
+writeLines(report, "report.html")
+#Open
+browseURL("report.html")
+
+#14. Using htmltools
+#-------------------
+#htmltools helps generate HTML programmatically.
+install.packages("htmltools")
+library(htmltools)
+#Create HTML:
+page <- tags$html(
+  
+  tags$head(
+    tags$title("R HTML Example")
+  ),
+  
+  tags$body(
+    tags$h1("Flight Dashboard"),
+    tags$p("Generated using htmltools")
+  )
+)
+
+save_html(page, "htmltools_page.html")
+
+#15. Styling HTML with CSS
+#-------------------------
+styled_html <- '
+<html>
+<head>
+<style>
+body {
+  font-family: Arial;
+  background-color: lightblue;
+}
+h1 {
+  color: darkred;
+}
+</style>
+</head>
+<body>
+<h1>Styled HTML Page</h1>
+<p>Hello from R</p>
+</body>
+</html>
+'
+writeLines(styled_html, "styled.html")
+
+#16. HTML with nycflights13
+#--------------------------
+library(nycflights13)
+library(dplyr)
+
+flight_summary <- flights %>%
+  group_by(carrier) %>%
+  summarise(
+    avg_delay = mean(dep_delay, na.rm = TRUE)
+  )
+
+flight_summary
+
+#Convert to HTML:
+library(htmlTable)
+flight_html <- htmlTable(flight_summary)
+writeLines(
+  flight_html,
+  "flight_summary.html"
+)
+#open
+browseURL("flight_summary.html")
+
+#17. Read HTML Tables Back into R
+#--------------------------------
+page <- read_html("flight_summary.html")
+html_table(page)
+
+#18. Common HTML Functions in R
+#-------------------------------
+#Function	Purpose
+#read_html()	Read HTML
+#html_elements()	Select HTML nodes
+#html_text()	Extract text
+#html_attr()	Extract attributes
+#html_table()	Extract tables
+#writeLines()	Write HTML
+#browseURL()	Open in browser
+
+#Handling PDF files in R
+#=======================
+
+#intro
+#-----
+#PDF Data Extraction in R using nycflights13
+#PDF extraction is very common in real-world data analysis because many reports are shared as PDFs.
+#In R, PDF extraction is mainly used for:
+##Extracting text
+##Extracting tables
+##Reading reports
+##Converting PDFs into structured datasets
+#We will use the flights dataset from nycflights13 to:
+##Create a PDF report
+##Extract text from the PDF
+##Extract tables from the PDF
+
+#1. Install Required Packages
+#----------------------------
+install.packages("pdftools")
+install.packages("gridExtra")
+install.packages("ggplot2")
+install.packages("dplyr")
+install.packages("nycflights13")
+
+#Load libraries:
+library(pdftools)
+library(gridExtra)
+library(ggplot2)
+library(dplyr)
+library(nycflights13)
+
+#2. Create a Simple Flight Summary
+#-------------------------------
+flight_summary <- flights %>%
+  group_by(carrier) %>%
+  summarise(
+    avg_delay = mean(dep_delay, na.rm = TRUE),
+    total_flights = n()
+  )
+
+flight_summary
+
+#3. Create PDF Report
+#--------------------
+#Use base R PDF device.
+pdf("flight_report.pdf", width = 8, height = 6)
+
+plot(
+  flight_summary$total_flights,
+  flight_summary$avg_delay,
+  main = "Flights vs Average Delay",
+  xlab = "Total Flights",
+  ylab = "Average Delay"
+)
+
+text(
+  flight_summary$total_flights,
+  flight_summary$avg_delay,
+  labels = flight_summary$carrier,
+  pos = 4
+)
+dev.off()
+
+#4. Extract Text from PDF
+#------------------------
+#Use pdftools.
+pdf_text_data <- pdf_text(
+  "flight_report.pdf"
+)
+pdf_text_data
+
+#5. Extract Metadata from PDF
+#----------------------------
+pdf_info("flight_report.pdf")
+
+#6. Extract Number of Pages
+#-------------------------
+pdf_length("flight_report.pdf")
+
+#7. Extract PDF Fonts
+#--------------------
+pdf_fonts("flight_report.pdf")
+
+#8. Create PDF with Table
+#--------------------
+#Use gridExtra.
+library(gridExtra)
+pdf("flight_table.pdf", width = 10, height = 6)
+grid.table(
+  head(flight_summary)
+)
+dev.off()
+
+#9. Read Text from Table PDF
+#--------------------
+table_text <- pdf_text(
+  "flight_table.pdf"
+)
+cat(table_text)
+
+#10. Create Multi-Page PDF
+#-------------------------
+pdf("multi_page_report.pdf")
+hist(
+  flights$dep_delay,
+  main = "Departure Delay"
+)
+hist(
+  flights$arr_delay,
+  main = "Arrival Delay"
+)
+plot(
+  flights$distance,
+  flights$air_time
+)
+dev.off()
+
+#11. Extract All Pages
+#--------------------
+multi_text <- pdf_text(
+  "multi_page_report.pdf"
+)
+length(multi_text)
+#Each element represents one page.
+
+#12. Read Specific Page
+#--------------------
+multi_text[1]
+
+#13. Extract Tables from PDF
+#--------------------
+#PDF tables are difficult because PDFs are designed for display, not structured storage.
+#Use tabulizer.
+
+#14. Install tabulizer
+#--------------------
+install.packages("tabulizer")
+remotes::install_github(c("ropensci/tabulizerjars", "ropensci/tabulizer"))
+#https://github.com/rOpenStats/tabulizer
+
+#15. Extract Tables
+#--------------------
+library(tabulizer)
+tables <- extract_tables(
+  "flight_table.pdf"
+)
+tables
+
+#16. Convert Extracted Table to Data Frame
+#-----------------------------------------
+table_df <- as.data.frame(
+  tables[[1]]
+)
+table_df
+
+#17. Extract PDF Text Line by Line
+#---------------------------------
+lines <- strsplit(
+  pdf_text_data,
+  "\n"
+)
+lines[[1]]
+
+#18. Search Text Inside PDF
+#--------------------------
+grep(
+  "Delay",
+  lines[[1]],
+  value = TRUE
+)
+
+#19. OCR for Scanned PDFs
+#------------------------
+#If the PDF is image-based:
+#Use OCR with tesseract.
+
+install.packages("tesseract")
+library(tesseract)
+
+pdf_convert(
+  "scanned.pdf",
+  dpi = 300
+)
+
+#Then OCR:
+ocr(
+  "scanned_1.png"
+)
+
+#20. Extract Images from PDF
+#--------------------------
+pdf_render_page(
+  "flight_report.pdf",
+  page = 1
+)
+
+#21. Convert PDF Pages to PNG
+#--------------------------
+pdf_convert(
+  "flight_report.pdf",
+  format = "png"
+)
+
+#22. Real-World Example Workflow
+#--------------------------
+library(pdftools)
+library(dplyr)
+library(nycflights13)
+
+# Create summary
+summary_df <- flights %>%
+  group_by(carrier) %>%
+  summarise(
+    avg_delay = mean(dep_delay, na.rm = TRUE)
+  )
+
+# Create PDF
+pdf("summary.pdf")
+
+plot(
+  summary_df$avg_delay,
+  main = "Carrier Delay"
+)
+
+dev.off()
+
+# Extract text
+text_data <- pdf_text("summary.pdf")
+text_data
+
+#Summary
+#------
+#Task	Function
+#Read PDF text	pdf_text()
+#PDF metadata	pdf_info()
+#PDF pages	pdf_length()
+#Extract tables	extract_tables()
+#OCR scanned PDFs	ocr()
+#Convert PDF to image	pdf_convert()
+#Create PDFs	pdf()
+
+#Handling ZIP / Compressed Files in R
+#=====================================
+#Compressed files are widely used in data analysis because they:
+##Reduce storage size
+##Speed up file transfer
+##Package multiple files together
+##Improve archival management
+#In R, you can handle:
+##ZIP files
+##GZIP (.gz)
+##BZIP2 (.bz2)
+##XZ (.xz)
+##TAR archives (.tar, .tar.gz)
+#We will use examples with the flights dataset from nycflights13.
+
+#1. Load Required Packages
+#--------------------------
+install.packages("nycflights13")
+install.packages("readr")
+install.packages("dplyr")
+
+library(nycflights13)
+library(readr)
+library(dplyr)
+
+#2. Create Sample Dataset
+#--------------------------
+flight_data <- flights %>%
+  select(
+    year,
+    month,
+    day,
+    carrier,
+    flight,
+    dep_delay
+  ) %>%
+  slice(1:100)
+
+head(flight_data)
+
+#3. Write CSV File
+#-----------------
+write.csv(
+  flight_data,
+  "flights.csv",
+  row.names = FALSE
+)
+
+#4. Create ZIP File
+#------------------
+#Use base R zip().
+zip(
+  zipfile = "flights.zip",
+  files = "flights.csv"
+)
+
+#5. List ZIP File Contents
+#--------------------------
+unzip(
+  "flights.zip",
+  list = TRUE
+)
+
+#6. Extract ZIP File
+#-------------------
+unzip(
+  "flights.zip",
+  exdir = "unzipped_data"
+)
+
+#7. Read Extracted CSV
+#---------------------
+read.csv(
+  "unzipped_data/flights.csv"
+)
+
+#8. Read ZIP File Directly Without Extracting
+#--------------------------------------------
+#Very useful in real-world analysis.
+flight_zip <- read.csv(
+  unz("flights.zip", "flights.csv")
+)
+head(flight_zip)
+
+#9. Create GZIP (.gz) File
+#-------------------------
+#GZIP compresses a single file.
+write.csv(
+  flight_data,
+  gzfile("flights.csv.gz"),
+  row.names = FALSE
+)
+
+#10. Read GZIP File
+#------------------
+gz_data <- read.csv(
+  gzfile("flights.csv.gz")
+)
+head(gz_data)
+
+#11. Create BZIP2 (.bz2) File
+#----------------------------
+write.csv(
+  flight_data,
+  bzfile("flights.csv.bz2"),
+  row.names = FALSE
+)
+
+#12. Read BZIP2 File
+#-------------------
+bz_data <- read.csv(
+  bzfile("flights.csv.bz2")
+)
+
+head(bz_data)
+
+#13. Create XZ File
+#------------------
+#XZ usually gives stronger compression.
+write.csv(
+  flight_data,
+  xzfile("flights.csv.xz"),
+  row.names = FALSE
+)
+
+#14. Read XZ File
+#----------------
+xz_data <- read.csv(
+  xzfile("flights.csv.xz")
+)
+
+head(xz_data)
+
+#15. Create TAR Archive
+#----------------------
+tar(
+  tarfile = "flights.tar",
+  files = "flights.csv"
+)
+
+#16. Extract TAR File
+#--------------------
+untar(
+  "flights.tar",
+  exdir = "tar_extract"
+)
+
+#17. Create TAR.GZ Archive
+#-------------------------
+tar(
+  tarfile = "flights.tar.gz",
+  files = "flights.csv",
+  compression = "gzip"
+)
+
+#18. Extract TAR.GZ
+#------------------
+untar(
+  "flights.tar.gz",
+  exdir = "targz_extract"
+)
+
+#19. Read Compressed Files with readr
+#------------------
+#readr automatically detects compression.
+#Read GZ
+read_csv("flights.csv.gz")
+
+#Read ZIP
+read_csv(
+  unz("flights.zip", "flights.csv")
+)
+
+#20. Compress Multiple Files into ZIP
+#------------------------------------
+#Create additional files:
+write.csv(airlines, "airlines.csv", row.names = FALSE)
+write.csv(planes, "planes.csv", row.names = FALSE)
+
+#ZIP them:
+zip(
+  zipfile = "nyc_data.zip",
+  files = c(
+    "flights.csv",
+    "airlines.csv",
+    "planes.csv"
+  )
+)
+
+#21. Extract Specific File from ZIP
+#---------------------------------
+unzip(
+  "nyc_data.zip",
+  files = "planes.csv",
+  exdir = "selected_extract"
+)
+
+#22. Read Specific File Inside ZIP
+#---------------------------------
+planes_zip <- read.csv(
+  unz("nyc_data.zip", "planes.csv")
+)
+
+head(planes_zip)
+
+#23. Compare Compression Types
+#-----------------------------
+#Format->Compression->Multiple Files->Speed
+#ZIP->Medium->Yes->Fast
+#GZ->Good->No->Fast
+#BZ2->Better->No->Slower
+#XZ->Excellent->No->Slow
+#TAR->None->Yes->Fast
+	
+#Handling SQLite Databases in R
+#==============================
+#SQLite is a lightweight relational database stored in a single file.
+#SQLite is widely used because it:
+##Requires no server
+##Is portable
+##Is fast for local analytics
+##Works well with R and Python
+##Is excellent for small-to-medium data systems
+#In R, SQLite is commonly used for:
+##Local analytics
+##Data pipelines
+##ETL workflows
+##Intermediate storage
+##Dashboard backends
+
+#We will use the flights dataset from nycflights13.
+
+#1. Install Required Packages
+#---------------------------
+install.packages("DBI")
+install.packages("RSQLite")
+install.packages("dplyr")
+install.packages("nycflights13")
+
+#Load libraries:
+library(DBI)
+library(RSQLite)
+library(dplyr)
+library(nycflights13)
+
+#2. Create SQLite Database Connection
+#------------------------------------
+con <- dbConnect(
+  SQLite(),
+  "flights.sqlite"
+)
+
+#3. View Connection Information
+#------------------------------
+con
+
+#4. List Existing Tables
+#Initially empty:
+dbListTables(con)
+
+#5. Write flights Dataset to SQLite
+#------------------------------
+dbWriteTable(
+  con,
+  "flights",
+  flights
+)
+
+#6. Verify Table Creation
+#------------------------
+dbListTables(con)
+
+#7. Read Entire Table
+#--------------------
+flights_db <- dbReadTable(
+  con,
+  "flights"
+)
+head(flights_db)
+
+#8. View Table Structure
+#-----------------------
+dbListFields(
+  con,
+  "flights"
+)
+
+#9. Run SQL Queries
+#------------------
+#Use dbGetQuery().
+dbGetQuery(
+  con,
+  "
+  SELECT carrier,
+         AVG(dep_delay) AS avg_delay
+  FROM flights
+  GROUP BY carrier
+  "
+)
+
+#10. Filter Rows with SQL
+#-----------------------
+dbGetQuery(
+  con,
+  "
+  SELECT *
+  FROM flights
+  WHERE dep_delay > 60
+  LIMIT 10
+  "
+)
+
+#11. Count Rows
+#--------------
+dbGetQuery(
+  con,
+  "
+  SELECT COUNT(*) AS total_rows
+  FROM flights
+  "
+)
+
+#12. Using dplyr with SQLite
+#---------------------------
+#dplyr works directly on databases.
+flights_tbl <- tbl(
+  con,
+  "flights"
+)
+flights_tbl
+
+#13. Database Filtering with dplyr
+#---------------------------------
+flights_tbl %>%
+  filter(dep_delay > 60) %>%
+  select(carrier, flight, dep_delay) %>%
+  head()
+#Important:
+#Query runs inside SQLite
+#Data is not fully loaded into memory
+
+#14. Summarise Data in Database
+#------------------------------
+flights_tbl %>%
+  group_by(carrier) %>%
+  summarise(
+    avg_delay = mean(dep_delay, na.rm = TRUE)
+  )
+
+#15. Collect Results into R Memory
+#------------------------------
+result <- flights_tbl %>%
+  filter(dep_delay > 100) %>%
+  collect()
+
+result
+
+#16. Append Data to Existing Table
+#------------------------------
+small_data <- flights %>%
+  slice(1:10)
+
+dbWriteTable(
+  con,
+  "flights_append",
+  small_data
+)
+
+#Append more:
+dbWriteTable(
+  con,
+  "flights_append",
+  small_data,
+  append = TRUE
+)
+
+#17. Overwrite Existing Table
+#------------------------------
+dbWriteTable(
+  con,
+  "flights",
+  flights,
+  overwrite = TRUE
+)
+
+#18. Remove Table
+#----------------
+dbRemoveTable(
+  con,
+  "flights_append"
+)
+
+#19. Execute SQL Commands
+#------------------------
+#Create custom table:
+dbExecute(
+  con,
+  "
+  CREATE TABLE airlines_info (
+    id INTEGER,
+    name TEXT
+  )
+  "
+)
+
+#Insert values:
+dbExecute(
+  con,
+  "
+  INSERT INTO airlines_info
+  VALUES (1, 'United Airlines')
+  "
+)
+#read
+dbReadTable(
+  con,
+  "airlines_info"
+)
+
+#20. Import Multiple Datasets
+#----------------------------
+dbWriteTable(con, "airlines", airlines)
+dbWriteTable(con, "planes", planes)
+dbWriteTable(con, "weather", weather)
+dbWriteTable(con, "airports", airports)
+#List all:
+dbListTables(con)
+
+#21. SQL JOIN Example
+#--------------------
+dbGetQuery(
+  con,
+  "
+  SELECT f.carrier,
+         a.name,
+         COUNT(*) AS total_flights
+  FROM flights f
+  JOIN airlines a
+       ON f.carrier = a.carrier
+  GROUP BY f.carrier
+  "
+)
+
+#22. Create Index for Faster Queries
+#-----------------------------------
+dbExecute(
+  con,
+  "
+  CREATE INDEX idx_carrier
+  ON flights(carrier)
+  "
+)
+
+#23. Read Partial Data
+#---------------------
+dbGetQuery(
+  con,
+  "
+  SELECT year,
+         month,
+         day,
+         carrier
+  FROM flights
+  LIMIT 5
+  "
+)
+
+#24. Disconnect Database
+#---------------------
+#Very important.
+dbDisconnect(con)
+
+#25. Reconnect Later
+#---------------------
+con <- dbConnect(
+  SQLite(),
+  "flights.sqlite"
+)
+
+#26. Delete SQLite Database File
+#------------------------------
+file.remove("flights.sqlite")
+
+#27. Advantages of SQLite
+#-------------------------
+#Advantage->Description
+#Lightweight->Single file
+#Portable->	Easy sharing
+#No server->	Simple setup
+#Fast->	Good performance
+#SQL-> support	Powerful querying
+
+#28. Limitations of SQLite
+#-------------------------
+#Limitation->	Description
+#Not distributed->	Single-machine DB
+#Limited concurrency->	Not ideal for many writers
+#No user management->	Simpler security
+
+#29. SQLite vs CSV
+#------------------
+#Feature->	SQLite->		CSV
+#Querying->	Excellent->		Poor
+#Joins->	Yes->		No
+#Speed->	Fast->		Medium
+#Structure->	Strong->		Weak
+#File format->	Binary DB->		Text
+
+#31. Complete Workflow Example
+#------------------------------
+library(DBI)
+library(RSQLite)
+library(dplyr)
+library(nycflights13)
+
+# Connect
+con <- dbConnect(
+  SQLite(),
+  "analysis.sqlite"
+)
+# Write data
+dbWriteTable(
+  con,
+  "flights",
+  flights
+)
+# Query
+result <- dbGetQuery(
+  con,
+  "
+  SELECT carrier,
+         AVG(dep_delay) AS avg_delay
+  FROM flights
+  GROUP BY carrier
+  "
+)
+result
+# Disconnect
+dbDisconnect(con)
+
+#Summary
+#-------
+#Task	Function
+#Connect DB	dbConnect()
+#Write table	dbWriteTable()
+#Execute SQL	dbExecute()
+#List tables	dbListTables()
+#Remove table	dbRemoveTable()
+#Disconnect	dbDisconnect()
+
+#Handling APIs / REST Data Import in R
+#=====================================
+#APIs (Application Programming Interfaces) allow R to communicate with:
+##Web services
+##Databases
+##Cloud platforms
+##ML systems
+##Financial systems
+##Weather systems
+
+#REST APIs usually return data in:
+##JSON
+##XML
+##CSV
+
+#In R, API workflows commonly include:
+##Sending requests
+##Receiving responses
+##Parsing JSON/XML
+##Converting to data frames
+##Combining with analysis datasets
+
+#We will combine API concepts with the flights dataset from nycflights13.
+#Sample 
+https://www.freepublicapis.com/
+https://github.com/public-apis/public-apis
+
+
+#Install Required Packages
+#---------------------------
+install.packages("httr")
+install.packages("jsonlite")
+install.packages("dplyr")
+install.packages("nycflights13")
+
+#Load libraries:
+library(httr)
+library(jsonlite)
+library(dplyr)
+library(nycflights13)
+
+#Understanding REST APIs
+#---------------------------
+#Typical REST API flow:
+#R Script --> API Request --> Server --> JSON Response --> R Data Frame
+
+#Simple GET Request
+#---------------------------
+#Use a public API.
+#https://jsonplaceholder.typicode.com/posts
+
+#Request data:
+response <- GET(
+    "https://api.data.gov.sg/v1/environment/air-temperature"
+)
+response
+
+#Check Response Status
+#------------------------
+status_code(response)
+#Meaning:
+##Request successful
+
+#Extract Content
+#---------------------------
+content_text <- content(
+  response,
+  as = "text"
+)
+content_text
+
+#Parse JSON Data
+#-----------------
+#Use jsonlite.
+json_data <- fromJSON(
+  content_text
+)
+head(json_data)
+
+#Convert API Data to Tibble
+#---------------------------
+api_df <- as_tibble(json_data)
+api_df
+
+#Basic Flight Analysis for exposing and retrival the data	
+#---------------------------
+flight_summary <- flights %>%
+  group_by(carrier) %>%
+  summarise(
+    avg_delay = mean(dep_delay, na.rm = TRUE)
+  ) |> slice_sample(n=5)
+flight_summary
+
+#Simulate Sending Flight Data to API
+#--------------------------------------
+#Convert to JSON.
+flight_json <- toJSON(
+  flight_summary,
+  pretty = TRUE
+)
+cat(flight_json)
+
+#POST Request Example
+#------------------------
+#use https://webhook.site/
+#POSTing to httpbin instead of a webhook
+response_post <- POST(
+  url = "https://httpbin.org/post",
+  body = flight_json,
+  add_headers(`Content-Type` = "application/json")
+)
+# This length will NOT be zero!
+print(length(response_post$content))
+# Read the text safely
+raw_text <- content(response_post, as = "text", encoding = "UTF-8")
+cat(raw_text)
+raw_text
+#Parse the complete response into an R list
+response_list <- content(response_post, as = "parsed")
+response_list
+#Extract and print ONLY the custom JSON payload you sent
+clean_data <- response_list$json
+print(clean_data) 
+
+#use https://webhook.site/
+# Copy the Unique URL and copy in URL.
+#Send JSON data.
+
+#Your unique token (UUID only) ──────────────────────────
+token <- "a456721a-4ded-423f-8ebb-e5cc5ae18c39"  # replace with yours
+
+#POST your data ─────────────────────────────────────────
+custom_url <- paste0("https://webhook.site/", token)
+
+response_post <- POST(
+  url    = custom_url,
+  body   = flight_json,
+  add_headers(`Content-Type` = "application/json"),
+  encode = "raw"
+)
+
+#response type should be 200 or 201
+print(status_code(response_post))
+#check the response type  should be response
+print(class(response_post))
+
+#Read POST Response
+#----------------------
+api_url <- paste0("https://webhook.site/token/", token, "/requests")
+api_url
+response_get <- GET(
+  url = api_url,
+  add_headers(`Accept` = "application/json")
+)
+
+#response type should be 200 or 201
+print(status_code(response_get))
+#This length will NOT be zero!
+print(length(response_get$content))
+
+#Parse the response ─────────────────────────────────────
+raw_text <- content(response_get, as = "text", encoding = "UTF-8")
+raw_text
+parsed   <- fromJSON(raw_text)
+
+#Extract the actual body of your POST ───────────────────
+latest_request <- parsed$data[1, ]          # most recent request
+latest_request
+posted_body    <- latest_request$content    # your JSON payload
+posted_body
+cat("Posted Body:\n", posted_body, "\n")
+
+#Convert back to dataframe ──────────────────────────────
+recovered_df <- fromJSON(posted_body)
+print(recovered_df)
+#You Can Also Inspect Full Response
+str(response_get)
+
+
+#API Rate Limits
+#-------------------
+#Many APIs limit requests.
+#Typical strategies:
+#Strategy	Purpose
+#Sys.sleep()->Slow requests
+#Pagination->Smaller batches
+#Caching->Reduce API calls
+
+Sys.sleep(1)
+
+#Read XML APIs
+#-----------------------
+#refer XML
+
+#26. Real-World API Use Cases
+#Domain	API Usage
+#Finance	Stock prices
+#Weather	Forecast APIs
+#Maps	Geolocation
+#ML	Model serving
+#Social Media	User analytics
+
+#REST Methods
+#---------------
+#Method	Purpose
+#GET	Retrieve data
+#POST	Create/send data
+#PUT	Update data
+#DELETE	Remove data
+
+#Complete Workflow Example
+#-----------------------
+
+#Common API Problems
+#-----------------------
+#Problem	Cause
+#401	Authentication failure
+#404	Wrong endpoint
+#429	Rate limit exceeded
+#Timeout	Slow server
+#Parsing errors	Invalid JSON/XML
+
+#API Response Codes
+#-----------------------
+#Code	Meaning
+#200	Success
+#201	Created
+#400	Bad request
+#401	Unauthorized
+#404	Not found
+#500	Server error
+
+#Summary
+#--------
+#Task	Function
+#GET request	GET()
+#POST request	POST()
+#Parse JSON	fromJSON()
+#Create JSON	toJSON()
+#Read XML	read_xml()
+#Status code	status_code()
+#Headers	headers()
+#API content	content()
+
+#Handling SAS / SPSS / Stata Files in R
+#=======================================
+#intro
+#Statistical software formats are heavily used in:
+##Healthcare
+##Clinical trials
+##Banking
+##Government analytics
+##Social sciences
+##Enterprise reporting
+
+#In R, the most commonly used package for these formats is:
+#haven
+#It supports:
+##Software->File Format
+##SAS->.sas7bdat, .xpt
+##SPSS->.sav, .zsav, .por
+##Stata->.dta
+
+#Install Required Packages
+#-------------------------
+install.packages("haven")
+install.packages("dplyr")
+install.packages("nycflights13")
+##Load libraries:
+library(haven)
+library(dplyr)
+library(nycflights13)
+setwd("C:\\Users\\ganes\\Downloads\\R_test\\testing")
+
+#Create Sample Flight Dataset
+#----------------------------
+flight_data <- flights %>%
+  select(
+    year,
+    month,
+    day,
+    carrier,
+    flight,
+    origin,
+    dest,
+    dep_delay
+  ) %>%
+  slice(1:100)
+
+head(flight_data)
+
+#Handling SAS Files
+#------------------
+#Write SAS Transport File (.xpt)
+write_xpt(
+  flight_data,
+  "flights.xpt"
+)
+#Read SAS Transport File
+sas_data <- read_xpt(
+  "flights.xpt"
+)
+head(sas_data)
+#Read SAS Dataset (.sas7bdat)
+read_sas(
+  "clinical_data.sas7bdat"
+)
+
+#Handling SPSS Files
+#--------------------
+#Write SPSS File (.sav)
+write_sav(
+  flight_data,
+  "flights.sav"
+)
+#Read SPSS File
+spss_data <- read_sav(
+  "flights.sav"
+)
+head(spss_data)
+#Read Compressed SPSS (.zsav)
+read_sav(
+  "compressed_data.zsav"
+)
+#Read Portable SPSS File (.por)
+read_por(
+  "survey_data.por"
+)
+
+#Handling Stata Files
+#--------------------
+#Write Stata File (.dta)
+write_dta(
+  flight_data,
+  "flights.dta"
+)
+#Read Stata File
+stata_data <- read_dta(
+  "flights.dta"
+)
+head(stata_data)
+
+#Compare Imported Data
+#---------------------
+str(sas_data)
+str(spss_data)
+str(stata_data)
+
+#Variable Labels
+#---------------
+#These formats support metadata labels.
+# Add labels:
+labelled_data <- flight_data
+
+attr(
+  labelled_data$dep_delay,
+  "label"
+) <- "Departure Delay in Minutes"
+#Write to SPSS:
+write_sav(
+  labelled_data,
+  "labelled_flights.sav"
+)
+#Read back:
+read_back <- read_sav(
+  "labelled_flights.sav"
+)
+attributes(read_back$dep_delay)
+
+#Value Labels
+#------------
+#SPSS and Stata often use categorical labels.
+flight_label <- labelled(
+  c(1, 2, 1, 3),  
+  labels = c(
+    Low = 1,
+    Medium = 2,
+    High = 3
+  )
+)
+flight_label
+
+#Missing Values
+#--------------
+#Create missing values:
+flight_na <- flight_data
+flight_na$dep_delay[1:5] <- NA
+#Write:
+write_sav(
+  flight_na,
+  "missing.sav"
+)
+#Read
+missing_data <- read_sav(
+  "missing.sav"
+)
+head(missing_data)
+
+#Select Columns During Import
+#----------------------------
+small_data <- read_dta(
+  "flights.dta",  
+  col_select = c(
+    carrier,
+    flight,
+    dep_delay
+  )
+)
+small_data
+
+#Convert Labelled Data
+#---------------------
+#Sometimes labelled variables need conversion.
+library(haven)
+
+as_factor(
+  flight_label
+)
+
+#Date Handling
+#-------------
+#Different software stores dates differently.
+#SAS Origin
+as.Date(
+  22000,
+  origin = "1960-01-01"
+)
+#SPSS Origin
+as.POSIXct(
+  1000000000,
+  origin = "1582-10-14"
+)
+#Stata Origin
+as.Date(
+  22000,
+  origin = "1960-01-01"
+)
+
+#Read Multiple Files
+files <- list.files(
+  pattern = "\\.(sav|dta|xpt)$"
+)
+files
+#Read all:
+all_files <- lapply(
+  files,
+  function(x) {
+    
+    if (grepl("\\.sav$", x)) {
+      read_sav(x)
+      
+    } else if (grepl("\\.dta$", x)) {
+      read_dta(x)
+      
+    } else {
+      read_xpt(x)
+    }
+  }
+)
+
+#Analyse Imported Data
+#---------------------
+stata_data %>%
+  group_by(carrier) %>%
+  summarise(
+    avg_delay = mean(dep_delay, na.rm = TRUE)
+  )
+
+#Export Summary to All Formats
+#-----------------------------
+#Create summary:
+summary_data <- flights %>%
+  group_by(carrier) %>%
+  summarise(
+    avg_delay = mean(dep_delay, na.rm = TRUE),
+    total_flights = n()
+  )
+
+#Export
+write_xpt(summary_data, "summary.xpt")
+write_sav(summary_data, "summary.sav")
+write_dta(summary_data, "summary.dta")
+
+#Software Comparison
+#Feature->SAS->	SPSS->	Stata
+#Enterprise analytics->	Excellent->	Good->	Good
+#Survey analysis->	Medium->	Excellent->	Good
+#Clinical research->	Excellent->	Good->	Medium
+#Metadata support->	Excellent->	Excellent->	Good
+
+#File-> Format-> Comparison
+#Format->	Extension->	Best Use
+#SAS->	.sas7bdat->	Enterprise data
+#SAS Transport->	.xpt->	Cross-platform
+#SPSS->	.sav->	Surveys
+#Stata->	.dta->	Econometrics
+
+#Common-> Problems
+#Problem->	Cause
+#Encoding issues->	Different locales
+#Label problems->	Missing metadata
+#Date conversion->	Different origins
+#Missing values->	Software-specific NA types
+
+#Best Packages in R
+#Package->	Purpose
+#haven->	Modern import/export
+#labelled->	Metadata labels
+#foreign->	Legacy support
+#sjlabelled->	Label management
+
+#Summary
+#Task->		Function
+#Read SAS->		read_sas()
+#Read XPT->		read_xpt()
+#Write XPT->		write_xpt()
+#Read SPSS->		read_sav()
+#Write SPSS->		write_sav()
+#Read Stata->		read_dta()
+#Write Stata->		write_dta()
+#Convert labels->		as_factor()
+
+#Handling Google Sheets in R
+#===========================
+#intro
+#Google Sheets is widely used for:
+##Data sharing
+##Collaborative analytics
+##Dashboards
+##Reporting
+##Lightweight databases
+##Cloud-based workflows
+
+#In R, Google Sheets integration is commonly done using:
+##googlesheets4
+##googledrive
+#We will use the flights dataset from nycflights13.
+
+#Install Required Packages
+install.packages("googlesheets4")
+install.packages("googledrive")
+install.packages("dplyr")
+install.packages("nycflights13")
+#Load libraries:
+library(googlesheets4)
+library(googledrive)
+library(dplyr)
+library(nycflights13)
+
+#Authenticate Google Account
+## De-authenticate
+gs4_deauth()
+drive_deauth()
+## Remove cached credentials
+unlink(gargle::gargle_oauth_cache(), recursive = TRUE)
+##First time only:
+#gs4_auth()
+gs4_auth(
+  scopes = c(
+    "https://www.googleapis.com/auth/spreadsheets",
+    "https://www.googleapis.com/auth/drive"
+  )
+)
+
+
+#Create Sample Flight Dataset
+flight_data <- flights %>%
+  select(
+    year,
+    month,
+    day,
+    carrier,
+    flight,
+    origin,
+    dest,
+    dep_delay
+  ) %>%
+  slice(1:100)
+
+head(flight_data)
+
+#Create New Google Sheet
+sheet <- gs4_create(
+  "NYC Flights Analysis",
+  sheets = list(
+    flights = flight_data,
+    airports=airports
+  )
+)
+
+#View Sheet Information
+sheet
+
+#Open Google Sheet in Browser
+browseURL(sheet$spreadsheet_url)
+
+#Read Data from Google Sheet
+sheet_data <- read_sheet(
+  sheet
+)
+head(sheet_data)
+
+#Read Specific Worksheet
+read_sheet(
+  sheet,
+  sheet = "flights"
+)
+
+read_sheet(
+  sheet,
+  sheet = "airports"
+)
+
+#Write Additional Data to Sheet
+#Create summary:
+summary_data <- flights %>%
+  group_by(carrier) %>%
+  summarise(
+    avg_delay = mean(dep_delay, na.rm = TRUE),
+    total_flights = n()
+  )
+
+summary_data
+##Write new worksheet:
+sheet_write(
+  summary_data,
+  ss = sheet,
+  sheet = "summary"
+)
+
+#List Worksheets
+sheet_names(sheet)
+
+#Append Rows to Existing Sheet
+new_rows <- flights %>%
+  slice(101:105) %>%
+  select(1:7) # Keeps only columns 1 through 7 #if you remove it will exits
+
+sheet_append(
+  ss = sheet,
+  data = new_rows,
+  sheet = "flights"
+)
+
+#Read Range of Cells
+range_read(
+  sheet,
+  range = "A1:D10"
+)
+
+#Write to Specific Range
+range_write(
+  ss = sheet,
+  data = data.frame(
+    Notes = "Flight analysis completed"
+  ),
+  range = "J1"
+)
+
+#Update Existing Cells
+range_write(
+  ss = sheet,  
+  data = data.frame(
+    Status = "Updated"
+  ),  
+  range = "K1",  
+  col_names = FALSE
+)
+
+#Delete Worksheet
+sheet_delete(
+  ss = sheet,
+  sheet = "summary"
+)
+
+#Share Google Sheet
+##Using googledrive
+drive_share(
+  sheet,
+  role = "reader",
+  type = "anyone"
+)
+
+#Read Public Google Sheet
+public_sheet <- read_sheet(
+  "GOOGLE_SHEET_URL"
+)
+
+#Download Google Sheet as Excel
+drive_download(
+  as_id(sheet$id),
+  path = "flights.xlsx",
+  type = "xlsx"
+)
+
+#Upload Existing CSV to Google Sheets
+write.csv(
+  flight_data,
+  "flights.csv",
+  row.names = FALSE
+)
+##Upload
+gs4_create(
+  "Uploaded Flights",
+  sheets = list(
+    imported = read.csv("flights.csv")
+  )
+)
+
+#Read Multiple Worksheets
+all_sheets <- sheet_names(sheet)
+all_sheets
+##Loop through:
+sheet_list <- lapply(
+  all_sheets,
+  function(x) {
+    read_sheet(sheet, sheet = x)
+  }
+)
+
+#Use dplyr After Import
+sheet_data %>%
+  group_by(carrier) %>%
+  summarise(
+    avg_delay = mean(dep_delay, na.rm = TRUE)
+  )
+
+#Authentication Options
+##Interactive Login
+gs4_auth()
+##Use Specific Email
+gs4_auth(
+  email = "your_email@gmail.com"
+)
+
+#Deauthenticate
+gs4_deauth()
+
+#Helpful Functions
+#Function	Purpose
+#gs4_auth()	Authenticate
+#gs4_create()	Create sheet
+#read_sheet()	Read sheet
+#sheet_write()	Write worksheet
+#sheet_append()	Append rows
+#range_read()	Read range
+#range_write()	Write range
+#sheet_names()	List worksheets
+#sheet_delete()	Delete worksheet
+
+#Summary
+#Task	Function
+#Authenticate	gs4_auth()
+#Create sheet	gs4_create()
+#Read sheet	read_sheet()
+#Write data	sheet_write()
+#Append rows	sheet_append()
+#Read range	range_read()
+#Share sheet	drive_share()
+#Download sheet	drive_download()
+
+#Handling HDF5 Files in R
+#========================
+#HDF5 (Hierarchical Data Format version 5) is a high-performance binary file format designed for:
+##Big data
+##Scientific computing
+##Machine learning
+##Numerical simulations
+##Hierarchical datasets
+##Large multidimensional arrays
+
+#HDF5 is widely used in:
+##AI/Deep Learning
+##Astronomy
+##Climate science
+##Genomics
+##Financial modeling
+
+#In R, HDF5 handling is commonly done using:
+#rhdf5
+##hdf5r
+#We will use the flights dataset from nycflights13.
+
+#Install Required Packages
+#-------------------------
+#rhdf5 comes from Bioconductor.
+install.packages("BiocManager")
+BiocManager::install("rhdf5")
+#Install other packages:
+install.packages("dplyr")
+install.packages("nycflights13")
+#Load libraries:
+library(rhdf5)
+library(dplyr)
+library(nycflights13)
+
+#Create Sample Flight Dataset
+flight_data <- flights %>%
+  select(
+    year,
+    month,
+    day,
+    carrier,
+    flight,
+    dep_delay,
+    arr_delay,
+    distance
+  ) %>%
+  slice(1:1000)
+head(flight_data)
+
+#Create HDF5 File
+h5createFile(
+  "flights.h5"
+)
+
+#View HDF5 File Structure
+h5ls("flights.h5")
+
+#Create Groups
+##HDF5 supports hierarchical folders called groups.
+h5createGroup(
+  "flights.h5",
+  "flight_data"
+)
+#Check structure:
+h5ls("flights.h5")
+
+#Write Dataset to HDF5
+##Delete the old file if it's there
+if (file.exists("flights.h5")) {file.remove("flights.h5")}
+## Delete the existing file if it exists
+h5write(
+  flight_data,
+  file = "flights.h5",
+  name = "flight_data/flights"
+)
+##Always a good habit: close all open HDF5 handles to avoid file locking
+H5close()
+
+#Read Data from HDF5
+hdf_data <- h5read(
+  "flights.h5",
+  "flight_data/flights"
+)
+head(hdf_data)
+
+#Examine File Structure
+h5ls("flights.h5")
+
+#Read Specific Columns
+hdf_partial <- h5read(
+  "flights.h5",
+  "flight_data/flights/dep_delay"
+)
+head(hdf_partial)
+
+#Write Numeric Matrix
+#HDF5 is excellent for matrices.
+delay_matrix <- as.matrix(
+  flight_data %>%
+    select(dep_delay, arr_delay, distance)
+)
+delay_matrix[1:5, ]
+#Write
+h5write(
+  delay_matrix,
+  "flights.h5",
+  "flight_data/delay_matrix"
+)
+
+#Read Matrix
+matrix_data <- h5read(
+  "flights.h5",
+   "flight_data/delay_matrix"
+)
+head(matrix_data)
+
+#Store Multiple Datasets
+carrier_summary <- flights %>%
+  group_by(carrier) %>%
+  summarise(
+    avg_delay = mean(dep_delay, na.rm = TRUE)
+  )
+#Write
+h5write(
+  carrier_summary,
+  "flights.h5",
+  "summary/carrier_summary"
+)
+
+#Create Nested Groups
+h5createGroup(
+  "flights.h5",
+  "analysis/delays"
+)
+
+#Write data:
+h5write(
+  carrier_summary,
+  "flights.h5",
+  "analysis/delays/carrier_summary"
+)
+
+#Read Nested Data
+nested_data <- h5read(
+  "flights.h5",
+  "analysis/delays/carrier_summary"
+)
+nested_data
+
+#Delete Dataset
+h5delete(
+  "flights.h5",
+  "summary/carrier_summary"
+)
+
+#Delete Group
+h5delete(
+  "flights.h5",
+  "analysis"
+)
+
+#Read Dataset Dimensions
+h5ls("flights.h5", all = TRUE)
+
+# Handling Large Datasets
+#HDF5 supports chunked reading.
+#Read partial rows:
+partial_rows <- h5read(
+  "flights.h5",
+  "flight_data/delay_matrix",
+  index = list(1:10, NULL)
+)
+partial_rows
+
+#Compression in HDF5
+##Create compressed dataset:
+h5createDataset(
+  file = "flights.h5",
+  dataset = "compressed/data",
+  dims = dim(delay_matrix),
+  storage.mode = "double",
+  chunk = c(100, 3),
+  level = 7
+)
+#Write data:
+h5write(
+  delay_matrix,
+  "flights.h5",
+  "compressed/data"
+)
+
+#HDF5 Hierarchy Example
+#/flight_data
+#    /flights
+#    /delay_matrix
+
+#/summary
+#    /carrier_summary
+
+#HDF5 vs CSV
+#Feature->HDF5->	CSV
+#Speed->	Very-> Fast	Medium
+#Compression->	Excellent->	Poor
+#Hierarchical->	Yes->	No
+#Large datasets->	Excellent->	Poor
+#Metadata->	Strong->Weak
+
+#HDF5 vs SQLite
+#Feature->	HDF5->	SQLite
+#Scientific arrays->	Excellent->	Poor
+#SQL queries->	No->	Yes
+#Hierarchical data->	Excellent->	Limited
+#Tabular data->	Good->	Excellent
+
+#Common HDF5 Use Cases
+#Domain->	Usage
+#Deep Learning->	Tensor storage
+#Genomics->	Sequence data
+#Climate science->	Large matrices
+#Finance->	Time-series arrays
+
+#Best HDF5 Packages in R
+#Package->	Purpose
+#rhdf5->	Bioconductor HDF5
+#hdf5r->	Modern interface
+#rhdf5filters->	Compression filters
+
+#Common Problems
+#Problem->	Cause
+#Dataset not found->	Wrong path
+#Type mismatch->	Mixed column types
+#File locking->	Open connections
+#Large memory use->	Reading full dataset
+
+#Summary
+#Task->	Function
+#Create file->	h5createFile()
+#Create group->	h5createGroup()
+#Write data->	h5write()
+#Read data->	h5read()
+#List structure->	h5ls()
+#Delete dataset->	h5delete()
+#Create compressed dataset->h5createDataset()
+#Close file->close_all()
+
 #Handling parquet Files(Big Data)
 #================================
 install.packages(c("arrow", "dplyr", "nycflights13"))
@@ -2322,10 +4441,12 @@ write_dataset(
 #Lazy querying->File storage only
 
 #Think of it like:
+#------------------
 ##Arrow Dataset = Database/Table
 ##Parquet = Data File
 
 #Function	Purpose
+#------------------
 #write_dataset()	Write dataset
 #open_dataset()	Read dataset
 #collect()	Bring data into memory
@@ -2335,8 +4456,8 @@ write_dataset(
 #summarise()	Aggregation
 #schema()	View metadata
 
-
 #Arrow Dataset operations are:
+#------------------
 #lazy
 #memory efficient
 #parallel
@@ -2345,6 +4466,7 @@ Collect()
 #Data is only loaded when:
 
 #Arrow datasets are heavily used in:
+#------------------
 ##Spark pipelines
 ##Data lakes
 ##DuckDB
@@ -2423,6 +4545,86 @@ dbSendQuery(mysqlconnection,
 #We can drop the tables in MySql database passing the drop table statement into the dbSendQuery() in the same way we used it for querying data from tables.
 dbSendQuery(mysqlconnection, 'drop table if exists flight')
 
+
+#Handling NetCDF Files in R
+#==========================
+#Climate/weather/scientific data.
+
+#Package:
+##ncdf4
+
+#Handling ODS/OpenDocument Files in R
+#==========================
+#LibreOffice/OpenOffice spreadsheets.
+#Package:
+##readODS
+
+#Handling Clipboard Files in R
+#=============================
+#Very practical.
+
+#Functions:
+##readClipboard()
+##clipr::read_clip()
+
+#Useful for:
+##Excel copy-paste workflows
+
+#Handling Streaming / Chunked File Reading in R
+#==============================================
+#Very important for big files.
+
+#Topics:
+##chunk processing
+##streaming CSVs
+##lazy reading
+
+#Functions:
+##read_csv_chunked()
+##open_dataset()
+
+#Handling File System Operations in R
+#=====================================
+#Extremely important but often forgotten.
+#Topics:
+##list files
+##create folders
+##copy/move/delete files
+##path management
+
+#Functions:
+##list.files()
+##dir.create()
+##file.copy()
+##file.rename()
+##file.remove()
+
+#Packages:
+#fs
+
+
+#Handling Encoding in R
+#=======================
+#Very important for multilingual datasets.
+#Topics:
+##UTF-8
+##Latin1
+##BOM handling
+#Functions:
+##locale(encoding = "UTF-8")
+
+
+#Handling Memory-Efficient File Handling in R
+#============================================
+#Advanced but important.
+#Packages:
+#vroom
+#data.table
+
+#Functions:
+##fread()
+##vroom()
+
 #Validating Data after import 
 #============================
 glimpse(flights_csv)
@@ -2468,7 +4670,6 @@ LB<-read_csv("https://raw.githubusercontent.com/ganeshbabuNN/datasets/refs/heads
 s and discontinued study. Join AE + DS.
 
 #Resources:
-#=========
-#
+#==========
 
                                                         
