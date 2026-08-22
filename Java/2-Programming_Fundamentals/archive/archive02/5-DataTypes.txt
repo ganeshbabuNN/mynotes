@@ -1,0 +1,32 @@
+DataTypes
+=========
+
+In java, the data types are grouped into two categories:
+1)Primitive types
+2)Reference types like classes, interfaces, exceptions, errors, enums, annotations, and arrays
+
+Primitive types
+===============
+There are 9 primitive types in java.
+Below table summarizes the categories of the primitive types:
+
+Category	Primitive types
+--------	---------------
+Integers	byte, short,  int, long
+floating point  numbers	float, double
+Characters	char
+Booleans	boolean
+empty set 	void
+data type	
+
+Below table summarizes the corresponding wrapper classes, size, range, and default values:
+Refer DataTypeTableSummary.jpg
+
+Note:
+1.   By default, all integers are initialized with 0.
+2.   By default, all floating point numbers are initialized with 0.0
+3.   By default, all characters are initialized with blank space.
+4.   By default, all booleans are initialized with false.
+5.   By default, all reference types are initialized with null.
+6.   The size of the primitive data types are fixed across all operating systems.
+7.   The java supports only signed integers but unsigned characters.

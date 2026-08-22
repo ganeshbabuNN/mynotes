@@ -1,0 +1,213 @@
+Introduction
+using filter functions
+using map function
+using reduce function
+decorators
+generators
+
+1.Introduction
+=============
+-A lambda function is a small anonymous function which returns an object.
+-The object returned by lambda is usually assigned to a variable or used as a part of other bigger functions.
+-Instead of the conventional def keyword used for creating functions, a lambda function is defined by using the lambda keyword. The structure of lambda can be seen below:
+
+sytax:
+lambda argument_list:expression
+
+-it need to return a function 
+
+purpose of lambda
+-----------------
+-A lambda is much more readable than a full function since it can be written in-line. Hence, it is a good practice to use lambdas when the function expression is small.
+
+
+lamba - cube of given number
+-----------------------------
+traditional way 
+
+-def cube(num):
+    result = num**3
+    return result
+
+-def cube(num): # we can write in this way
+    return num**3 
+
+-def cube(num): return num**3  # we can write in this way also not good pratices
+
+Now lambda its like a annno0ymous functions.     
+f=lambda n:n**3
+print f(3)
+
+-lamba - even or odd
+---------------------
+
+f=lambda x: 'Yes' if x%2==0 else 'No'
+print f(3)
+
+-lambda - sum of two number
+----------------------------
+def sum(a+b):
+	return
+
+f=lambda a,b:a+b
+print f(3,4)
+
+using filter
+=============
+-The filter() method filters the given sequence with the help of a function that tests each element in the sequence to be true or not.
+--it generally iterate each item and returns those filter values using lambdas expression
+
+#define even functions
+def even_check(num):
+    return num%2==0
+
+# even_check(8)# normal way
+lst=[4,6,8,3,2,1,5] #if we pass the list what to do
+#define even functions
+def even_check1(num):
+    for i in num:
+        if i%2==0:
+            print(i)
+# even_check1(lst) 
+
+lst=[4,6,8,3,2,1,5] #if we pass the list what to do
+list(filter(even_check,lst))
+
+#lambda expression
+list(filter(lambda num:num%2==0,lst))
+
+Using map function
+==================
+-map() function returns a map object(which is an iterator) of the results after applying the given function to each item of a given iterable (list, tuple etc.)
+-it generally iterate each item and returns each items values by the lamba express.
+
+Syntax:
+map(Function_name,iterable)
+
+#define square functions
+def sqa(num):
+    return num**2 
+sqa(32) #passing a normal way
+lst= [5,7,9,4,2] #what if i pass a list
+#Traditional way
+for i in lst:
+    sqa(i)    
+#whats the use of the above, using map to get out of it
+map(sqa,lst)  #get the address where it stays
+result= map(sqa,lst)
+#you can iterate it using for loop
+for i in result:
+    print(i)
+#or convert to the list of result of that map
+list(map(sqa,lst))
+
+#Other example understand how it handles arguments
+#define strinteven fun
+def streven(mystring):
+    if len(mystring) %2==0:
+        return 'EVEN'
+    else:
+        return mystring[0]
+names=['GANESH','BABU','VEDHA','KRITINA']
+list(map(streven,names))
+
+#complete lambda expression
+list(map(lambda mystring:'EVEN' if len(mystring)%2==0 else mystring[0],names))
+
+7.using reduce function
+=======================
+-The reduce(fun,seq) function is used to apply a particular function passed in its argument to all of the list elements mentioned in the sequence passed along.This function is defined in “functools” module
+-it generally iterate each item and returns resulted value of the expression. its need min two as argument. we can perform aggregations operations.
+
+Example:
+import functools as ft
+lst =[3,6,8,9]
+result =ft.reduce(lambda x,y:x+y, lst) 
+print result
+
+8.decorators
+============
+-a function that performs additional logic which return by the function
+
+decorator that doubles the results of function
+--------------------------------------------------
+#calling result of the functions
+def decor(num):
+    def inner():
+        #
+        result = num()
+        return result*2
+    return inner
+
+#calling the functions
+def cal():
+    return 4
+
+output=decor(cal) # argument must be a  function
+
+print output()  # invoke the question
+
+
+using @Decorator
+----------------------
+--using the @function name of the function which you are calling. it may be a funtion which are return
+
+#calling result of the functions
+def decor(num):
+    def inner():
+        # num() is equal to hello() result
+        result = num()
+        return result*2
+    return inner
+
+@decor
+def hello():
+    return 10
+
+print hello()
+
+
+Decorator a string
+---------------------
+- decorator a string out the functions
+
+def decorfun(fun):
+    def inner(n):
+        #fun(n) is equal to hello(name) result
+        result = fun(n)
+        result=result+ " how are you?"
+        return result
+    return inner
+ 
+@decorfun   
+def hello(name):
+    return " hello " + name
+
+print(hello("ganesh"))
+
+9.generators
+=============
+-A generator-function is defined like a normal function, but whenever it needs to generate a value, it does so with the yield keyword rather than return. 
+-If the body of a def contains yield, the function automatically becomes a generator function.
+-Generator functions return a generator object. Generator objects are used either by calling the next method on the generator object or using the generator object in a “for in” loop (as shown in the above program)ß
+
+create a generators
+-------------------
+
+def customgen(x,y):
+    while(x<y):
+        yield x 
+        x=x+1 
+
+result = customgen(10, 15)
+for i in result: print i
+
+Quiz:
+=====
+
+Assignment:
+===========
+1)Try to use lambda expression in the functions and solve all the problems
+
+Resources
+=========

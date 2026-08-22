@@ -1,0 +1,66 @@
+Introduction
+Command Prompt
+Using Function
+Using Class
+Help info
+
+
+Introduction
+============
+
+Command Prompt
+==============
+print("hello world") #single statement
+
+Using Function
+==============
+def sum(a,b): #funciton name with empty argument  
+    return "hello world"
+
+sum(2,3) #calling a function
+
+#def is a keyworkd
+#sum() identifier
+
+Using Class
+===========
+class display1: #class name
+    
+    def __init__(self): #constructor
+        print "hello world" 
+    
+    def sum(a,b): #method name
+    	c=a+b
+	print(c=a+b)
+    
+    def sub(a,b): #method name
+        c=a-b
+	print(c)
+
+t=display() #creating a object
+t.sum(2,2)
+t.sub(3,4)
+print(t)
+
+#class is a keyword
+#display1 is a identifier
+#a,b is variable
+#2,3 is numeric literials
+#print(c) is a statement
+#Defining a class is keyword.
+
+Help info
+=========
+1)https://docs.python.org/3/library/index.html # official documents
+2)help(list.append)
+3)In jypter notebook press Shift+Tab for help or Tab for info on functions
+4)type list.append?
+
+Quiz:
+=====
+
+Assignment:
+===========
+
+Resources:
+=========

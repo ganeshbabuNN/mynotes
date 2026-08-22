@@ -1,0 +1,77 @@
+1)Using Var variables
+2)Collection Updates
+3)Assignment
+
+
+1)Using Var variables
+=====================
+
+var example
+-----------
+-var is a keyword, it is the similar usage of javascript in java but few limitations.
+-it understand the inference of the type of data and assign automatically.
+//		byte a = 1;
+//		int x = 10;
+//		float y = 10302323.232323f;
+//		double z  = 1030233939202303030303.2323423432032023d;
+
+		// using var it understand the inference
+
+		var a = 1;
+		var x = 10;
+		var y = 10302323.232323f;
+		var z = 1030233939202303030303.2323423432032023d;
+
+
+var are commonly used in the complex collection types
+-----------------------------------------------------
+-Example if you see a collection type like 
+	Map<String,List<String>> m = new HashMap<String,List<Integer>>();
+
+-the above example is converted to the var variable
+	var map = new HashMap<String, List<String>>();
+
+-simillary can be used in the for each when you are iterating in the array
+Without var:
+for (Map.Entry<String,List<String>> ma : map.entrySet()) {
+			System.out.println(ma.getKey() + ":" + ma.getValue());
+	}
+With var statement:
+for (var ma : map.entrySet()) {
+			System.out.println(ma.getKey() + ":" + ma.getValue());
+	}
+
+
+Limitations
+===========
+1)Assuming writing a lamdas for Consumer interface
+	Consumer<Integer> l1 = (i)->{
+					System.out.println(i);
+	};
+
+if we use the var statement instead of Consumer , it does not accept as it as Functional interface.
+it gives a error as "Lambdas expression needs an explicit target-type".Ensure for any lambadas expression ensure to use the exact type in LHS.
+	var l1 = (i)->{
+		System.out.println(i);
+	};
+2)Cannot use var, using in Class level
+
+
+
+2)Collection Updates
+====================
+-from Java 9, you were able to do the below operations using lambdas, after that you still modify the list
+		List<Integer> list = List.of(30,20,50,60,25,10);
+		List<Integer> l1 = list.stream().filter(i->i%3==0).collect(Collectors.toList());
+		l1.add(50);
+		l1.add(10);
+-from java 10, you can stop the list moficiations,using toUnmodifiableList method ..
+		List<Integer> l1 = list.stream().filter(i->i%3==0).collect(Collectors.toUnmodifiableList());
+		l1.add(32);
+
+
+
+
+
+3)Assignment
+============

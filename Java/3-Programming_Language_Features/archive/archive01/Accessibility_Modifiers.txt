@@ -1,0 +1,118 @@
+Accesst Controls
+=================
+Package declaration
+Modifiers
+Accessibility modifiers
+Import
+Generate Java API Documentation
+
+Packages
+========
+In java, package is a directory structure which contains group of related classes, interfaces, enums,exceptions, errors, annotations, or subpackages.
+
+Example:
+Package		Directory	Types
+java.lang	java\lang	String, System, Object, Integer, etc
+java.io		java\io		InputStream, OutputStream, Reader, Writer, etc
+java.util	Java\util	List, Set, Map, Vector, Hashtable, etc
+
+Packages are declared using package keyword:
+
+Format:
+package <domain name> <.company name><.project name><.module name>;
+
+Example:
+package edu.aspire.accounting.billing; //multi level package package edu.aspire.accounting.core; //multi level package
+
+At most one package declaration can appear in a source file, and it must be the first statement in the source file.
+
+Example:
+package aspire;
+import java.lang.String; //Correct
+ 
+Use ‘–d’ option to compile classes with package declaration.
+
+Syntax:
+Javac  -d  <directory>  <java source file>
+
+Example:
+Javac –d .  *.java
+where ‘.’ Specifies current directory, where the generated class files will be placed.
+
+Example: 
+package aspire; 
+class Test{
+public static void main(String[] args){ 
+System.out.println("Package concepts");
+}
+}
+
+Compilation:
+Javac  -d . Test.java
+
+Also, the fully qualified type name must be specified in the java command.
+ 
+Example:
+Java aspire.Test
+
+Modifiers in java
+==================
+There are 13 modifiers in java:
+Private 
+default 
+Protected 
+Public 
+Final
+Static 
+Abstract 
+Interface 
+Synchronized 
+Transient 
+Native
+Strictfp 
+volatile
+
+Accessibility Modifiers
+-----------------------
+In java, there are 4 accessibility modifiers: private, no (or default or package) modifier, protected, and
+public.
+The below table summarizes the scope of accessibility modifiers:
+
+Refer Modifier.jpg
+
+Note:
+1)The scope of the private members is anywhere within the class- class level
+2)The scope of the default members is anywhere within the same package-package level
+3)The scope of the protected members is anywhere with in the same package as well as only subclass of the different package- package level and subclass level
+4)The scope of the public members is anywhere.- any where
+5)The default modifier is also know as package modifier.
+
+Imports
+The given class can be accessible from outside the package using fully qualified type name, however, writing long names can become tedious.
+Example:
+edu.aspire.One obj = new edu.aspire.One();
+
+The import facility in java makes it easier to access classes from different packages, which will be declared once using import statement and used it for any number of times just with simple type name.
+Example:
+import edu.aspire.One; One obj = new One();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

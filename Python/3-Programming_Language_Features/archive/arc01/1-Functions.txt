@@ -1,0 +1,748 @@
+Introduction
+Anotomy of functions
+Returning a result
+Returning a multiple values
+Function overriding and overloading
+local and global variables
+Nested Statements and Scope
+LEGB Rule
+assigning function to a variable
+function inside another function
+function as paramter to an other 
+Returing the function
+pass any type
+recursion
+keyword argument
+default arguments
+*args and **kwargs
+Built in Functions
+
+Introduction
+=============
+Functions
+---------
+-before starting don't get discourged coz it is a new concept. Refer Function_Leap.png
+-Formally, a function is a useful device that groups together a set of statements so they can be run more than once. They can also let us specify parameters that can serve as inputs to the functions.
+-On a more fundamental level, functions allow us to not have to repeatedly write the same code again and again. If you remember back to the lessons on strings and lists, 
+remember that we used a function len() to get the length of a string. Since checking the length of a sequence is a common task you would want to write a function that can do this repeatedly at command.
+-Functions will be one of most basic levels of reusing code in Python, and it will also allow us to start thinking of program design 
+(we will dive much deeper into the ideas of design when we learn about Object Oriented Programming)
+
+Why even use functions:
+Put simply, you should use functions when you plan on using a block of code multiple times. The function will allow you to call the same block of code without having to write it multiple times. 
+This in turn will allow you to create more complex Python scripts. To really understand this though, we should actually write our own functions!
+
+Methods
+------
+We've already seen a few example of methods when learning about Object and Data Structure Types in Python.
+Methods are essentially functions built into objects. Later on in the course we will learn about how to create our own objects and methods using Object Oriented Programming (OOP) and classes.
+Methods perform specific actions on an object and can also take arguments, just like a function. This lecture will serve as just a brief introduction to methods and get you thinking about overall design methods that we will touch back upon when we reach OOP in the course.
+Methods are in the form:
+	object.method(arg1,arg2,etc...)
+You'll later see that we can think of methods as having an argument 'self' referring to the object itself. You can't see this argument but we will be using it later on in the course during the OOP lectures.
+
+Anotomy of functions
+===================
+function syntax
+
+syntax1:
+	def <function_name>(argument1,argument2....):
+	    statment
+	    statment
+
+syntax2:
+	def <function_name>(argument1,argument2....):
+	    statment
+	    return expression	
+ 
+we begin with def then a space followed by the name of the function. 
+Try to keep names relevant, for example len() is a good name for a length() function. 
+Also be careful with names, you wouldn't want to call a function the same name as a built-in function in Python (such as len) https://docs.python.org/3/library/functions.html.
+Next come a pair of parentheses with a number of arguments separated by a comma. These arguments are the inputs for your function. 
+You'll be able to use these inputs in your function and reference them. After this you put a colon.
+Now here is the important step, you must indent to begin the code inside your function correctly. 
+Python makes use of whitespace to organize code. Lots of other programing languages do not do this, so keep that in mind.
+Next you'll see the docstring, this is where you write a basic description of the function. 
+Using Jupyter and Jupyter Notebooks, you'll be able to read these docstrings by pressing Shift+Tab after a function name. 
+Docstrings are not necessary for simple functions, but it's good practice to put them in so you or other people can easily understand the code you write.
+
+example1 :
+
+#function without arguments
+def sum():
+    print("the sum of ss numbers")
+
+#invoking the functions
+sum()
+
+example2:
+#function  arguments
+def greeting(name):
+    print(f'Hello {name}')
+
+#invoking the functions 
+greeting('Ganesh')
+
+Returning a result
+==================
+function returning the value based on the return keyword
+
+#function  that return the value
+def sum1(a,b):
+    return a+b
+
+#invoking the functions 
+x=sum1(2,3)
+print x
+
+Now the question is what is the diff between Return and Print .
+The return keyword allows you to actually save the result of the output of a function as a variable. The print() function simply displays the output to you, but doesn't save it for future use
+#function  that return the value
+def sum1p(a,b):
+    print(a+b)
+
+#invoking the functions 
+x=sum1p(2,3)
+print x
+
+Returning a multiple values
+=============================
+s#function  that return the value
+def cal(a,b):
+    sum1=a+b
+    sub=a-b
+    mul=a*b
+    div=a/b
+    return sum1,sub,mul,div
+
+#invoking the functions  
+print cal(8,3)
+
+Function overriding and overloading
+===================================
+Overiding
+---------
+#in this the it takes the latest method from the top to down approach
+def add(a,b):
+    print("first one")
+    return a+b
+
+def add(c,b):
+    print("second one")
+    return c+b
+
+add(2,3)
+
+Overloading
+-----------
+def add(a,b): #here the the same function name but different arguments
+    return a+b
+
+def add(a,b,c): #here the the same function name but different arguments
+    return a+b+c
+
+add(3,2)
+#That’s because methods and functions in Python are limited to one function signature per name
+#As soon as you define a new method in the code using the same name, Python will take that method and its parameters as the definition to replace the previous one
+
+#Python users in 2.7 learned to code a makeshift method to code an overloaded function by using nested conditional statements
+def add(parameter,*args):
+    if parameter=='int':
+        result=0
+    if parameter=='str':
+        result=' '
+    for i in args:
+        result =result+i
+        return result
+
+#If you call the add method by using the following code:
+print(add('int',1,2,3))
+print(add('str','this'))
+
+#Python 3 added support for method overloading by adding something called single dispatch 
+from functools import singledispatch
+@singledispatch
+def add(a, b):
+    print("int")
+    return a + b
+
+@add.register(float)
+def _(a, b, c):
+    print("float")
+    return a + b + c
+
+@add.register(str)
+def _(a, b, c, d):
+    print("str")
+    return a + b + c + d
+
+addStuff.registry.keys() #If you need to check what data types your single dispatch methods will use
+print(add(3,2))
+print(add(3.1,2.1,2.3))
+print (add('this', ' is', ' python', ' fun!'))
+print (add((1, 2, 3), (3, 4, 5)))
+print (add(1.0, 2.1, 3.0))
+print(add(3.1,4,3))
+
+local and global variables
+============================
+-if there is a local variable inside the function, local variables takes the precidence then the global variable.
+-if there is no local variables, the global variables take precedence
+
+Example
+a=421 #global variables
+
+#function  that return the value
+def display():
+    a=32    #local variables
+    return a; 
+
+#invoking the functions
+print display()
+
+Nested Statements and Scope
+===========================
+Now that we have gone over writing our own functions, it's important to understand how Python deals with the variable names you assign. 
+When you create a variable name in Python the name is stored in a name-space. Variable names also have a scope, the scope determines the visibility of that variable name to other parts of your code.
+
+#ex1: checking the local and global variable
+x = 25
+def printer():
+    x = 50
+    return x
+
+print(x)
+print(printer())
+
+LEGB Rule
+=========
+This idea of scope in your code is very important to understand in order to properly assign and call variable names.
+In simple terms, the idea of scope can be described by 3 general rules:
+-Name assignments will create or change local names by default.
+-Name references search (at most) four scopes, these are:
+*local
+*enclosing functions
+*global
+*built-in
+-Names declared in global and nonlocal statements map assigned names to enclosing module and function scopes.
+
+Local Rule
+----------
+=When you declare variables inside a function definition, 
+-They are not related in any way to other variables with the same names used outside the function - i.e. variable names are local to the function. 
+-This is called the scope of the variable. 
+-All variables have the scope of the block they are declared in starting from the point of definition of the name.
+
+def square(base):
+    result = base ** 2
+    print(f'The square of {base} is: {result}')
+    
+square(10) #calling 
+result  # Isn't accessible from outside square()
+base  # Isn't accessible from outside square()
+
+Enclosing function locals
+-------------------------
+-special scope that only exists for nested functions
+-if the local scope is an inner or nested function, then the enclosing scope is the scope of the outer or enclosing function.
+-This scope contains the names that you define in the enclosing function
+-The names in the enclosing scope are visible from the code of the inner and enclosing functions
+
+def outer_func():
+    var = 100  # This block is the Local scope of outer_func()
+    def inner_func(): # It's also the enclosing scope of inner_func()
+        print(f"Printing var from inner_func(): {var}") # This block is the Local scope of inner_func()
+        #print(f"Printing another_var from inner_func(): {another_var}")
+    inner_func() #NameError:name 'inner_func' is not defined
+    #another_var = 200  # This is defined after calling inner_func()
+    print(f"Printing var from outer_func(): {var}")
+    
+outer_func()
+inner_func() #NameError: name 'inner_func' is not defined
+
+#enable another_var
+outer_func() NameError: free variable 'another_var' referenced before assignment in enclosing
+ scope
+
+Globals functions:
+------------------
+-If you want to assign a value to a name defined at the top level of the program (i.e. not inside any kind of scope such as functions or classes), then you have to tell Python that the name is not local, but it is global. We do this using the global statement. 
+-It is impossible to assign a value to a variable defined outside a function without the global statement
+
+__name__ #access global
+dir() #access global
+var=100
+dir() # you get the list of names available in your main global Python scope
+
+#scenario1
+def func():
+    return var  # You can access var from inside func()
+
+func()
+var  # Remains unchanged
+
+#scenario2
+var = 100  # A global variable
+def increment():
+    var = var + 1  # Try to update a global variable
+    
+increment() #UnboundLocalError: local variable 'var' referenced before assignment
+
+#scenario3
+var = 100  # A global variable
+def func():
+    print(var)  # Reference the global variable, var
+    var = 200   # Define a new local variable using the same name, var
+
+func() #UnboundLocalError: local variable 'var' referenced before assignment
+
+#combing all
+number = 100
+def outer_func():
+    # This block is the local scope of outer_func()
+    # It's also the enclosing scope of inner_func()
+    def inner_func():
+        # This block is the local scope of inner_func()
+        print(number)
+    inner_func()
+
+outer_func()
+
+-use the globals() functions followed by the variable name
+a=421 #global variables
+#function  that return the value
+def display():
+    a=32    #local variables
+    print a
+    print(globals()['a']) #accessing global variables
+
+#invoking the functions
+display()
+
+Built-in locals
+---------------
+-It is special Python scope that’s created or loaded whenever you run a script or open an interactive session
+-This scope contains names such as keywords, functions, exceptions, and other attributes that are built into Python.
+-Names in this Python scope are also available from everywhere in your code.
+-It’s automatically loaded by Python when you run a program or script
+
+dir() #to veiw the objects
+dir(__builtins__) #list of Python built-in names
+len(dir(__builtins__)) #length 
+import builtins  # Import builtins as a regular module
+dir(builtins)
+builtins.sum([1, 2, 3, 4, 5])
+builtins.max([1, 5, 8, 7, 3])
+builtins.sorted([1, 5, 8, 7, 3])
+builtins.pow(10, 2)
+abs(-15)  # Standard use of a built-in function
+abs = 20  # Redefine a built-in name in the global scope
+abs(-15)  #TypeError: 'int' object is not callable
+del abs  # Remove the redefined abs from your global scope
+abs(-15)  # Restore the original abs()
+
+#you can explicitly import builtins and then use fully-qualified names
+import builtins
+builtins.abs(-15)
+
+#some of the scope related Built-In Functions
+1)Globals()
+2)locals()
+3)dir()
+4)vars()
+
+1)Globals()
+- globals() is a built-in function that returns a reference to the current global scope or namespace dictionary.
+
+globals() #list all the objects which are available in global
+my_var = 100 #storing the global variable
+globals() #check if this available the my_var
+globals()['__doc__'] = """Docstring for __main__."""  #store int the global 
+globals()
+__doc__
+
+2)locals()
+-Another function related to Python scope and namespaces is locals().
+-This function updates and returns a dictionary that holds a copy of the current state of the local Python scope or namespace.
+
+def func(arg):
+    var=100
+    print(locals())
+    locals()['var2'] = 200 #storing in locals
+    var3=200
+
+func(43)
+
+3)dir()
+-You can use dir() without arguments to get the list of names in the current Python scope
+-If you call dir() with an argument, then the function attempts to return a list of valid attributes for that object
+
+dir()  # With no arguments
+dir(zip)  # With a function object
+import sys
+dir(sys)  # With a module object
+var = 100
+dir(var)  # With an integer variable
+
+#scenario
+def func():
+    var = 100
+    print(dir())
+    another = 200  # Is defined after calling dir()
+    
+func()
+
+4)vars()
+vars() is a Python built-in function that returns the .__dict__ attribute of a module, class, instance, or any other object which has a dictionary attribute
+
+import sys
+vars(sys)
+len(vars(sys))
+sys.__dict__
+vars(sys) is sys.__dict__ # is a special dictionary that Python uses to implement namespaces
+
+class MyClass:
+    def __init__(self, var):
+        self.var = var
+        
+obj = MyClass(100)
+vars(obj)  # With a user-defined object
+vars(MyClass)  # With a class
+
+Combining All
+-------------
+#combing all
+number = 100
+def outer_func():
+    # This block is the local scope of outer_func()
+    # It's also the enclosing scope of inner_func()
+    def inner_func():
+        # This block is the local scope of inner_func()
+        print(number)
+    inner_func()
+
+outer_func()
+
+Ref: 
+https://realpython.com/python-scope-legb-rule/
+
+Assigning function to a variable
+==================================
+a=421 #global variables
+
+#function  that return the value
+def display():
+    a=32    #local variables
+    print a
+    print(globals()['a']) #accessing global variables
+
+#invoking the functions
+print(a) 
+z=display #assining a function to a variable, then that variable behaves like a functions
+print "----"
+z()
+print "----"
+z()
+print "----"
+z()
+
+function inside another function
+================================
+ex:
+def display(name):
+    def message(): #inner functions
+        return "hello"
+    result = message()+ " " +name
+    return result
+
+print display("bharath")
+
+Interactions between functions
+-----------------------------
+ex=[1,2,3,4,5,6,7,8,9]
+from random import shuffle
+shuffle(ex) #this shuffle function will randomly swipe the number
+ex
+
+#lets get into logic building
+#shuffle the list
+mylist = [' ','O',' ']
+def shufflelist():
+    shuffle(mylist)
+    return mylist
+shufflelist()
+
+#guess the number
+def playguess():
+    guess=''
+    while guess not in ['0','1','2']:
+        guess = input("pick any guess 0, 1 or 2: ")
+    return int(guess)
+playguess()
+
+#lets combine together
+#guess the game , if the index falls on the mylist it picks
+def checkguess(mixedlist,guess):
+    if mylist[guess]=='O':
+        print("Correct Guess")
+    else:
+        print("Wrong! Best of luck here")
+        print(mylist)
+
+
+mylist = [' ','O',' ']
+
+#guess the no#
+guess = playguess()
+
+#store the mylist 
+mixedlist=shuffle(mylist)
+
+#guess the gane
+checkguess(mixedlist,guess)
+
+function as paramter to an other
+================================
+
+ex:
+def display(name): #first function 
+    return "hello " + name
+
+def name(): #second functions
+    return "Ganesh"
+
+#calling other function as paramter
+print display(name())
+
+Returing the function
+=====================
+
+def display():
+    def message():
+        return "hello"
+    return message #returing a function to caller of the functions
+
+fun = display()
+print fun
+
+pass any type
+=============
+-pass any type to a functions
+
+def display(lst):
+    for i in lst:
+        print(i)
+        
+        
+aa = [1,3,4,5,3]
+display(aa)
+
+recursion
+=========
+
+def factorial(n):
+    if n==0:
+        result =1
+    else:
+        result=n*factorial(n-1) #this is where the recurusion happening
+    return result
+
+print factorial(5)
+
+keyword argument
+================
+-changing the argument values based on the keyword assignment
+
+def average(a,b):
+    print a
+    print b
+    return (a+b)/2
+
+print average(10,20)  #normal call type
+print("--------")
+print(average(a=10, b=20))
+print("--------")
+print(average(b=10, a=20))#interchanging the keyword argument
+
+default arguments
+=================
+
+def average(a=20,b=30):
+    print a
+    print b
+    return (a+b)/2
+
+print average() 
+print "------"
+print average(b=43) 
+print "------"
+
+
+*args and **kwargs
+==================
+*args
+-----
+When a function parameter starts with an asterisk, it allows for an arbitrary number of arguments, and the function takes them in as a tuple of values. Rewriting the above function:
+
+def myfunc(*args):
+    return sum(args)*.05
+
+myfunc(40,60,20)
+
+**kwargs
+--------
+Similarly, Python offers a way to handle arbitrary numbers of keyworded arguments. Instead of creating a tuple of values, **kwargs builds a dictionary of key/value pairs. For example
+
+def myfunc(**kwargs):
+    if 'fruit' in kwargs:
+        print(f"My favorite fruit is {kwargs['fruit']}")  # review String Formatting and f-strings if this syntax is unfamiliar
+    else:
+        print("I don't like fruit")
+        
+myfunc(fruit='pineapple')
+
+myfunc()
+
+*args and **kwargs combined
+---------------------------
+
+def myfunc(*args, **kwargs):
+    if 'fruit' and 'juice' in kwargs:
+        print(f"I like {' and '.join(args)} and my favorite fruit is {kwargs['fruit']}")
+        print(f"May I have some {kwargs['juice']} juice?")
+    else:
+        pass
+        
+myfunc('eggs','spam',fruit='cherries',juice='orange')
+
+myfunc(fruit='cherries',juice='orange','eggs','spam')
+
+As with "args", you can use any name you'd like for keyworded arguments - "kwargs" is just a popular convention.
+
+Built in Functions
+==================
+all() and any()
+---------------
+all() and any() are built-in functions in Python that allow us to conveniently check for boolean matching in an iterable. all() will return True if all elements in an iterable are True. It is the same as this function code:
+def all(iterable):
+    for element in iterable:
+        if not element:
+            return False
+    return True
+
+any() will return True if any of the elements in the iterable are True. It is equivalent to the following function code:
+def any(iterable):
+    for element in iterable:
+        if element:
+            return True
+    return False
+
+lst = [True,True,False,True]
+all(lst)
+
+Returns False because not all elements are True.
+any(lst)
+Returns True because at least one of the elements in the list is True
+
+
+
+Quiz:
+=====
+1.What is the difference between return the value and printing the value?
+
+Assignment:
+===========
+a)Define a function myfunc that takes in a name and prints "Hello Name" Note: Do not use f-string
+b)Define a function that takes a boolean value (True or False). if True 'Hello' and if False , return 'Goodbye'
+c)Define a functions that takes three arguments x, y , z (any value as boolean literals), if z is true , return x. if z if false, return y.
+d)Define a functions that takes one argument and returns True if passed in value is even, False if it is not.
+e)Define a functions that takes two argument and returns True if the first value is greater that the second ,False if it is less then.
+f)Write a function that computes the volume of a sphere given its radius
+g)Write a function that checks whether a number is in a given range (inclusive of high and low)
+h)Write a Python function that accepts a string and calculates the number of upper case letters and lower case letters.
+	Sample String : 'Hello Mr. Rogers, how are you this fine Tuesday?'
+	Expected Output : 
+	No. of Upper case characters : 4
+	No. of Lower case Characters : 33
+i)Write a Python function that takes a list and returns a new list with unique elements of the first list.
+	Sample List : [1,1,1,1,2,2,3,3,3,3,4,5]
+	Unique List : [1, 2, 3, 4, 5]
+j)Write a Python function to multiply all the numbers in a list.
+	Sample List : [1, 2, 3, -4]
+	Expected Output : -24
+k)Write a Python function that checks whether a word or phrase is palindrome or not
+Note: A palindrome is word, phrase, or sequence that reads the same backward as forward, 
+e.g., madam,kayak,racecar, or a phrase "nurses run". Hint: 
+You may want to check out the .replace() method in a string to help out with dealing with spaces.
+Also google search how to reverse a string in Python, there are some clever ways to do it with slicing notation
+L)Write a Python function to check whether a string is pangram or not. (Assume the string passed in does not have any punctuation)
+	Note : Pangrams are words or sentences containing every letter of the alphabet at least once.
+	For example : "The quick brown fox jumps over the lazy dog"
+	Hint: You may want to use .replace() method to get rid of spaces.
+	Hint: Look at the string module(https://stackoverflow.com/questions/16060899/alphabet-range-in-python)
+	Hint: In case you want to use set comparisons(https://medium.com/better-programming/a-visual-guide-to-set-comparisons-in-python-6ab7edb9ec41Z)
+i)Write a funciton that takes arbitrary number of arguments and returns a list contianing only those arguments that are even.
+	ex: myfun(45,44,3,4,6) --> [44,4,6]
+j)Write a function that takes in a string and returns a matching string where every even letter is uppercase and every odd letter is lower .
+	ex: myfun('ganeshbabu') --. 'GaNeShBaBu'
+
+--------------------
+1)create a function and prints only the even values
+2)create a function which returns the even values and stored in a variable
+3)create a functions which returns the list of even numbers
+4)create a functions which returns the list of even numbers or odd numbers
+5)Create a function where The employee of the month function will return both the name and number of hours worked for the top performer (judged by number of hours worked).
+	work_hours = [('Abby',100),('Billy',400),('Cassie',800)]
+6)Write a function that returns the lesser of two given numbers if both numbers are even, but returns the greater if one or both numbers are odd.
+	lesser_of_two_evens(2,4) --> 2
+	lesser_of_two_evens(2,5) --> 5
+7)Write a function takes a two-word string and returns True if both words begin with same letter
+	lettercheck("Dalai Lama") --> False
+	lettercheck("Ganjan Gang") --> True
+8)Given two integers, return True if the sum of the integers is 20 or if one of the integers is 20. If not, return False
+	makes_twenty(12,8) --> True
+	makes_twenty(2,3) --> False
+9)Write a function that capitalizes the first and fourth letters of a name
+	old_macdonald('macdonald') --> MacDonald
+	Note: `'macdonald'.capitalize()` returns `'Macdonald'`
+10)Write a function and Given a sentence, return a sentence with the words reversed
+	master_yoda('I am home') --> 'home am I'
+	master_yoda('We are ready') --> 'ready are We'
+11)Write a function and Given an integer n, return True if n is within 10 of either 100 or 200
+	NOTE: abs(num) returns the absolute value of a number
+	almost_there(104) --> True
+	almost_there(150) --> False
+12)Write a function and Given a list of ints, return True if the array contains a 3 next to a 3 somewhere.
+	has_33([1, 3, 3]) → True
+	has_33([1, 3, 1, 3]) → False
+13)Write a function and Given a string, return a string where for every character in the original there are three characters
+	paper_doll('Hello') --> 'HHHeeellllllooo'
+	paper_doll('Mississippi') --> 'MMMiiissssssiiippppppiii'
+14)Write a function and Given three integers between 1 and 11, if their sum is less than or equal to 21, return their sum. If their sum exceeds 21 and there's an eleven, reduce the total sum by 10. Finally, if the sum (even after adjustment) exceeds 21, return 'BUST
+	blackjack(5,6,7) --> 18
+	blackjack(9,9,9) --> 'BUST'
+	blackjack(9,9,11) --> 19
+15)Write a function and Return the sum of the numbers in the array, except ignore sections of numbers starting with a 6 and extending to the next 9 (every 6 will be followed by at least one 9). Return 0 for no numbers.
+	summer_69([1, 3, 5]) --> 9
+	summer_69([4, 5, 6, 7, 8, 9]) --> 9
+	summer_69([2, 1, 6, 9, 11]) --> 14
+16)Write a function that takes in a list of integers and returns True if it contains 007 in order
+	spy_game([1,0,2,4,0,5,7]) --> True
+	spy_game([1,7,2,0,4,5,0]) --> False
+17)Write a function that returns the number of prime numbers that exist up to and including a given number
+	count_primes(100) --> 25  By convention, 0 and 1 are not prime.
+18)Write a function that takes in a single letter, and returns a 5x5 representation of that letter
+	print_big('a')
+
+	out:   *  
+ 	      * *
+	     *****
+	     *   *
+	     *   *
+HINT: Consider making a dictionary of possible patterns, and mapping the alphabet to specific 5-line combinations of patterns.
+For purposes of this exercise, it's ok if your dictionary stops at "E".
+
+
+
+Resources
+=========

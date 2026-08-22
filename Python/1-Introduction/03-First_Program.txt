@@ -6,6 +6,7 @@ Testing the input and output
 Structure of the program
 ========================
 -Remember Python is a case sensitive language
+
 First program
 ============
 using print

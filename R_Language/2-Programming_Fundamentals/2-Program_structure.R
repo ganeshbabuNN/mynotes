@@ -6,6 +6,7 @@
 #Using s4 Method
 #using R6 Method
 #Note Handling files in R
+#Storing in RScript file and calling the script
 #Help info
 #Quiz
 #Assignment
@@ -301,10 +302,21 @@ print(add_numbers(10, 20))
 #Step 2: Run the script with source file.
 setwd("C:\\Users\\ganes\\Documents\\Kriyababa\\GitHub\\MyNotes\\R_Language\\2-Programming_Fundamentals\\script")
 #add_numbers(10, 20) #Run Lines Interactively (Why It Worked Before)
-source("add_numbers.R") # Run via source()
+source("add_numbers.R") # Run via source() 
 #Rscript add_numbers.R #Running via terminal _not working
-system("Rscript add_numbers.R") #advanced method 
-#source("run_add_number.R") ## Caller script way , edit the script file 
+system("Rscript add_numbers.R") #advanced method  
+#running from terminal 
+Rscript add_numbers.R
+#or you can create a batch file.
+##open a notebod
+#
+#	@echo off
+#	:: Replace the path below with your actual Rscript path if it's not in your PATH
+#	Rscript "C:\path\to\your\script\your_script.R"
+#	pause
+#save it has run_my_analysis.bat
+#If you want to save the output of your script to a text file instead of watching it in the console, use the redirection operator >:
+Rscript your_script.R > log.txt 2>&1
 
 #Quiz:
 #=====

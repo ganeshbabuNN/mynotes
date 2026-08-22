@@ -1,0 +1,290 @@
+Module
+packages
+pip
+__name__ and __main__
+
+Modules
+=======
+A module allows you to logically organize your Python code
+A module is a file consisting of Python code. 
+A module can define functions, classes and variables. A module can also include runnable code.
+
+import statement
+---------------
+You can use any Python source file as a module by executing an import statement in some other Python source file
+
+sytnax:
+import module1[, module2[,... moduleN]
+
+Ex:
+#one.py
+def my_func():
+	print("I am in one.py")
+
+#two .py
+import one 
+one.my_func()
+
+==> python two.py
+	print("I am in one.py")
+
+The from...import Statement
+---------------------------
+Python's from statement lets you import specific attributes from a module into the current namespace
+
+syntax:
+from modname import name1[, name2[, ... nameN]]
+
+#one.py
+def my_func():
+	print("I am in one.py")
+
+#two .py
+from one import my_func
+my_func()
+
+==> python two.py
+	print("I am in one.py")
+
+Import all names
+-----------------
+It is also possible to import all names from a module into the current namespace by using the following import statement −
+
+syntax:
+from modname import * 
+
+Ex:
+#one.py
+def my_func():
+	print("I am in one.py")
+	
+def my_func2():
+	print("I am in one.py myfun2")
+
+#two .py
+from one import *
+my_func()
+my_func2()
+
+==> python two.py
+	I am in one.py
+	I am in one.py myfun2
+
+
+
+Import with renaming
+--------------------
+We can import a module by renaming it as follows:
+
+syntax:
+import module1[, module2[,... moduleN] as <name>
+
+
+import math as m
+print("The value of pi is", m.pi)
+
+Locating Modules
+----------------
+When you import a module, the Python interpreter searches for the module in the following sequences
+1)The current directory.
+2)If the module isn't found, Python then searches each directory in the shell variable PYTHONPATH.
+3)If all else fails, Python checks the default path. On UNIX, this default path is normally /usr/local/lib/python/.
+
+The module search path is stored in the system module sys as the sys.path variable. The sys.path variable contains the current directory, PYTHONPATH, and the installation-dependent default.
+
+The PYTHONPATH is an environment variable,, consisting of a list of directories
+
+set PYTHONPATH = c:\python20\lib; #for windows
+
+set PYTHONPATH = /usr/local/lib/python @ for UNIX
+
+
+1)open a notepad or any code editor
+2)write the print("code as been implemented) and save the file as "mymodule.py"
+3)and locate in any of the path of the sys.path
+
+Reloading a module
+------------------
+-The Python interpreter imports a module only once during a session. This makes things more efficient
+
+-now we import mymodule in python cmd prompt
+-import mymodule => you see the output ==> again you enter
+-import mymodule #We can see that our code got executed only once.
+-import mymodule
+
+We can see that our code got executed only once.
+Now if our module changed during the course of the program, we would have to reload it.One way to do this is to restart the interpreter. But this does not help much.
+Python provides a more efficient way of doing this. We can use the reload() function inside the imp module to reload a module
+
+import imp
+import mymodule
+import mymodule
+imp.reload(mymodule)
+
+The dir() Function
+-------------------
+The dir() built-in function returns a sorted list of strings containing the names defined by a module.
+The list contains the names of all the modules, variables and functions that are defined in a module. Following is a simple example −
+
+import math
+
+content = dir(math)
+print(content)
+
+Packages in Python
+==================
+-We don't usually store all of our files on our computer in the same location. We use a well-organized hierarchy of directories for easier access
+-Similar files are kept in the same directory, for example, we may keep all the songs in the "music" directory. Analogous to this, Python has packages for directories and modules for files.
+-Similarly, as a directory can contain subdirectories and files, a Python package can have sub-packages and modules
+-A directory must contain a file named __init__.py in order for Python to consider it as a package. This file can be left empty but we generally place the initialization code for that package in this file
+
+Refer PackageModuleStructure.png for example
+
+--lets create the example.
+--Let the packages and subpackages as per the pictures.
+-- put __init__.py file in each package.
+sound package
+-------------
+load.py
+def funcload():
+	print("I am from the load module of funcload()")
+
+pause.py
+def funcpause():
+	print("I am from the load module of funcpause()")
+
+play.py
+def funcplay():
+	print("I am from the load module of funcplay() ")
+
+level package
+-------------
+load1.py
+def funcload1():
+	print("I am from the level module of funcload1()")
+
+over.py
+def funcover():
+	print("I am from the level module of funcover()")
+
+start.py
+def funcstart():
+	print("I am from the level module of funcstart()")
+
+image package
+------------
+change.py
+def funcchange():
+	print("I am from the image module of funcchange()")
+
+close.py
+def funcclose():
+	print("I am from the image module of funcclose()")
+
+open.py
+def funcopen():
+	print("I am from the image module of funcopen()")
+
+outside the game package.
+------------------------
+myprogram.py
+import game.sound.load #to import the start module
+game.sound.load.funcload() # to import a select_difficulty(2)
+
+from game.level import start #another way of importing the start module
+start.funcstart()  #now we can call the funtions
+
+from game.image.open import funcopen #Another way of importing just the required function (or class or variable) from a module within a package
+funcopen() #Now we can directly call this function.
+ 
+
+pip and PyPI
+============
+-PyPI is a repository for open source third party python packages
+-its similar to pip,conda --> python
+		RubyGems --> Ruby
+		Packagist --> PHPs
+		CPAN  ----> Perl
+		NPM ---> Node.js
+		Maven,Gradle --> Node.js
+-so far we've really only used libraries that come internallly with python.
+-there are many other libraries avaiable that people have open sourced and shared on pyPi
+-by installing python from python.org our thought the anconda distribution syou aslo installed pip
+-pip is a simple way to download packages at your command line directly from the pypi repository 
+-there are packages already created for almost any use case you can think of
+-A quick google search will usually help you discover a link to the PyPi page for the package, or for the packages documentations.
+-Lets quikly show you how to download and isntall external packages.
+	-Windows users: command Prompt
+	-MacOS/Linux Users: Terminal
+
+Syntax:
+	pip install <packageName>
+
+pip install requests
+
+__name__ and __main__
+=====================
+=An often confusing part of python is a mysterious line of code.
+	if __name__=="__main__":
+- generally the above __main__ is used internally by the python if you directly call the .py file. 
+-Sometimes when you are importing from a module, you would liek to know whether a modules functions is being used as an import, or if you are using the orginal .py file of that module.
+
+
+Example:
+#one.py
+def func():
+	print("func() is one.py")
+print("TOP Level in one.py")
+if __name__=="__main__":
+	print("one.py is being run directly") #whenever you call the .py file internally it uses the __main__, this statement is executed first
+else:
+	print("One.py as been imported") #whenever you import the module this statement is executed
+
+#two .py 
+import one
+print("TOP Level in two.py")
+one.func()
+if __name__=="__main__":
+	print("two.py is being run directly")
+else:
+	print("two.py as been imported")
+
+==> python one.py
+TOP Level in one.py
+one.py is being run directly
+
+==>python two.py
+TOP Level in one.py
+One.py as been imported
+TOP Level in two.py
+func() is one.py
+two.py is being run directly
+
+In real world the below is generally used code organise
+-------------------------------------------------------
+one.py
+
+def fun1():
+    pass
+
+def fun2():
+    pass
+
+def fun3():
+    pass
+
+if __name__=="__main__":
+     fun2()
+     fun1()
+     statement
+     fun3()
+
+
+Quiz:
+=====
+
+Assignment:
+===========
+
+Resources
+=========

@@ -1,0 +1,45 @@
+Intro of assertions
+using assertions
+Handling assertions using exceptinos
+
+Intro of assertions
+================
+It is a debugging tool, and its primary task is to check the condition. If it finds that condition is true, it moves to the next line of code, and If not then stops all its operations and throws an error. It points out the error in the code.
+
+where it is used
+-----------------
+Checking the outputs of the functions.
+Used for testing the code.
+In checking the values of arguments.
+Checking the valid input.
+
+Syntax
+assert condition, error_message(optional)  
+
+using assertions
+================
+num= int(input("enter the Even number: "))
+assert num%2==0,"You have entered a invalid a input or add number"
+
+o/p
+assert num%2==0,"You have entered a invalid a input or add number"
+AssertionError: You have entered a invalid a input or add number
+
+Handing Assertions using exceptions
+===================================
+try:
+    num= int(input("enter the Even number: "))
+    assert num%2==0,"You have entered a invalid a input or add number"
+except AssertionError:
+    pass
+finally:
+    print("Kindly enter the even number only")
+
+Quiz:
+=====
+
+Assignment:
+===========
+
+Resources
+=========

@@ -4330,9 +4330,11 @@ read_feather("flights.feather") |> select(month,year,day)
 ##Great for R ↔ Python exchange
 ##Preserves types
 ##Zero-copy Arrow memory model
+
 #Cons
 ##Not optimized for long-term storage like Parquet
 ##Less compression
+
 #Used For
 ##Intermediate pipelines
 ##ML workflows

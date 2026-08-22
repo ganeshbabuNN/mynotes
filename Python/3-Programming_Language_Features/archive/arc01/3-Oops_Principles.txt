@@ -1,0 +1,602 @@
+The 4 OOP principles
+======================
+1)encapsulation
+2)inheritance
+3)Polymorphsm
+4)abstractions
+
+Encapsulation
+=============
+
+Introduction
+--------------
+-Encapsulation is also an important aspect of object-oriented programming. 
+-It is used to restrict access to methods(functionality) and variables(properties). 
+-In encapsulation, code and data are wrapped together within a single unit from being modified by accident
+
+{
+	data,
+	code
+}
+
+Private Fields and Name Mangling
+----------------------------------
+-For private use the __ (double underscore symbol as keyword) of the field name.
+
+class student:
+    
+    def __init__(self,name,age):
+        self.__name=name
+        self.__age = age
+    
+    def display(self):
+        print self.__name
+        print self.__age
+        
+s1 = student("ganesh","36")
+
+# cannot access the variables.
+# print s1.__name
+# print s1.__age
+
+#accessing the private using the method
+s1.display()
+
+#using name mangling
+print s1._student__name
+
+
+Implementating Encapsulations
+--------------------------------
+-instead of using name mangling users and getter and setter method.
+
+class Employee:
+    def setempId(self,empId):
+        self.empId=empId
+    
+    def getempId(self):
+        return self.empId
+    
+    def setName(self,name):
+        self.name=name
+
+    def getName(self):
+        return self.name
+
+s1= Employee()
+
+s1.setempId(42)
+s1.setName("ganesh")
+
+print s1.getempId()
+print s1.getName()
+
+inheritance
+===========
+-Inheritance is the most important aspect of object-oriented programming which simulates the real world concept of inheritance. 
+-It specifies that the child object acquires all the properties and behaviors of the parent object.
+-By using inheritance, we can create a class which uses all the properties and behavior of another class. 
+-The new class is known as a derived class or child class, and the one whose properties are acquired is known as a base class or parent class.
+
+Inheritance in action
+---------------------
+
+-inherting the feilds or variables
+ 
+BMW (make,model,year) --> three Series(curseccontrolenabled) --> fiveseries(parking assist)
+
+class BMW():
+    def __init__(self, make, model, year):
+        self.model = model
+        self.make = make
+        self.year = year
+
+
+class ThreeSeries(BMW):
+    def __init__(self, curseControlled, make, model, year):
+        BMW.__init__(self, make, model, year)
+        self.curseControlled = curseControlled
+
+
+class FiveSeries(BMW):
+    def __init__(self, parkingAssistance, make, model, year):
+        BMW.__init__(self, make, model, year)
+        self.parkingAssistance = parkingAssistance
+
+
+s1 = ThreeSeries(True, "BMW", "328i", "2018")
+print(s1.curseControlled)
+print(s1.make)
+print(s1.model)
+print(s1.year)
+
+s2 = FiveSeries(True, "BMW", "Z4", "2020")
+print(s2.parkingAssistance)
+print(s2.make)
+print(s2.model)
+print(s2.year)
+
+
+for multiple inheritance
+------------------------
+-- use , for adding multiple inheritance property of that class
+
+class Employee:
+   def __init__(self, name, gender):
+        self.name = name
+        self.gender = gender
+
+class Salary:
+  def __init__(self, name, gender):
+    self.name = name
+    self.gender = gender   
+  def jump(self):
+    print(self.name, self.salary)
+
+class Male(Salary, Employee):   # multiple inheritance
+    def __init__(self, name, gender, occupation):
+      self.occupation = occupation
+      Employee.__init__(self, name, gender)
+      Salary.__init__(self, name, gender)
+
+employee1 = Male("Jim", "male", "technician")
+print(employee1.name)
+
+Method Overiding(inheriting the methods)
+----------------------------------------
+-inheriting the methods
+- you get "none" during the out put of the overrided method. return those value using return keyword
+
+class BMW:
+    def __init__(self, make, model, year):
+        self.model = model
+        self.make = make
+        self.year = year
+
+    def start(self):
+        pass
+
+    def stop(self):
+        pass
+
+
+class ThreeSeries(BMW):
+    def __init__(self, curseControlled, make, model, year):
+        BMW.__init__(self, make, model, year)
+        self.curseControlled = curseControlled
+
+    def start(self):
+        print("ThreeSries")
+
+    def display(self):
+        return "Hello world"
+
+class FiveSeries(BMW):
+    def __init__(self, parkingAssistance, make, model, year):
+        BMW.__init__(self, make, model, year)
+        self.parkingAssistance = parkingAssistance
+
+
+s1 = ThreeSeries(True, "BMW", "328i", "2018")
+print(s1.curseControlled)
+print(s1.make)
+print(s1.model)
+print(s1.year)
+print(s1.start())
+print(s1.display())
+
+s2 = FiveSeries(True, "BMW", "Z4", "2020")
+print(s2.parkingAssistance)
+print(s2.make)
+print(s2.model)
+print(s2.year)
+
+
+Method Overloading
+-------------------
+Note: Method overloading is not possible in python. you can do using Single Dispatch Method
+
+class TestLoad:
+    
+    def add(a, b):
+        print("int")
+        return a + b
+    
+    def add(a, b, c):
+        print("float")
+        return a + b + c
+    
+    def add(a, b, c, d):
+        print("str")
+        return a + b + c + d
+
+t1= TestLoad()
+t1.add(3,2)
+
+Using Single Dispatch:
+*-------------------*
+from functools import singledispatch
+
+class TestClass(object):
+
+    def __init__(self):
+        self.test_method = singledispatch(self.test_method)
+        self.test_method.register(int, self._test_method_int) #single
+        self.test_method.register(list, self._test_method_list) #double impact
+
+    def test_method(self, arg, verbose=False):
+        if verbose:
+            print("Let me just say,", end=" ")
+
+        print(arg)
+
+    def _test_method_int(self, arg):
+        print("Strength in numbers, eh?", end=" ")
+        print(arg)
+
+    def _test_method_list(self, arg):
+        print("Enumerate this:")
+
+        for i, elem in enumerate(arg):
+            print(i, elem)
+
+
+if __name__ == '__main__':
+    test = TestClass()
+    test.test_method(55555)
+    test.test_method([33, 22, 11])
+    test.test_method([33, 22, 11])
+
+Using Multip Dispatch:
+*--------------------*
+from types import LambdaType
+from multipledispatch import dispatch
+
+class TestClass(object):
+
+    @dispatch(object)
+    def test_method(self, arg, verbose=False):
+        if verbose:
+            print("Let me just say,", end=" ")
+
+        print(arg)
+
+    @dispatch(int, float)
+    def test_method(self, arg, arg2):
+        print("Strength in numbers, eh?", end=" ")
+        print(arg + arg2)
+
+    @dispatch((list, tuple), LambdaType, type)
+    def test_method(self, arg, arg2, arg3):
+        print("Enumerate this:")
+
+        for i, elem in enumerate(arg):
+            print(i, arg3(arg2(elem)))
+
+
+if __name__ == '__main__':
+
+    test = TestClass()
+    test.test_method(55555, 9.5)
+    test.test_method([33, 22, 11], lambda x: x*2, float)
+
+https://dbader.org/blog/python-method-overloading
+https://docs.python.org/3/reference/datamodel.html- official documentations
+
+Using Super()
+-------------
+-this function can be used to call the parent class using the super() function.
+
+for using the super keyword each intrepter varies:
+-super() (without arguments) was introduced in Python 3 (along with __class__):  
+    super() -> same as super(__class__, self)
+-so that would be the Python 2 equivalent for new-style classes:
+    super(CurrentClass, self)
+-for old-style classes you can always use:
+    class Classname(OldStyleParent):
+    def __init__(self, *args, **kwargs):
+        OldStyleParent.__init__(self, *args, **kwargs)
+
+Ex:
+class BMW:
+    def __init__(self, make, model, year):
+        self.model = model
+        self.make = make
+        self.year = year
+
+    def start(self):
+        pass
+
+    def stop(self):
+        pass
+
+
+class ThreeSeries(BMW):
+    def __init__(self, curseControlled, make, model, year):
+        self.curseControlled = curseControlled
+        super().__init__(make, model, year) #using the super() function and remove the self from argument
+
+    def start(self):
+        print("ThreeSries")
+
+    def display(self):
+        return "Hello world"
+
+
+class FiveSeries(BMW):
+    def __init__(self, parkingAssistance, make, model, year):
+        super().__init__( make, model, year)
+        self.parkingAssistance = parkingAssistance
+
+s1 = ThreeSeries(True, "BMW", "328i", "2018")
+print(s1.curseControlled)
+print(s1.make)
+print(s1.model)
+print(s1.year)
+print(s1.start())
+print(s1.display())
+
+s2 = FiveSeries(True, "BMW", "Z4", "2020")
+print(s2.parkingAssistance)
+print(s2.make)
+print(s2.model)
+print(s2.year)
+
+Polymorphsm
+===========
+Poly=Multi
+Morphism = Shape
+
+
+DuckTyping
+----------
+- here both Duck and Human object as the same method call talk , 
+-let us now understand how the one function which gives you when it invokes the talk method.
+
+class Duck:
+    def talk(self):
+        print "Quak Quak"
+        
+
+class Human:
+    def talk(self):
+        print "Hello"
+
+
+#create a function which multiple things what we do it at runtime
+def callTalk(obj):
+    obj.talk()
+
+
+d = Duck()
+callTalk(d)
+
+h = Human()
+callTalk(h)
+
+DuckTyping for dependency injection(DI)
+----------------------------------------
+-To understand concept of ducktypting , we need to understand the dependency injection.
+-DI is nothing injecting other object 
+
+Flight --> engine
+Engine --> AirbusEngine and BoingEngine
+
+class Flight:
+    def __init__(self, engine):
+        self.engine = engine
+
+    def startEngine(self):
+        self.engine.start()  # start() method is dependend on other object which will overide that class method
+
+
+class Airbus:
+    def start(self):
+        print("starting the airbus engine")
+
+
+class BoingEngine:
+    def start(self):
+        print("starting the boing Engine")
+
+
+ab = Airbus()
+f = Flight(ab)  # inject ab object
+f.startEngine() #calls the start method of the airbus class
+
+be=BoingEngine()
+f1=Flight(be)
+f1.startEngine()
+
+Runtime polymorphism
+--------------------
+-pythong takes the dynamic runtime behaviour by itself.
+
+class BMW:
+    def __init__(self, make, model, year):
+        self.make = make
+        self.model = model
+        self.year = year
+
+    def start(self):
+        return "starting the the class"
+
+    def stop(self):
+        return "stopping the the class"
+
+class ThirdSeries(BMW):
+
+    def __init__(self, make, model, year, curseControlled):
+        self.curseControlled = curseControlled
+        BMW.__init__(self, make, model, year)
+
+    def start(self):
+        return "Button start"
+
+class FifthSeries(BMW):
+
+    def __init__(self, make, model, year, parkingAssistance):
+        self.parkingAssistance = parkingAssistance
+        BMW.__init__(self, make, model, year)
+
+
+bmw = ThirdSeries("German", "E32", 2013, True)
+print(bmw.curseControlled)
+print(bmw.make)
+print(bmw.model)
+print(bmw.year)
+
+print(bmw.start())
+print(bmw.stop())
+
+abstractions
+============
+-its like a contract to chid class
+-if any one of the method in the abstract then that class is abstract class.
+-here a interface in python is abstract where all the method is a abstract class.
+-if you want to make the class called abstract specific keyword called ABC 
+-Abstract class cannot be instantiate 
+
+Create an abstract class
+------------------------
+-import the ABC from ABC modules
+-if any one of the method is an abstract and it is abstract class, the child class should have those method to be implemented.
+-you cannot instantiate the abstract class
+
+from abc import abstractmethod,ABC
+
+class BMW(ABC):
+    def __init__(self,make,model,year):
+        self.model=model
+        self.make=make
+        self.year=year
+    
+    def start(self):
+        return "starting the the car"
+    
+    def stop(self):
+        return "Stop the the car"
+    
+    @abstractmethod
+    def drive(self):
+        pass
+
+class ThreeSeries(BMW):
+    def __init__(self,curseControledEnabled,make,model,year):
+        super().__init__(make,model,year)
+        self.curseControledEnabled=curseControledEnabled
+    
+    def start(self): 
+        return "Button start "
+    
+    def display(self):
+        print(self.curiseControlEnabled)
+        
+    def drive(self):  # this was an abstract method in parent class hence overiding to child class
+        print("ThreeSeries driving")
+    
+
+class FiveSeries(BMW):
+    def __init__(self,parkingAssist, make, model, year):
+        super().__init__(make, model, year)
+        self.parkingAssist=parkingAssist
+    
+    def drive(self):  # this was an abstract method in parent class hence overiding to child class
+        print("FiveSeries driving")
+
+
+t1  = ThreeSeries(True,"BMW","328i","2018")
+print(t1.curseControledEnabled)
+print(t1.make)
+print(t1.model)
+print(t1.year)
+print(t1.start())
+
+t5= FiveSeries(False,"BMW","420i","2011")
+print(t5.make)
+print(t5.model)
+print(t5.year)
+print(t5.parkingAssist)
+
+Create an interface
+-------------------
+-for interface all the methods should be an abstract method
+-And all the parent class should have those parent methods implemented in the child class
+-you cannot instanite the interface
+
+For example
+from abc import abstractmethod,ABC
+
+class BMW(ABC):
+    def __init__(self,make,model,year):
+        self.model=model
+        self.make=make
+        self.year=year
+    
+    @abstractmethod
+    def start(self):
+        pass
+    
+    @abstractmethod
+    def stop(self):
+        pass
+    
+    @abstractmethod
+    def drive(self):
+        pass
+
+class ThreeSeries(BMW):
+    def __init__(self,curseControledEnabled,make,model,year):
+        super().__init__(make,model,year)
+        self.curseControledEnabled=curseControledEnabled
+    
+    def start(self): 
+        return "Button start "
+    
+    def stop(self): 
+        return "Button stop "
+        
+    def drive(self):
+        print("ThreeSeries driving")
+    
+
+class FiveSeries(BMW):
+    def __init__(self,parkingAssist, make, model, year):
+        super().__init__(make, model, year)
+        self.parkingAssist=parkingAssist
+    
+    def start(self): 
+        return "FiveSeries Button start "
+    
+    def stop(self): 
+        return "FiveSeries Button stop "
+        
+    def drive(self):
+        print("FiveSeries driving")
+
+
+t1  = ThreeSeries(True,"BMW","328i","2018")
+print(t1.curseControledEnabled)
+print(t1.make)
+print(t1.model)
+print(t1.year)
+print(t1.start())
+
+t5= FiveSeries(False,"BMW","420i","2011")
+print(t5.make)
+print(t5.model)
+print(t5.year)
+print(t5.parkingAssist)
+
+Quiz:
+=====
+1)what is the uses of the classes and methods
+2)what is the methods and atrributes?
+3)what is the function and variables?
+4)what is attributes?
+
+Assignment:
+===========
+
+Resources
+=========

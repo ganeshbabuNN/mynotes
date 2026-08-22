@@ -1,0 +1,84 @@
+1)String API updates
+2)Files API updates
+3)isEmpty on Optional
+4)Nested Based Access Control
+Depcrated methods
+
+
+1)String API updates
+====================
+
+isBlank method: it returns either the blank is true or not.
+		String s1 = " ";
+		System.out.println(s1.isBlank());
+
+
+converting lines into list using lines() method from stream.
+		s1 = "My\nName\nGanesh";
+		System.out.println(s1);
+		System.out.println(s1.lines().collect(Collectors.toList()));
+
+
+Removing the leading and trial space using strip(),stripLeading(),stripTrailing() methods
+		char c = '\u2000'; 
+		s1 = c + s1 + c;
+		System.out.println(s1.strip());
+		System.out.println(s1.stripLeading());
+		System.out.println(s1.stripTrailing());
+
+
+Repeating the String using repat() method.
+	 	String s2 = "G";
+		System.out.println(s2.repeat(100));
+
+
+2)File API updates
+==================
+-Writing and reading the temp file using the writeString() and readString() method.
+		Path path = Files.writeString(Files.createTempFile("test", ".txt"), "java 11 is kool");
+		System.out.println(path);
+		String str = Files.readString(path);
+		System.out.println(str);
+
+
+3)Optional updates
+===================
+-this Class used g
+		Optional<String> op = Optional.of("test");
+		if (!op.isPresent()) { /// before java 11
+
+		}
+		System.out.println(op.isEmpty());
+
+
+4)Nested Based Access Control
+=============================
+-when we calling a prive method under the nested inner class
+Before java 11 , it does not appear.
+			Class<?> ob = Class.forName(NestedClassDemo.class.getName());
+			ob.getNestHost();
+			Method method = ob.getClass().getDeclaredMethod("myPrivate");
+			method.invoke(ob);
+-Using Java 11, there are three special methods getNestHost(),getNestMembers(),isNestMateOf() are useuful.
+
+			Class<?> ob = Class.forName(NestedClassDemo.class.getName());
+			System.out.println(ob.getNestHost());
+			Class<?>[] nestMembers = ob.getNestMembers();
+			for (Class<?> class1 : nestMembers) {
+				System.out.println(class1);
+			}
+			System.out.println(ob.isNestmateOf(NestedClassDemo.class));
+
+
+Removal packages
+================
+Following packages are removed: 
+java.xml.ws, 
+java.xml.bind, 
+java.activation, 
+java.xml.ws.annotation, 
+java.corba, 
+java.transaction, 
+java.se.ee, 
+jdk.xml.ws, 
+jdk.xml.bind

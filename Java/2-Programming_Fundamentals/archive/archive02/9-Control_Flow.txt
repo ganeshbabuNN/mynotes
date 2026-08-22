@@ -1,0 +1,308 @@
+Control Flow
+============
+Introduction
+Type of statments
+	1)Selection statements
+	2)Iteration statements
+	3)Transfer statements
+
+Introduction
+============
+Control flow statements govern the flow (order) of control (execution) in a program during execution. There are three main categories of control flow statements:
+
+Types of Statements
+====================
+
+Selection statements:
+1)if
+2)if-else
+3)else if ladder
+4)switch
+
+Iteration statements:
+1)while loop
+2)do-while loop
+3)Basic for loop
+4)Enhanced for loops (JDK1.5)
+
+Transfer statements:
+1)break
+2)continue
+3)return
+4)try-catch-finally
+5)throw
+6)assert
+
+
+Selection statements
+====================
+-The selective statements are used to execute group of statements (block of statements) at most once i.e.,
+zero or once.
+-This also called as conditional statements.
+
+1)if() statement
+-----------------
+It is used to decide whether block of statements are executed or not based on the <condition>.
+
+Syntax:
+	if(<condition>){
+		<statement(s)>
+	}
+
+The <condition> must be boolean value but not numeric number. 
+The if block will be executed only if the <condition > is true.
+
+Example:
+Int age = Integer.parseInt(args[0]); 
+	If(age < 18){
+		System.out.println("Your age does not permit to login to our website. ");
+	}
+
+2)if-else Statement
+-------------------
+The if-else statement is used to decide between two actions.
+
+Syntax:
+	If(<condition>){
+		<statement(s)>
+	 
+	}else{
+	
+	}
+		<statement(s)>
+	}
+
+If the <condition > is evaluated to true then if block is executed, otherwise else block is executed.
+
+Example:
+	int age = Integer.parseInt(args[0]); 
+	If(age < 18){
+		System.out.println("Your age does not permit to login to our website."); 
+	}
+	else{
+		SOP("Logged into Inbox");
+	}
+
+
+3)else if ladder
+----------------
+It is used to select one among many alternatives.
+
+Syntax:
+
+	If(<condition1>){
+		<statement(s)>
+		}else if(<conditon2>){
+		<statement(s)>
+ 
+	}
+		?
+	else{
+
+	} 
+	<statement(s)>
+ 	}
+
+The final else block is executed only if none of the above <condition>s are true.
+
+Example:
+
+if(false){
+}else if(false){
+
+}else if(false){
+
+}else{    //Else block is executed since all above if() blocks are evaluated to false.
+
+}
+
+4)switch
+---------
+Switch statement is used to choose one among many alternative actions.
+
+Syntax:
+	switch(<switch expression>){
+	case label1: <statement(s)>
+	case label2: <statement(s)>
+	?
+	case labeln: <statement(s)>
+	default: <statement(s)>
+	}
+
+The valid <switch expression> types are:
+-byte, short, int, char, but not long
+-Byte, Short, Integer, Character, but not Long
+
+The valid case label types are:
+-byte, short, int, char values but not long value, but not any wrapper classes.
+
+Example:
+Program: Display Day name
+
+class SwitchDemo{
+public static void main(String[] args){
+int day = Integer.parseInt(args[0]);
+switch(day){
+	case 1: System.out.println("Monday"); break;
+	case 2: System.out.println("Tuesday"); break;
+	case 3: System.out.println("Wednesday");  break; case 4: System.out.println("Thursday"); break; case 5: System.out.println("Friday"); break;
+	case 6: System.out.println("Saturday");break;
+	case 7: System.out.println("Sunday"); break;
+	default: System.out.println("Valid options are: (1-7)");
+	}
+   }
+}
+
+Java SwitchDemo 3
+o/p:
+Wednesday
+
+Iteration Statements
+====================
+The iterate statements are used to execute block of statements repeatedly until the boolean <condition> becomes false.
+
+1)While Loop
+------------
+In case of while loop, the <condition> will be evaluated before executing body.
+Syntax:
+
+while (<condition>){
+	< body>
+ }
+
+The <condition> is always boolean value.
+
+Example
+Write a program to print numbers from 1 to 10.
+Int I =1;
+While(I <= 10){ 
+ System.out.print(I+?\t?); I++;
+}
+
+2)do-while loop
+---------------
+In case of do-while,  the body is executed before <condition> is evaluated i.e., the body will be
+executed atleast once.
+
+Syntax:
+
+do {
+<body>
+} while (<condition>);                   //Watch: Semicolon at the end.
+
+Example:
+Write a program to add numbers from 1 to 10;
+Int I = 1;
+Int sum = 0;
+Do{
+Sum  += I; I++;
+}while(i<=10);
+
+
+Difference between while and do-while:
+======================================
+While :The <condition> is evaluated before executing the body. Hence, while loop executes zero or more times.
+
+Do-While :The body will be executed before the <condition> is evaluated. Hence, the body would be executed one or more times i.e., body will be executed at least once.
+
+3)Basic for loop(Simple or General For Loop):
+This loop is best suitable if we know the number of iterations in advance.
+For example, reading array elements or reading collection elements.
+
+Syntax:
+
+for (<initialization>; <condition>; <increment or decrement>){
+  <body>
+}
+
+Example:
+Write a program to add array elements using for loop.
+Int[] arr = {10,20,30,40}; 
+Int sum = 0;
+for(int i=0; I < arr.length; i++){ 
+Sum  += arr[i];
+}
+Sop(?The total=?+sum);
+
+
+4)Enhanced for (or for-each) loop:
+This is first time introduced in jdk1.5. This is the most convenient loop for retrieving elements from array or collection.
+This loop cannot be used for general purpose.
+This loop iterate elements always in forward direction but not in reverse direction.
+
+Syntax:
+for(<element declaration> : <array or collection name>){
+	<body>
+}
+Where type of <element declaration> is same as array type or collection type.
+
+Example:
+Int[] arr = {10,20,30};
+*Basic for loop-
+for(int I = 0; I < arr.length; I++){ SOP(arr[i]);
+}
+The basic for loop uses array
+index to read array data.
+
+*Enhanced for loop
+for(int e : arr){ SOP(e);
+}
+The Enhanced for loop directly uses element but not index. Hence, simple to use.
+
+Note:
+1.   Enhanced for loop is used only with arrays and collections but not for general purpose.
+2.   Enhanced for loop cannot be used to retrieve elements in reverse order.
+
+Transfer Statements
+===================
+1)Break
+The 'break' is used to come out of the loops.
+We can use break statement in one of the following cases:
+1)Inside loops
+2)Inside switch
+
+Example
+For(int I=0 ; I<10;  i++){
+For(int j=0; j<10; j++){
+If(i==j)  break;   //the nearest for loop will be terminated.
+}
+}
+
+2)Continue
+The continue statement is used to transfer the execution back to the start of the loop i.e., the
+remaining statements after continue will be skipped.
+
+Example:
+Write a program to add even numbers but print odd numbers.
+Int sum = 0;
+for(int i = 0; i<=10; i++ ){
+	if(i%2 == 0){ //even number
+	sum+= I;             //Adding even numbers
+	continue;
+}
+	System.out.print (i+?\t?);            //Printing odd numbers
+}
+	Sop(?The sum of even numbers is:?+sum);
+}
+
+
+3)return
+The return statement is always used from method block. The return statement is used to stop execution of a method and transfer control back to the method calling. 
+
+There are two forms of the return statement:
+a)return;                //Optionally used with methods whose return type is void or from constructor.
+b)return <expression>; //Must be used with methods whose return type is other than void.
+
+A void method need not have a return statement ? in which case the control normally returns to the caller after the last statement in the method?s body has been executed.
+However, a void method can optionally specify the first form of the return statement ? in which case the control immediately transferred to the method caller
+
+Example:
+Program: Write a program to return maximum number
+int max(int x, int y){ If(x > y)
+	else
+}
+(or)
+Return x; Return y;
+int max(int x, int y){
+	return x>y?x:y;  //ternary operator
+}

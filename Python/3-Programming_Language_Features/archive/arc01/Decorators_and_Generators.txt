@@ -1,0 +1,266 @@
+Decorators
+Generators
+
+Decorators
+==========
+Decorators can be thought of as functions which modify the functionality of another function. They help to make your code shorter and more "Pythonic".
+
+Functions Review 
+----------------
+def func():
+    return 1
+
+func()
+
+scope review
+------------
+s="ganesh babu"
+def checklocals():
+    print(locals()) 
+
+#Remember that Python functions create a new scope, meaning the function has its own namespace to find variable names when they are mentioned within the function. 
+#We can check for local variables and global variables with the locals() and globals() functions. For example:
+print(globals())
+
+globals().keys() # get all the keys of the diction
+
+globals()['s'] # we have stored the s as global variables
+
+checklocals() #lets check if local variable exits
+
+# Now lets continue with building out the logic of what a decorator is Remember that in Python everything is an object 
+#That means functions are objects which can be assigned labels and passed into other functions
+def hello(name="ganesh"):
+    return 'Hello' +name
+
+
+#Assign another label to the function. Note that we are not using parentheses here because we are not calling the function hello, instead we are just passing a function object to the greet variable
+great = hello
+
+great # this return the function objects which as the copy of hello functions
+
+great() # its has the clone of hello() 
+
+
+#lets delete the Hello() object
+del hello
+
+hello() # now call that function
+
+#Even though we deleted the name hello, the name greet still points to our original function object. 
+#It is important to know that functions are objects that can be passed to other objects!
+great() 
+
+Functions within functions
+--------------------------
+we've seen how we can treat functions as objects, now let's see how we can define functions inside of other functions:
+def hello(name='Ganesh'):
+    print('The hello() function has been executed')
+    
+    def greet():
+        return '\t This is inside the greet() function'
+    
+    def welcome():
+        return "\t This is inside the welcome() function"
+    
+    print(greet())
+    print(welcome())
+    print("Now we are back inside the hello() function")
+
+
+hello() 
+
+welcome() #Note how due to scope, the welcome() function is not defined outside of the hello() function. Now lets learn about returning functions from within functions:
+
+Returning Functions
+------------------
+def hello(name='Ganesh'):
+    
+    def greet():
+        return '\t This is inside the greet() function'
+    
+    def welcome():
+        return "\t This is inside the welcome() function"
+    
+    if name == 'Jose':
+        return greet
+    else:
+        return welcome
+
+
+x=hello() #Great! Now we can see how x is pointing to the greet function inside of the hello function
+
+print(x()) #Now we can see how x is pointing to the greet function inside of the hello function.
+
+Note:
+-In the if/else clause we are returning greet and welcome, not greet() and welcome().
+-This is because when you put a pair of parentheses after it, the function gets executed; 
+whereas if you don’t put parentheses after it, then it can be passed around and can be assigned to other variables without executing it.
+-When we write x = hello(), hello() gets executed and because the name is Jose by default, the function greet is returned. 
+If we change the statement to x = hello(name = "Sam") then the welcome function will be returned. We can also do print(hello()()) which outputs This is inside the greet() function.
+
+
+Functions as Arguments
+------------------------
+#Now let's see how we can pass functions as arguments into other functions
+def hello():
+    return 'Hi Ganesh!'
+
+def other(func):
+    print('Other code would go here')
+    print(func())
+
+Creating a Decorator
+--------------------
+in previous example actually manually created a Decorator. Here we will modify it to make its use case clear:
+
+def new_decorator(func):
+    def wrap_func():
+        print("Code would be here, before executing the func")
+        func()
+        print("Code here will execute after the func()")
+    return wrap_func
+
+def func_needs_decorator():
+    print("This function is in need of a Decorator")
+
+
+func_needs_decorator()
+
+# Reassign func_needs_decorator
+func_needs_decorator = new_decorator(func_needs_decorator)
+
+func_needs_decorator()
+So what just happened here? A decorator simply wrapped the function and modified its behavior. Now let's understand how we can rewrite this code using the @ symbol, which is what Python uses for Decorators
+
+@new_decorator
+def func_needs_decorator():
+    print("This function is in need of a Decorator")
+
+You've now built a Decorator manually and then saw how we can use the @ symbol in Python to automate this and clean our code. You'll run into Decorators a lot if you begin using Python for Web Development, such as Flask or Django!
+
+Generators
+==========
+-Generators allow us to generate as we go along, instead of holding everything in memory
+-past when discussing certain built-in Python functions like range(), map() and filter().
+-We've learned how to create functions with def and the return statement. Generator functions allow us to write a function that can send back a value and then later resume to pick up where it left off. 
+This type of function is a generator in Python, allowing us to generate a sequence of values over time. The main difference in syntax will be the use of a yield statement.
+-a generator function will appear very similar to a normal function. The main difference is when a generator function is compiled they become an object that supports an iteration protocol
+-that means when they are called in your code they don't actually return a value and then exit. 
+Instead, generator functions will automatically suspend and resume their execution and state around the last point of value generation. 
+The main advantage here is that instead of having to compute an entire series of values up front, the generator computes one value and then suspends its activity awaiting the next instruction. This feature is known as state suspension
+
+lets create a function
+----------------------
+ex1:program to return of list cubed number of given number range.
+def cubes(n):
+    lst = []
+    for i in range(n):
+        lst.append(i**3)  # this is stored in a memory during the iterations
+    return lst
+
+cubes(10) 
+
+for i in cubes(10):
+    print(i)
+
+#rewrite the above in generators
+-Now since we have a generator function we don't have to keep track of every single cube we created
+-Generators are best for calculating large sets of results (particularly in calculations that involve loops themselves) in cases where we don’t want to allocate the memory for all of the results at the same time
+def gencubes(n):
+    for num in range(n):
+        yield num**3
+
+for x in gencubes(10):
+    print(x)
+
+ex2: writea fibonai series
+#without generator
+def fibo(n):
+    a=2
+    b=3
+    res = []
+    for i in range(n): 
+        res.append(a)
+        print(f"{i} index added = {a}")
+        a,b=b,a+b
+        print(f"the value of a={a} and b= {b}")
+    return res
+
+fibo(10)
+
+#rewrite the above in generators
+def fibo(n):
+    a=2
+    b=3 
+    for i in range(n): 
+        yield a
+        print(f"{i} index added = {a}")
+        a,b=b,a+b
+        print(f"the value of a={a} and b= {b}")
+
+list(fibo(10))
+
+next() and iter() built-in functions
+------------------------------------
+def myfunc():
+    for i in range(10):
+        yield i
+
+myfunc() # create the generators objects
+
+#assign to object
+x=myfunc()
+
+print(next(x)) #keep pressing enter
+
+#After yielding all the values next() caused a StopIteration error. What this error informs us of is that all the values have been yielded.
+You might be wondering that why don’t we get this error while using a for loop? A for loop automatically catches this error and stops calling next().
+Let's go ahead and check out how to use iter(). You remember that strings are iterables:
+
+s = 'ganesh'
+
+#Iterate over string
+for let in s:
+    print(let)
+
+#But that doesn't mean the string itself is an iterator! We can check this with the next() function
+next(s) #next item
+next(s) #next item 
+next(s) #next item  untill the item end which raise StopIterations Exceptions
+
+#Interesting, this means that a string object supports iteration, but we can not directly iterate over it as we could with a generator function. The iter() function allows us to do just that!
+s_iter = iter(s)
+next(s_iter)
+next(s_iter)
+
+Quiz:
+=====
+
+Assignment:
+===========
+- just check the web framework like flask and danjo where they have use more decorators
+https://flask.palletsprojects.com/en/1.1.x/
+https://flask.palletsprojects.com/en/0.12.x/patterns/viewdecorators/
+
+https://docs.djangoproject.com/en/3.1/
+https://docs.djangoproject.com/en/3.1/topics/http/decorators/
+-Create a generator that generates the squares of numbers up to some number N.
+-Create a generator that yields "n" random numbers between a low and high number (that are inputs).
+	Note: Use the random library. For example:
+-Use the iter() function to convert the string below into an iterator:
+	s="ganesh"
+-Explain a use case for a generator using a yield statement where you would not want to use a normal function with a return statement
+	ans:If the output has the potential of taking up a large amount of memory and you only intend to iterate through it, you would want to use a generator
+-Can you explain what gencomp is in the code below? (Note: We never covered this in lecture!)
+	my_list = [1,2,3,4,5]
+	gencomp = (item for item in my_list if item > 3)
+	for item in gencomp:
+	    print(item)
+
+Resources
+=========
+-https://www.programiz.com/python-programming/decorator
+-https://stackoverflow.com/questions/1756096/understanding-generators-in-python
+-https://stackoverflow.com/questions/231767/what-does-the-yield-keyword-do
+-https://www.javatpoint.com/python-decorator

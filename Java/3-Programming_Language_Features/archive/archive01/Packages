@@ -1,0 +1,48 @@
+Packages
+========
+In java, package is a directory structure which contains group of related classes, interfaces, enums,exceptions, errors, annotations, or subpackages.
+
+Example:
+Package		Directory	Types
+java.lang	java\lang	String, System, Object, Integer, etc
+java.io		java\io		InputStream, OutputStream, Reader, Writer, etc
+java.util	Java\util	List, Set, Map, Vector, Hashtable, etc
+
+Packages are declared using package keyword:
+
+Format:
+package <domain name> <.company name><.project name><.module name>;
+
+Example:
+package edu.aspire.accounting.billing; //multi level package package edu.aspire.accounting.core; //multi level package
+
+At most one package declaration can appear in a source file, and it must be the first statement in the source file.
+
+Example:
+package aspire;
+import java.lang.String; //Correct
+ 
+Use "d" option to compile classes with package declaration.
+
+Syntax:
+Javac  -d  <directory>  <java source file>
+
+Example:
+Javac ?d .  *.java
+where ?.? Specifies current directory, where the generated class files will be placed.
+
+Example: 
+package aspire; 
+class Test{
+public static void main(String[] args){ 
+System.out.println("Package concepts");
+}
+}
+
+Compilation:
+Javac  -d . Test.java
+
+Also, the fully qualified type name must be specified in the java command.
+ 
+Example:
+Java aspire.Test

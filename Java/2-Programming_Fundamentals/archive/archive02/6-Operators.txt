@@ -1,0 +1,225 @@
+Operators
+=========
+Arithmetic Operators
+Increment or Decrement Operator
+Relational Operators
+Equality Operators
+Logical boolean operators
+Short-circuit(or conditional) operators
+Ternary operator
+Assignment Operators
+Type Casting
+
+
+
+Introduction
+============
+
+
+Type of Operators
+=================
+Arithmetic Operators
+Increment or Decrement Operator
+Relational Operators
+Equality Operators
+Logical boolean operators
+Short-circuit(or conditional) operators
+Ternary operator
+Assignment Operators
+Type Casting
+
+
+Arithmetic Operators
+--------------------
+The arithmetic operators are +, -, *, /, % (Remainder).
+
+Numeric Promotion in Arithmetic Expressions
+*------------------------------------------*
+Floating point arithmetic is performed if any of the operand type is floating-point type, otherwise, integer
+arithmetic is performed.
+
+Operand1	Operand2	Promoted Type
+Byte		Byte		Int     ---->1
+Short		Short		int	---->2
+Char		Char		int	---->3
+int		int		int	---->4
+int		long		long	---->5
+long		float		float	---->6
+Double		Any Type	Double	---->7
+
+Refer Numeric Promotion.jpg
+From number 1 till 3 are integer arthematic
+From number 6 till 7 are Floating arthematic
+
+In arithmetic expression, if the operand type is byte, short, or char, then they are automatically promoted to int.
+
+Increment(++) or Decrement(--) Operator
+---------------------------------------
+These are unary operators. Depending on the operator used, the value of the variable is either incremented
+or decrement by 1.
+
+Pre increment
+*-----------*
+++i adds 1 to the value in ?i?, and stores the new values in i. It returns the new value of the expression. It is
+equivalent to the following statement. 
+
+i=i+1
+int result = i;
+return result;
+
+Post incremet
+*-----------*
+j++ adds 1 to the value in j, and stores the new values in j. It returns the old value of the expression. It is
+equivalent to the following statement. 
+
+result=j;
+j=j+1
+return result;
+
+Pre decrement
+*-----------*
+i subtracts 1 to the value in i, and stores the new values in i. It returns the new value of the expression. It is
+equivalent to the following statement. 
+
+i=i-1;
+result = i;
+return result;
+
+Post decrement
+*------------*
+j-- subtracts 1 to the value in j, and stores the new values in j. It returns the old value of the expression. It is
+equivalent to the following statement. 
+
+result=j;
+j=j-1
+return result;
+
+
+Refer the Increment_decrement_Table.jpg
+Expression		Initial value of a	Final value of a	Final value of b
+b = ++a;		6				7			7
+b = a++;		6				7			6
+b  = --a;		6				5			5
+b = a--;		6				5			6
+b = ++a + --a;		6				6			13
+b = a++ + a--;		6				6			13
+b = a++ + --a		6				6			12
+b = a + ++a;		4.5				5.5			10.0
+Char a = ‘y’; 
+Char b = a++;		‘y’				‘z’			‘y’
+b= ++(++a)		6			Compilation 
+						Error				Compilation Error
+
+Relational operators
+--------------------
+The relational operators are <, <=, >, >=. All relational operators are binary operators. The evaluation results
+in a boolean value.
+
+Example:
+	System.out.println(1< 2);  //true
+
+
+Equality Operators ( ==, !=)
+----------------------------
+Equality operators are evaluated to boolean value. Example:
+System.out.println( 1 == 1); //true 
+System.out.println(true == true); //true 
+System.out.println((flase == false)); //true 
+System.out.println((true == false));  //false 
+System.out.println((true != false));  //true 
+System.out.println((null == null));  //true
+
+
+Boolean logical Operators (&, |, ^, !)
+--------------------------------------
+The boolean logical operators are applicable only for boolean operands, and returning a boolean value.
+&--> Logical AND
+|-->Logical OR
+^-->Logical XOR
+!-->Logical Complement
+
+Refer Truth table for boolean logical operators.jpg
+
+X	Y	!X	X&Y	X|Y	X^Y
+True	True	False	True	True	False
+True	False	False	False	True	True
+False	True	True	False	True	True
+False	False	True	False	False	False
+
+	
+For boolean logical AND, OR, and XOR operators, both operands are always executed.
+
+Example:
+	Int i = Integer.parseInt(args[0]);//?10? -->10
+	if( i > 10 & i++ < 20){}  // ?i? is incremented irrespective of first condition.
+
+Short-curcuit (or conditional) operators (&&, ||)
+-------------------------------------------------
+&& -->Conditional AND
+|| --> Conditional OR
+
+Conditional AND (&&) operator: the second operand never evaluated if the first operand is false.
+For Conditional OR (||) operator : the second operand is never evaluated if the first operand is true.
+
+Refer Truth table for conditional operators.jpg
+X	Y	X && Y	X || Y
+True	True	True	True
+True	False	False	True
+False	True	False	True
+False	False	False	False
+
+Comparing Logical and conditional operators
+*-----------------------------------------*
+Logical Operators (&, |)-The second operand is always evaluated. I.e., both operanads are always executed.
+Conditional OPerators (&&l,II) - The second operand is optionally executed i.e., if the first operanad determines the result, then second operand never executed.
+
+Example:
+Int a = Integer.parseInt(args[0]); 
+Int b = Integer.parseInt(args[1]);
+if((b!=0) && (a%b==0)){  //Never throws ArithmeticException
+	System.out.println(?No exception?);
+}
+
+Ternary Operator (?:)
+---------------------
+It is used to decide between two actions.
+
+syntax:
+	<data type> <variable name> = <condition> ? <expression1> : <expression2>;
+
+If the <condition> is true then  <expression1> is evaluated; otherwise, <expression2> is evaluated. The
+<expression1> and <expression2> must be evaluate to values of compatible types with left hand side declaration.
+
+Example: Find out max number
+	int a = Integer.parseInt(args[0]); //?10?-->10
+	int b = Integer.parseInt(args[1]);//?20?-->20 int max = a>b?a:b;
+
+The ternary operator is equivalent to if-else but additionally returns value.
+
+Assignment Operators
+--------------------
+There are three types of assignment operators:
+1)Simple assignment operator
+Example:
+int a=10;
+
+2)Chained assignment operator
+Example:
+int a, b,c;
+a=b=c=10;
+
+3)Compound assignment operator
+The following are the possible compound assignment operators: +=,-=,*=,/=,%=,&=,|=,^=
+Example:
+sum+=x; //which is equivalent to sum = sum + x;
+
+
+Type casting
+------------
+Primitive or Reference type widening does not require explicit cast.
+But, either Primitive or Reference type narrowing requires explicit cast.
+
+Example:
+	float f = 10.10F;
+	//int i = f; //Compilation Error saying ?Incompatible types?
+	Int i = (int)f; // To avoid compilation error, use type casting

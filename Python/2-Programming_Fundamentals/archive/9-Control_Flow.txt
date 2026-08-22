@@ -1,0 +1,384 @@
+Control Flow
+============
+Introduction
+Type of statments
+	1)Selection(conditional) statements 
+	2)Iteration statements
+	3)Transfer statements
+
+Introduction
+============
+Control flow statements govern the flow (order) of control (execution) in a program during execution. There are three main categories of control flow statements:
+
+Note: Indentation
+It is important to keep a good understanding of how indentation works in Python to maintain the structure and order of your code. We will touch on this topic again when we start building out functions!
+
+Selection(conditional) statements:
+=================================
+Decision making is the most important aspect of almost all the programming languages. As the name implies, decision making allows us to run a particular block of code for a particular decision. Here, the decisions are made on the validity of the particular conditions. Condition checking is the backbone of decision making.
+
+*If statement
+*if else statment
+*if elif-if statment or Nested if statement
+
+1)if
+----
+The if statement is used to test a specific condition. If the condition is true, a block of code (if-block) will be executed.
+
+syntax:
+ex:
+if <boolean expression>:
+	statement1:
+	
+ex:
+if True:
+    print("it was False")
+	
+x = True
+
+ex:
+if x:
+    print('x was True')
+else:
+    print('x was False')
+
+ex:program to check even number of not
+num = int(input("enter the number"))
+if num%2==0:
+    print("number is even")
+
+ex:Program to print the largest of the three numbers
+a = int(input("enter the value of a? "))
+b = int(input("enter the value of b? "))
+c = int(input("enter the value of c? "))
+if a>b and a > c:
+    print(" a is largest")
+if b >a and b >c:
+    print("b is largest")
+if c >a and c > b:
+    print("c is largest")
+
+2)if-else
+---------
+The if-else statement is similar to if statement except the fact that, it also provides the block of the code for the false case of the condition to be checked. If the condition provided in the if statement is false, then the else statement will be executed.
+
+Syntax:
+if <expression>:
+	statment1
+else:
+	statement2
+
+Ex: Program to check your eligablity to vote.
+age = int(input("enter your age: "))
+
+if age > 18:
+    print("Your are eliglbe for vote ")
+else:
+    print("sorry! your not eligable")
+
+
+ex:program to check even number of not
+num= int(input("enter the number?: "))
+if num%2 ==0 :
+    print("Number is even.....")
+else:
+    print("Number is odd.....")
+
+3)else if ladder
+----------------
+The elif statement enables us to check multiple conditions and execute the specific block of statements depending upon the true condition among them. We can have any number of elif statements in our program depending upon our need. However, using elif is optional.
+
+Syntax:
+if <expression1>:
+	statment1
+elif <expression2>:
+	statement2
+elif <expression3>:
+	statement3
+else:
+	statement4
+	
+ex:Program to check which number is equal to 10 or 50 or 100
+num = int(input("Enter the number ?"))
+if num==10:
+    print("Number is equal to 10")
+elif num==50:
+    print("Number is equal to 50")
+elif num==100:
+    print("Number is equal to 100")
+else:
+    print("Number is not equal to 10,50 or 100")
+	
+ex:Program to check the Grade of the student marks
+A --> greater 85 and less or equal to 100
+B+ --> greater 60 and less or equal to 85
+B --> greater 40 and less or equal to 60
+C --> greater 30 and less or equal to 40
+Fail --> < 30
+
+marks = int(input("Enter the Marks?")) 
+
+if marks > 85 and marks <=100:
+    print("Grade A")
+elif marks > 60 and marks < 85:
+    print("Grade B+")
+elif marks > 40 and marks <=60:
+    print("Grade B")
+elif marks > 30 and marks < 40:
+    print("Grade C")
+else:
+    print("sorry your fail")
+
+Iteration statements:
+=====================
+The flow of the programs written in any programming language is sequential by default. Sometimes we may need to alter the flow of the program. The execution of a specific code may need to be repeated several numbers of times.
+*For Loop
+*While Loop
+
+1)For loop
+----------
+The for loop is used in the case where we need to execute some part of the code until the given condition is satisfied. The for loop is also called as a per-tested loop. It is better to use for loop if the number of iteration is known in advance.
+
+Syntax:
+for <variable_Name> in <iterable/Sequence>:
+	statments
+
+Ex: Program to iterate the sequences types, list, tuple, dict and sets
+
+#Using List
+my_list=[3,2,3,3,"ganesh"]
+my_list
+for i in my_list:
+    print(i)
+
+#Using tuple
+my_tuple=(3,2,3,3,"ganesh")
+my_tuple
+type(my_tuple)
+for i in my_tuple:
+    print(i)
+
+#tuple unpacking
+my_tuple1=[(1,2),(3,2),(4,2)]
+my_tuple1
+type(my_tuple1)
+for a,b in my_tuple1:
+    print(b) 
+    print(a)
+
+#Dictionary
+my_dict ={"A":1,"B":2,"C":3}
+my_dict
+for i in my_dict:
+    print(i) #by default it iterates values
+
+print("-----------")
+my_dict.items() #check
+list(my_dict.keys())
+list(my_dict.values())
+#Remember that dictionaries are unordered, and that keys and values come back in arbitrary order. You can obtain a sorted list using sorted():
+sorted(my_dict.values())
+
+# Dictionary unpacking
+for key,value in my_dict.items():
+    print(key)
+	
+my_set={3,2,4,5,6,6}
+my_set
+type(my_set)
+for i in my_set:
+    print(i)
+	
+#using string
+mystring="ganesh babu"
+mystring
+type(mystring)
+for i in mystring:
+    print(i) # character by character
+
+#just to have fund on the len of the string print something else
+for _ in mystring:
+    print("kool")
+	
+Ex:Program of sum of the given list	
+my_list=[2,3,4,5,100,3,2,2,2]
+
+total=0
+for a in my_list:
+    total=total+a
+
+print(total)
+
+ex:Program to print a table of given number
+n = int(input("Enter the Number"))
+table_range=[1,2,3,4,5,6,7,8,9,10] 
+for i in table_range: 
+    c = n * i
+    print(f"{n} * {i} = {c}")
+
+-Using Range Function
+for i in range(10):  
+    print(i,end = ' ')  
+
+n = int(input("Enter the Number")) 
+for i in range(1,11): 
+    c = n * i
+    print(n,"*",i,"=",c)
+
+#Nested for loop in python
+syntx:
+for <variable_Name1> in <iterable/Sequence>: #outer loop
+	for <variable_Name2> in <iterable/Sequence>: #inner loop 
+		#statements
+	#other statments
+
+ex: print the rangoli
+*
+**
+***
+****
+*****
+rows = int(input("Enter the rows: "))
+for i in range(0,rows+1):
+    for j in range(i):
+        print("*",end="")
+    print()
+
+
+2)while loop
+-------------
+The while loop is to be used in the scenario where we don't know the number of iterations in advance. The block of statements is executed in the while loop until the condition specified in the while loop is satisfied. It is also called a pre-tested loop.
+
+syntax:
+	while booleanExpression
+		statements
+	else:
+		statements
+
+
+Ex: program to print number till 10
+i = 1
+while i<11:
+    print(i)
+    i=i+1
+
+Ex: program to print the table
+num = int(input("enter the number ? "))
+i = 0
+while i< 11:
+    c = num * i
+    print(f"{num} * {i} = {c}" )
+    i = i +1
+	
+Ex: program to print the list using while loop
+mylist=[1,2,3,4,5,6,7]
+i=0
+while i<len(mylist):
+    print(mylist[i])
+    i =i +1
+
+infinite loop
+*-----------*
+If the condition is given in the while loop never becomes false, then the while loop will never terminate, and it turns into the infinite while loop.
+
+ex:Program for infinite loop
+while (1):
+    print("I'm stuck in an infinite loop!")
+	
+ex2:
+var = 1    
+while(var != 2):    
+    i = int(input("Enter the number:"))    
+    print("Entered value is %d"%(i)) 
+
+2)do-while loop
+----------------
+Python doesn't have do-while loop. But we can create a program as below example
+The do-while loop continues until a given condition satisfies. It is also called post tested loop. It is used when it is necessary to execute the loop at least once (mostly menu driven programs).
+
+ex:
+i=1
+while True:
+    print(i)
+    i=i+1
+    if(i>5):
+        break  
+
+
+Transfer statements:
+====================
+1)break
+2)continue
+3)Pass
+4)try-catch-finally ,throw(Expection handling)
+
+We can use break, continue, and pass statements in our loops to add additional functionality for various cases. The three statements are defined by:
+
+break: 
+-----
+Break Statement - When the break statement is encountered, it brings control out of the loop.
+Breaks out of the current closest enclosing loop.
+
+#ex: program print the string content
+myname="ganeshbabu"
+i=0
+
+while i<len(myname):
+    if myname[i]=='a':
+        i=i+1
+        break
+    print("current Letter", myname[i])
+    i=i+1
+
+continue: 
+---------
+Goes to the top of the closest enclosing loop.
+Continue Statement - When the continue statement is encountered, the control transfer to the beginning of the loop. Let's understand the following example.
+
+#ex: program print the string content
+myname="ganeshbabu"
+i=0
+
+while i<len(myname):
+    if myname[i]=='a':
+        i=i+1
+        continue
+    print("current Letter", myname[i])
+    i=i+1
+	
+pass: 
+----
+Does nothing at all.
+
+#ex: program print the string content
+myname="ganeshbabu"
+i=0
+
+while i<len(myname):
+    i=i+1
+    pass
+
+break and continue statements can appear anywhere inside the loop’s body, but we will usually put them further nested in conjunction with an if statement to perform an action based on some condition.
+
+Quiz:
+=====
+
+Assignment:
+===========
+A1)how to check if a greater then b
+A2)how to check if the given value is a number or not
+A3)how to check if the given value is a odd or not
+A4)how to check if the given value is a even or not
+A5)how to check is given year is a leap year or not
+A6)how to check is given value is a even or not
+A7)how to check if the given value is a string or number.
+A8)how to check the given value is available in the given string("Life","is","Beautiful") or not
+A9)how to check if given value is less, show if it is a even or odd and same for value is greater then 20 , show if it even or odd
+A10)how to check given character is vowel or constant?
+A11)how to check if the given age is child(<18) or a old guy(>30) or a adult
+A12)how to check if the marks given is first class(>75), second class(>65) and third class(>35) and fail(<35)
+A13)Build a calculator for options addition,subraction,multiplications and divisions.
+A14)how to find which is the largest of given 4 numbers
+
+Resources
+=========

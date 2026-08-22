@@ -1,7 +1,18 @@
 Module
-packages
 pip
 __name__ and __main__
+Packages in Python
+What is a Package
+Types of Packages
+What is pip
+Installing Packages
+Package Versions
+Package Information
+Installing Multiple Packages
+Requirements File
+Package Information
+Listing Installed Packages
+Updating Packages
 
 Modules
 =======
@@ -9,7 +20,7 @@ A module allows you to logically organize your Python code
 A module is a file consisting of Python code. 
 A module can define functions, classes and variables. A module can also include runnable code.
 
-import statement
+Import statement
 ---------------
 You can use any Python source file as a module by executing an import statement in some other Python source file
 
@@ -70,8 +81,6 @@ my_func2()
 	I am in one.py
 	I am in one.py myfun2
 
-
-
 Import with renaming
 --------------------
 We can import a module by renaming it as follows:
@@ -93,11 +102,8 @@ When you import a module, the Python interpreter searches for the module in the 
 The module search path is stored in the system module sys as the sys.path variable. The sys.path variable contains the current directory, PYTHONPATH, and the installation-dependent default.
 
 The PYTHONPATH is an environment variable,, consisting of a list of directories
-
 set PYTHONPATH = c:\python20\lib; #for windows
-
 set PYTHONPATH = /usr/local/lib/python @ for UNIX
-
 
 1)open a notepad or any code editor
 2)write the print("code as been implemented) and save the file as "mymodule.py"
@@ -131,72 +137,6 @@ import math
 content = dir(math)
 print(content)
 
-Packages in Python
-==================
--We don't usually store all of our files on our computer in the same location. We use a well-organized hierarchy of directories for easier access
--Similar files are kept in the same directory, for example, we may keep all the songs in the "music" directory. Analogous to this, Python has packages for directories and modules for files.
--Similarly, as a directory can contain subdirectories and files, a Python package can have sub-packages and modules
--A directory must contain a file named __init__.py in order for Python to consider it as a package. This file can be left empty but we generally place the initialization code for that package in this file
-
-Refer PackageModuleStructure.png for example
-
---lets create the example.
---Let the packages and subpackages as per the pictures.
--- put __init__.py file in each package.
-sound package
--------------
-load.py
-def funcload():
-	print("I am from the load module of funcload()")
-
-pause.py
-def funcpause():
-	print("I am from the load module of funcpause()")
-
-play.py
-def funcplay():
-	print("I am from the load module of funcplay() ")
-
-level package
--------------
-load1.py
-def funcload1():
-	print("I am from the level module of funcload1()")
-
-over.py
-def funcover():
-	print("I am from the level module of funcover()")
-
-start.py
-def funcstart():
-	print("I am from the level module of funcstart()")
-
-image package
-------------
-change.py
-def funcchange():
-	print("I am from the image module of funcchange()")
-
-close.py
-def funcclose():
-	print("I am from the image module of funcclose()")
-
-open.py
-def funcopen():
-	print("I am from the image module of funcopen()")
-
-outside the game package.
-------------------------
-myprogram.py
-import game.sound.load #to import the start module
-game.sound.load.funcload() # to import a select_difficulty(2)
-
-from game.level import start #another way of importing the start module
-start.funcstart()  #now we can call the funtions
-
-from game.image.open import funcopen #Another way of importing just the required function (or class or variable) from a module within a package
-funcopen() #Now we can directly call this function.
- 
 
 pip and PyPI
 ============
@@ -279,6 +219,694 @@ if __name__=="__main__":
      statement
      fun3()
 
+Packages in Python
+==================
+-We don't usually store all of our files on our computer in the same location. We use a well-organized hierarchy of directories for easier access
+-Similar files are kept in the same directory, for example, we may keep all the songs in the "music" directory. Analogous to this, Python has packages for directories and modules for files.
+-Similarly, as a directory can contain subdirectories and files, a Python package can have sub-packages and modules
+-A directory must contain a file named __init__.py in order for Python to consider it as a package. This file can be left empty but we generally place the initialization code for that package in this file
+
+Refer PackageModuleStructure.png for example
+
+--lets create the example.
+--Let the packages and subpackages as per the pictures.
+-- put __init__.py file in each package.
+sound package
+-------------
+load.py
+def funcload():
+	print("I am from the load module of funcload()")
+
+pause.py
+def funcpause():
+	print("I am from the load module of funcpause()")
+
+play.py
+def funcplay():
+	print("I am from the load module of funcplay() ")
+
+level package
+-------------
+load1.py
+def funcload1():
+	print("I am from the level module of funcload1()")
+
+over.py
+def funcover():
+	print("I am from the level module of funcover()")
+
+start.py
+def funcstart():
+	print("I am from the level module of funcstart()")
+
+image package
+------------
+change.py
+def funcchange():
+	print("I am from the image module of funcchange()")
+
+close.py
+def funcclose():
+	print("I am from the image module of funcclose()")
+
+open.py
+def funcopen():
+	print("I am from the image module of funcopen()")
+
+outside the game package.
+------------------------
+myprogram.py
+import game.sound.load #to import the start module
+game.sound.load.funcload() # to import a select_difficulty(2)
+
+from game.level import start #another way of importing the start module
+start.funcstart()  #now we can call the funtions
+
+from game.image.open import funcopen #Another way of importing just the required function (or class or variable) from a module within a package
+funcopen() #Now we can directly call this function.
+ 
+What is a Package?
+==================
+A package is reusable Python code.
+math
+pandas
+numpy
+requests
+flask
+django
+
+import math
+print(math.sqrt(25))
+
+Types of Packages
+=================
+Standard Library
+-----------------
+Included with Python.
+Examples
+
+os
+sys
+pathlib
+json
+datetime
+math
+sqlite3
+csv
+logging
+typing
+No installation required.
+
+Third-party Packages
+--------------------
+Installed separately.
+numpy
+pandas
+polars
+scikit-learn
+matplotlib
+requests
+sqlalchemy
+fastapi
+
+Install
+pip install pandas
+
+Local Packages
+Packages you create yourself.
+myproject/
+    mypackage/
+        __init__.py
+        math_utils.py
+
+
+Import
+from mypackage.math_utils import add
+
+
+What is pip?
+============
+pip = Python Package Installer
+Check version
+pip --version
+
+Upgrade:
+python -m pip install --upgrade pip
+
+Installing Packages
+====================
+Basic:
+pip install pandas
+
+Specific version:
+pip install pandas==2.3.1
+
+Latest:
+pip install --upgrade pandas
+
+Minimum version:
+pip install "pandas>=2.2"
+
+Range:
+pip install "pandas>=2.2,<3.0"
+
+Package Versions
+================
+Semantic Versioning:
+Major.Minor.Patch
+1.4.2
+
+Meaning:
+1  Major changes
+4  New features
+2  Bug fixes
+
+Installing Multiple Packages
+============================
+pip install pandas numpy matplotlib scipy
+
+Requirements File
+=================
+Create:
+requirements.txt
+
+Example:
+numpy==2.1.0
+pandas==2.3.1
+requests==2.32.3
+
+Install:
+pip install -r requirements.txt
+
+Generate:
+pip freeze > requirements.txt
+
+Package Information
+===================
+Show package:
+pip show pandas
+
+Output:
+Name
+Version
+Location
+Dependencies
+
+Listing Installed Packages
+==========================
+pip list
+or
+pip freeze
+
+Difference
+pip list(Human readable)
+pip freeze(Machine readable)
+
+Updating Packages
+=================
+Single
+pip install --upgrade requests
+
+All
+pip list --outdated
+
+Uninstall the packages
+======================
+pip uninstall pandas
+
+Searching Packages
+==================
+Historically
+pip search
+(No longer supported.)
+
+Instead use:
+https://pypi.org
+
+Virtual Environments
+====================
+Why?
+Avoid dependency conflicts.
+
+Create
+python -m venv .venv
+
+Activate
+Windows
+.venv\Scripts\activate
+Linux
+source .venv/bin/activate
+
+Deactivate
+deactivate
+
+
+Import an Entire Module
+=======================
+
+import module_name
+
+Example
+import math
+
+print(math.sqrt(25))
+print(math.pi)
+print(math.factorial(5))
+
+Here:
+math is the module.
+sqrt(), pi, and factorial() are accessed using math..
+
+Import with an Alias
+====================
+import module_name as alias
+
+Example
+import numpy as np
+arr = np.array([10, 20, 30])
+print(arr)
+
+Common aliases:
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+Import Specific Functions
+=========================
+from module_name import function_name
+
+Example
+from math import sqrt
+print(sqrt(64))
+No need to write math.sqrt().
+
+Import Multiple Functions
+=========================
+from math import sqrt, factorial, pi
+
+print(sqrt(81))
+print(factorial(6))
+print(pi)
+
+Import Everything (Not Recommended)
+====================================
+from math import *
+from math import *
+
+print(sqrt(49))
+print(pi)
+
+#Avoid this in production code because it can overwrite existing names and make code harder to understand.
+
+Import a Package
+================
+Suppose you installed pandas:
+	pip install pandas
+	
+Then import it:
+import pandas as pd
+data = {
+    "Name": ["Alice", "Bob"],
+    "Age": [25, 30]
+}
+df = pd.DataFrame(data)
+print(df)
+
+Import a Submodule
+==================
+Example with the standard library:
+import os.path
+print(os.path.exists("test.txt"))
+
+or
+from os import path
+print(path.exists("test.txt"))
+
+Import a Class
+=============
+car.py
+class Car:
+    def drive(self):
+        print("Car is running")
+		
+main.py
+from car import Car
+c = Car()
+c.drive()
+
+Import a Function from Your Own Module
+======================================
+calculator.py
+def add(a, b):
+    return a + b
+	
+main.py
+from calculator import add
+print(add(10, 20))
+
+Import an Entire User Module
+============================
+calculator.py
+def add(a, b):
+    return a + b
+
+def subtract(a, b):
+    return a - b
+	
+main.py
+import calculator
+
+print(calculator.add(5, 4))
+print(calculator.subtract(9, 3))
+
+Import a Package Structure
+==========================
+Project structure:
+project/
+│
+├── main.py
+│
+└── mypackage/
+    ├── __init__.py
+    ├── math_utils.py
+    └── string_utils.py
+	
+math_utils.py
+def square(x):
+    return x * x
+	
+main.py
+from mypackage.math_utils import square
+print(square(8))
+
+What is a Package
+-----------------
+A package is simply a directory (folder) that contains Python modules and a special file named __init__.py
+
+Think of it like this:
+Company
+│
+├── HR Department
+├── Finance Department
+└── IT Department
+
+Each department contains employees.
+Package
+│
+├── Module 1
+├── Module 2
+└── Module 3
+
+Package = Folder
+Module = Python (.py) file
+Function/Class = Code inside the module
+
+Example Project:
+---------------
+Suppose we're building a small calculator application.
+calculator_project/
+│
+├── main.py
+│
+└── mypackage/
+    │
+    ├── __init__.py
+    ├── math_utils.py
+    ├── string_utils.py
+    └── date_utils.py
+	
+calculator_project is our project. Inside it mypackage is a Python package.
+
+Step 1: Create the Package
+--------------------------
+calculator_project/
+│
+└── mypackage/
+
+Step 2: Create init.py
+---------------
+calculator_project/
+│
+└── mypackage/
+It can even be empty.
+# __init__.py
+Its purpose is to tell Python: "This folder should be treated as a package."
+
+Approach: 
+Update your __init__.py (Recommended):
+If your add function is inside a file like calculator_project/math_utils.py, open your calculator_project/__init__.py file and add the following line to route the import correctly:
+from .math_utils import add
+(Note the dot . before the file name—this tells Python to look in the current folder).
+
+Bypass __init__.py in your import
+Alternatively, you can change the import statement in your main.py to point directly to the specific file containing the function:
+# If the function is inside a file named math_utils.py
+from calculator_project.math_utils import add
+
+Step 3: Create Modules
+---------------
+math_utils.py
+def add(a, b):
+    return a + b
+def square(x):
+    return x * x
+	
+string_utils.py
+def capitalize_name(name):
+    return name.capitalize()
+	
+date_utils.py
+from datetime import date
+def today():
+    return date.today()
+
+Folder Structure
+calculator_project/
+│
+├── main.py
+│
+└── mypackage/
+    │
+    ├── __init__.py
+    ├── math_utils.py
+    ├── string_utils.py
+    └── date_utils.py
+
+
+Step 4: Import in main.py
+-------------------------
+Import one function:
+from calculator_project import add
+print(add(10,20))
+
+Python reads it like this:
+mypackage
+     ↓
+math_utils.py
+     ↓
+square()
+
+Import Multiple Functions:
+from calculator_project.math_utils import add,square
+print(add(10,20))
+print(square(12))
+
+Import Entire Module:
+import calculator_project.math_utils
+print(calculator_project.math_utils.add(10,20))
+print(calculator_project.math_utils.square(12))
+Here Python knows exactly where square() comes from.
+
+Import with Alias
+import calculator_project.math_utils as mu
+print(mu.add(10,20))
+print(mu.square(12))
+
+Import Another Module
+import calculator_project.math_utils as mu
+from calculator_project.string_utils import capitalize_name #another module
+print(mu.add(10,20))
+print(mu.square(12))
+print(capitalize_name("ganesh"))
+
+Import Date Module
+from calculator_project.date_utils import today
+print(today())
+
+Import Everything from the Package
+from mypackage.math_utils import *
+print(square(10))
+print(add(3,4))
+This works, but avoid wildcard imports (*) in production code because they make it harder to see where names come fro
+
+How Imports Work Visually
+calculator_project/
+│
+├── main.py
+│
+└── mypackage/
+    │
+    ├── __init__.py
+    ├── math_utils.py
+    ├── string_utils.py
+    └── date_utils.py
+	
+main.py
+from mypackage.math_utils import square
+
+Python follows this path:
+main.py
+    │
+    ▼
+mypackage
+    │
+    ▼
+math_utils.py
+    │
+    ▼
+square()
+
+Key idea to remember:
+--------------------
+The general pattern is:
+from package_name.module_name import function_or_class
+For example:
+from mypackage.math_utils import square
+means:
+Package: mypackage
+Module: math_utils.py
+Function: square()
+
+How Python Finds the Function
+---------------------------
+When Python executes:
+from mypackage.math_utils import square
+
+Project Folder
+      │
+      ▼
+mypackage
+      │
+      ▼
+math_utils.py
+      │
+      ▼
+square()
+
+
+Real-Time Example:
+------------------
+Imagine you're building a Banking System.
+bank_app/
+│
+├── main.py
+│
+└── bank/
+    │
+    ├── __init__.py
+    ├── account.py
+    ├── customer.py
+    ├── loan.py
+    └── transaction.py
+
+account.py
+def open_account():
+    print("Account Opened")
+customer.py
+def add_customer():
+    print("Customer Added")
+loan.py
+def apply_loan():
+    print("Loan Applied")
+transaction.py
+def deposit():
+    print("Money Deposited")
+	
+main.py
+from bank.account import open_account
+from bank.customer import add_customer
+from bank.loan import apply_loan
+from bank.transaction import deposit
+
+open_account()
+add_customer()
+apply_loan()
+deposit()
+
+
+Relative Imports (Inside Packages)
+==================================
+Project structure:
+mypackage/
+│
+├── __init__.py
+├── calculator.py
+└── helper.py
+
+helper.py
+def greet():
+    print("Hello")
+	
+calculator.py
+from .helper import greet
+greet()
+The leading . means "import from the current package."
+
+Dynamic Import
+==============
+import importlib
+math = importlib.import_module("math")
+print(math.sqrt(100))
+
+Check if a Package Is Installed
+===============================
+try:
+    import pandas
+    print("Pandas is installed")
+except ImportError:
+    print("Pandas is not installed")
+	
+Common Import Patterns
+======================
+# Standard library
+import os
+import sys
+import json
+
+# Third-party packages
+import numpy as np
+import pandas as pd
+import requests
+
+# Local modules
+import calculator
+
+# Specific functions
+from math import sqrt
+
+# Specific class
+from pathlib import Path
+
+Best Practices
+===============
+Import modules at the top of the file.
+-Use aliases for commonly used libraries (numpy as np, pandas as pd).
+-Prefer explicit imports (from math import sqrt) over wildcard imports (from math import *).
+-Group imports in this order:
+Standard library
+Third-party packages
+Local application modules
+Ex:
+# Standard library
+import os
+from pathlib import Path
+
+# Third-party packages
+import numpy as np
+import pandas as pd
+
+# Local modules
+from calculator import add
 
 Quiz:
 =====

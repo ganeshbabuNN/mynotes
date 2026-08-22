@@ -1,0 +1,294 @@
+Exception handling assertions and logging
+=========================================
+Error
+Expections
+Exception Class hierarchy
+Common Exceptions
+Handling exceptions
+Using Finally
+Using Else 
+Raising exceptions
+Custom Exception
+Exception Chaining
+
+
+Error
+====
+Syntax errors, also known as parsing errors, are perhaps the most common kind of complaint you get while you are still learning Python
+
+let see some different type of error
+ex:
+SyntaxError
+-----------
+print "hello world"
+
+
+IndexError
+----------
+l1=[1,3,32,2]
+l1[5]
+
+ModuleNotFoundError
+-------------------
+import dummyModule
+
+KeyError
+--------
+D1={'1':"aa", '2':"bb", '3':"cc"}
+D1[3]
+
+ImportError
+-----------
+from math import cube
+
+TypeError
+---------
+'2' +2
+
+ValueError
+----------
+int('xyz')
+
+NameError
+---------
+aa
+
+ZeroDivisionError
+-----------------
+x=100/0
+
+
+Ref:
+https://docs.python.org/3/library/exceptions.html#bltin-exceptions
+
+Expections
+==========
+-An exception can be defined as an unusual condition in a program resulting in the interruption in the flow of the program
+-Whenever an exception occurs, the program stops the execution, and thus the further code is not executed. Therefore, an exception is the run-time errors that are unable to handle to Python script. 
+An exception is a Python object that represents an error
+-Python provides a way to handle the exception so that the code can be executed without any interruption. If we do not handle the exception, the interpreter doesn't execute all the code that exists after the exception.
+
+
+syntax
+try:  
+    # block of code   
+    # this may throw an exception  
+except:
+	# block of code 
+	#Run this code if exception occurs
+else:
+	# block of code 
+	#Run this code if no exception occurs
+finally:  
+    # block of code  
+    # Always run this code
+
+
+Exception Class hierarchy
+=========================
+Python has many built-in exceptions that enable our program to run without interruption and give the output. These exceptions are given below:
+
+BaseException <-- Exception  <---- standard Error 
+			  <-- Standard Error <---- EOFError, ZeroDivisonError,IdentationtError
+			  <-- Warning <-- DeprecatedWarning ,ImportWarning
+
+Common Exceptions
+==================
+A list of common exceptions that can be thrown from a normal python program is given below.
+
+ZeroDivisionError: Occurs when a number is divided by zero.
+NameError: It occurs when a name is not found. It may be local or global.
+IndentationError: If incorrect indentation is given.
+IOError: It occurs when Input Output operation fails.
+EOFError: It occurs when the end of the file is reached, and yet operations are being performed.
+
+Handling exceptions
+===================
+-If the python program contains suspicious code that may throw the exception, we must place that code in the try block. 
+-The try block must be followed with the except statement which contains a block of code that will be executed if there is some exception in the try block
+
+Ex1:Program for accept the input of two nubmer and peform division.
+a=int(input("enter a:"))
+b=int(input("enter b:"))
+c=a/b    
+print(f"a/b = {c}")
+
+try - except block 
+------------------
+Ex2:enter value 1/0 using tr
+
+try:
+    a=int(input("enter a:"))
+    b=int(input("enter b:"))
+    c=a/b    
+    print(f"a/b = {c}")
+except :
+    print("can't divide by Zero")
+
+The except statement with exception statement
+-------------------------------------------
+-You can specify the exception variable in the below statement
+
+try:
+    a=int(input("enter a:"))
+    b=int(input("enter b:"))
+    c=a/b    
+    print(f"a/b = {c}")
+except :
+    print("can't divide by Zero")
+    print(Exception)
+
+The except statement using with exception variable
+-------------------------------------------------
+We can use the exception variable with the except statement. It is used by using the as keyword. this object will return the cause of the exception. Consider the following example:
+
+Example:
+try:
+    a=int(input("enter a:"))
+    b=int(input("enter b:"))
+    c=a/b    
+    print(f"a/b = {c}")
+except Exception as e:
+    print("can't divide by Zero")
+    print(e) # using alias  
+
+Declaring Multiple Exceptions
+=============================
+The Python allows us to declare the multiple exceptions with the except clause. Declaring multiple exceptions is useful in the cases where a try block throws multiple exceptions. The syntax is given below.
+
+
+try:
+    a=int(input("enter a:"))
+    b=int(input("enter b:"))
+    c=a/b    
+    print(f"a/b = {c}")
+except(ZeroDivisionError,ValueError) as e: 
+    print(e)
+
+
+Using Finally
+=============
+We can use the finally block with the try block in which, we can pace the important code which must be executed before the try statement throws an exception.
+-assume i have writing the data to file
+
+try:Program to write the output of the value into a file
+    f=open("Myfile","w")
+    a,b=[int(x) for x in input("enter two numbers: ").split()]
+    division = a/b
+    f.write("the division output is %d into file"%division)
+except ZeroDivisionError:
+    print("division by zero is not allowed")
+    print("Please enter a non zero number")
+finally:
+    f.close()
+    print("file closed")
+
+Using Else
+==========
+Using Else statment,  we can place the code which will be executed in the scenario if no exception occurs in the try block
+
+ex:Program to write the output of the value into a file
+try:
+    f=open("Myfile","w")
+    a,b=[int(x) for x in input("enter two numbers: ").split()]
+    division = a/b
+    f.write("writing %d into file"%division)
+except ZeroDivisionError:
+    print("division by zero is not allowed")
+    print("Please enter a non zero number")
+else:
+    print("you have entered a non zero number")
+finally:
+    f.close()
+    print("file closed")
+
+print("code after exceptions")
+
+
+Raising exceptions
+==================
+An exception can be raised by using the raise clause in python. The syntax to use the raise statement is given below.
+
+syntax
+raise Exception_class,<value>  
+
+Points to remember
+To raise an exception, raise statement is used. The exception class name follows it.
+An exception can be provided with a value that can be given in the parenthesis.
+To access the value "as" keyword is used. "e" is used as a reference variable which stores the value of the exception.
+
+ex:Program to validate the age is valid or not
+try:  
+    age = int(input("Enter the age?"))  
+    if age<18:  
+        raise ValueError 
+    else:  
+        print("the age is valid")  
+except ValueError:  
+    print("The age is not valid") 
+
+ex:
+try:  
+    age = int(input("Enter the age?"))  
+    if age<18:  
+        raise ValueError("That is a invalid age")
+    else:  
+        print("the age is valid")  
+except ValueError as e:  
+    print(e) 
+
+Custom Exception
+================
+The python allows us to create our own exceptions that can be raised from the program and caught using the except clause.
+
+Ex:Program to validate the age is valid or not
+
+class AgeInvalidError(Exception):
+    def __init__(self,data):
+        self.data =data
+    
+    def __str__(self):
+        return f"this is a invalid age {self.data}"
+
+
+try:
+    age = int(input("Enter the age: "))
+    if age <18:
+        raise AgeInvalidError(age)
+    else:
+        print("its a valid age")
+except AgeInvalidError as ai:
+    print("This is a invalid age ",ai.data)
+
+https://towardsdatascience.com/how-to-define-custom-exception-classes-in-python-bfa346629bca
+
+Points to remember
+-----------------
+-Python facilitates us to not specify the exception with the except statement.
+-We can declare multiple exceptions in the except statement since the try block may contain the statements which throw the different type of exceptions.
+-We can also specify an else block along with the try-except statement, which will be executed if no exception is raised in the try block.
+-The statements that don't throw the exception should be placed inside the else block
+
+Exception Chaining
+==================
+Refer the official official documentations.
+
+Quiz:
+=====
+
+Assignment:
+===========
+1-Handle the exception thrown by the code below by using try and except blocks.
+	for i in ['a','b','c']:
+	    print(i**2)
+2-Handle the exception thrown by the code below by using try and except blocks. Then use a finally block to print 'All Done.'
+	x = 5
+	y = 0
+	z = x/y
+3-Write a function that asks for an integer and prints the square of it. Use a while loop with a try, except, else block to account for incorrect inputs(it need to ask again and again if there is a wrong input)
+	def ask():
+	    pass 
+
+Resources
+=========
+https://docs.python.org/3/tutorial/errors.html

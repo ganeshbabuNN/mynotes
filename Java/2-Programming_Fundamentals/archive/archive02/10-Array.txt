@@ -1,0 +1,137 @@
+Array
+=====
+
+Introduction
+Array Declaration
+Array Construction
+Array Initialization
+Annonymous arrays
+length vs length()
+Disadvantages with arrays
+
+
+Introduction
+============
+An array is a group of homogeneous elements i.e., all elements in an array have same data type.
+		Refer Array_Representations.jpg
+
+The array is an index based collection whose index starts at 0 and ends with index (n-1), where ?n? is the number of elements in an array.
+The size of an array is fixed and cannot be changed.
+In java, arrays are created dynamically at runtime using ?new? keyword, hence, arrays are objects. The element types in an array are either Primitive or Object (reference) type.
+
+Array Declaration
+-----------------
+Single dimensional arrays are declared in following ways:
+
+Syntax:
+	<array type>  <array name>[];
+	(or)
+	<array type>[] <array name>; (or)
+	<array type>    []<array name>;
+	
+Example:
+	int arr1[],arr2[];  //Both arr1 and arr2 are arrays.
+ 	Int[] arr1,arr2; //Both arr1 and arr2 are arrays.
+	Int []arr1,arr2; //Only arr1 is an array but arr2 is not.
+
+Array Construction
+------------------
+-In java, arrays are dynamically created at runtime using new keyword, hence, arrays are objects.
+
+Syntax:
+	<array type>[]  <array-name> = new <array type>[<array-size>]; 
+
+Example
+	int[] arr  = new int[10];
+
+Initializing Array Elements
+---------------------------
+
+a)  Default Initialization
+When an array is created using new keyword, all its elements are automatically initialized to their default values.
+
+int[] arr = new int[3];
+  0   0    0
+
+float[] arr = new float[3];
+0.0F   0.0F       0.0F
+
+boolean[] arr = new boolean[3];
+false   False      False
+
+String[] arr = new String[3]; 
+Null   Null       null
+
+b)Initialize array elements using Initialization block
+
+Syntax:
+	<array type>[] <array name> = { <array initialization block> };
+Example:
+	int[] age = {20,21,22,23};
+
+c)Array Declaration, Construction, and Initilialization in a single step.
+
+Syntax:
+	<array type>[]  <array name> = new <array type>[]{<array initialization block>};
+Example:
+	int[] arr = new int[]{10,20,30}; //Ok. 
+
+d)Anonymous array
+Neither array name nor array size is specified is called as anonymous array.
+Syntax:
+	new <array type>[] {<array initialization block>};
+Example:
+	new int[] {1,2,3,4};
+
+Usage: Anonymous arrays are most offenly used in method calling.
+Example:
+add(new int[]{1,2,3}, new int[]{4,5,6}); //method calling
+
+
+length field vs length() method
+--------------------------------
+The 'length' field is used to get array size.
+The 'length()' method is used to get string size.
+
+Example:
+	int arr[] = {1,2,3,4}; SOP(arr.length); // 4
+
+	String str = new String(?ASPIRE?);
+	SOP(str.length()); // 6
+
+
+Disadvantages with arrays:
+==========================
+1)The size of an array is fixed i.e., size of an array is neigher increased nor decreased.
+2)The elements in an array are homogeneous.
+3)There is no pre-defined data structure existing to manage array data.
+Conclusion:   In order to address above three array limitations, Collection API was introduced
+
+
+Main Method
+============
+
+Refer MainMethod.jpg
+
+Command Line Arguments(CLA)
+===========================
+The arguments which are passing from the command prompt to the main(String[] args) method is called as
+command line arguments.
+Example:
+
+java Addition 1    		2
+	      args[0]         args[1] 
+
+Example:
+//Addition.java
+class Addition{  
+public static void main(String[] args){
+	int a = Integer.parseInt(args[0]);  //?10? --> 10 
+	int b = Integer.parseInt(args[1]); //?20?  ---> 20 
+	int sum = a + b; System.out.println("Total="+sum);
+	}
+}
+
+Java Addition 10 20
+O/P:
+	Total=30

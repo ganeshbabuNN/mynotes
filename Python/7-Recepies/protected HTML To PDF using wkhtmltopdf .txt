@@ -1,0 +1,72 @@
+
+https://wkhtmltopdf.org/ - official webpage
+https://github.com/wkhtmltopdf/packaging/releases - github
+
+1)download the zip archive
+2)set the environment path variable
+
+
+1. The Standard Command
+=======================
+For most standard websites, the basic command will automatically flow the content across multiple pages:
+	wkhtmltopdf https://stotranidhi.com/en/durga-saptashati-parayana-vidhi-in-english/ DurgaSaptashati_ParayanaVidhi_Stotranidhi_English.pdf
+	wkhtmltopdf https://stotranidhi.com/en/durga-saptasati-chandika-dhyanam-in-english/ DurgaSaptashati_Chandika_Dhyanam_Stotranidhi_English.pdf
+	wkhtmltopdf https://stotranidhi.com/en/durga-saptasati-devi-kavacham-in-english/ DurgaSaptashati_Devi_Kavacham_Stotranidhi_English.pdf
+	wkhtmltopdf https://stotranidhi.com/en/durga-saptasati-argala-stotram-ni-english/ DurgaSaptashati_Argala_Stotram_Stotranidhi_English.pdf
+	wkhtmltopdf https://stotranidhi.com/en/durga-saptasati-kilaka-stotram-in-english/ DurgaSaptashati_Kilaka_Stotram_Stotranidhi_English.pdf
+	wkhtmltopdf https://stotranidhi.com/en/ratri-suktam-in-english/ DurgaSaptashati_Ratri_Suktam_Stotranidhi_English.pdf
+	wkhtmltopdf https://stotranidhi.com/en/tantrokta-ratri-suktam-in-english/ DurgaSaptashati_Tantrokta_Ratri_Suktam_Stotranidhi_English.pdf
+	wkhtmltopdf https://stotranidhi.com/en/durga-saptasati-chapter-1-madhukaitabha-vadha-in-english/ DurgaSaptashati_Chapter1_Madhukaitabha_Vadha_Stotranidhi_English.pdf
+	wkhtmltopdf https://stotranidhi.com/en/durga-saptasati-chapter-2-mahishasura-sainya-vadha-in-english/ DurgaSaptashati_Chapter2_Mahishasura_Sainya_Vadha_Stotranidhi_English.pdf
+	wkhtmltopdf https://stotranidhi.com/en/durga-saptasati-chapter-3-mahishasura-vadha-in-english/ DurgaSaptashati_Chapter3_Mahishasura_Vadha_Stotranidhi_English.pdf
+	wkhtmltopdf https://stotranidhi.com/en/durga-saptasati-chapter-4-sakradi-stuti-in-english/ DurgaSaptashati_Chapter4_Sakradi_Stuti_Stotranidhi_English.pdf
+	wkhtmltopdf https://stotranidhi.com/en/durga-saptasati-chapter-5-devi-duta-samvadam-in-english/ DurgaSaptashati_Chapter5_Devi_Duta_Samvadam_Stotranidhi_English.pdf
+	wkhtmltopdf https://stotranidhi.com/en/durga-saptasati-chapter-6-dhumralochana-vadha-in-english/ DurgaSaptashati_Chapter6_Dhumralochana_Vadha_Stotranidhi_English.pdf
+	wkhtmltopdf https://stotranidhi.com/en/durga-saptasati-chapter-7-chanda-munda-vadha-in-english/ DurgaSaptashati_Chapter7_ChandaMunda_Vadha_Stotranidhi_English.pdf
+	wkhtmltopdf https://stotranidhi.com/en/durga-saptasati-chapter-8-raktabeeja-vadha-in-english/ DurgaSaptashati_Chapter8_Raktabeeja_Vadha_Stotranidhi_English.pdf
+	wkhtmltopdf https://stotranidhi.com/en/durga-saptasati-chapter-9-nishumbha-vadha-in-english/ DurgaSaptashati_Chapter9_Nishumbha_Vadha_Stotranidhi_English.pdf
+	wkhtmltopdf https://stotranidhi.com/en/durga-saptasati-chapter-10-shumbha-vadha-in-english/ DurgaSaptashati_Chapter10_Shumbha_Vadha_Stotranidhi_English.pdf
+	wkhtmltopdf https://stotranidhi.com/en/durga-saptasati-chapter-11-narayani-stuthi-in-english/ DurgaSaptashati_Chapter11_Narayani_Stuthi_Stotranidhi_English.pdf
+	wkhtmltopdf https://stotranidhi.com/en/durga-saptasati-chapter-12-bhagavati-vakyam-in-english/ DurgaSaptashati_Chapter12_Bhagavati_Vakyam_Stotranidhi_English.pdf
+	wkhtmltopdf https://stotranidhi.com/en/durga-saptasati-chapter-13-suratha-vaisya-vara-pradanam-in-english/ DurgaSaptashati_Chapter13_Suratha_Vaisya_vara_pradanam_Stotranidhi_English.pdf
+	wkhtmltopdf https://stotranidhi.com/en/tantrokta-devi-suktam-in-english/ DurgaSaptashati_Tantrokota_Devi_Suktam_Stotranidhi_English.pdf
+	wkhtmltopdf https://stotranidhi.com/en/siddha-kunjika-stotram-in-english/ DurgaSaptashati_Siddha_Kunjika_Stotram_Stotranidhi_English.pdf
+	wkhtmltopdf https://stotranidhi.com/en/durga-saptasati-aparadha-kshamapana-stotram-in-english/ DurgaSaptashati_Aparadha_Kshamapana_Stotram_Stotranidhi_English.pdf
+	
+	wkhtmltopdf https://stotranidhi.com/en/durga-saptashati-pradhanika-rahasyam-in-english/ DurgaSaptashati_Pradhanika_Rahasyam_Stotranidhi_English.pdf
+	wkhtmltopdf https://stotranidhi.com/en/durga-saptashati-vaikruthika-rahasyam-in-english/ DurgaSaptashati_Vaikruthika_Rahasyam_Stotranidhi_English.pdf
+	wkhtmltopdf https://stotranidhi.com/en/durga-saptashati-moorthi-rahasyam-in-english/ DurgaSaptashati_Moorthi_Rahasyam_Stotranidhi_English.pdf
+	wkhtmltopdf https://stotranidhi.com/en/ratri-suktam-in-english/ DurgaSaptashati_Ratri_Suktam_Stotranidhi_English.pdf
+	wkhtmltopdf https://stotranidhi.com/en/sri-devi-atharvashirsha-in-english/ DurgaSaptashati_Sri_Devi_Atharvashirsha_Stotranidhi_English.pdf
+	wkhtmltopdf https://stotranidhi.com/en/sri-chandi-navarna-mantra-navakshari-vidhi-in-english/ Sri_Chandi_Navarna_Mantra(Navashkari)_Vidhi_Stotranidhi_English.pdf
+	wkhtmltopdf https://stotranidhi.com/en/durga-saptashati-purva-nyasa-in-english/ DurgaSaptashati_Purva_Nyasa_Stotranidhi_English.pdf 
+	wkhtmltopdf https://devipuram.org/about-us/signature-practices/kalavahana/#elementor-toc__heading-anchor-3 kalavahana.pdf 
+	
+
+2. Fixing the "Only First Page/Cut Off" Issue
+==============================================
+If you run the command above and only get a single page, the website likely uses CSS that forces the body to a height of 100vh or hides overflow. You can override this using the --window-status or JavaScript delays, but the most reliable trick is telling wkhtmltopdf to use print media styles or injecting custom CSS.
+
+Solution A: Use Print Media Styles
+-----------------------------------
+Many modern sites have print-specific stylesheets that optimize the layout for multi-page printing.
+	wkhtmltopdf --print-media-type https://example.com output.pdf
+	
+Solution B: Force JavaScript to Load (Smart Delay)
+-------------------------------------------------
+If the page relies on infinite scroll or heavy JavaScript to load all the content, wkhtmltopdf might render too quickly. Give it a few seconds to load everything:
+wkhtmltopdf --javascript-delay 5000 https://example.com output.pdf
+
+3. Advanced Settings for Long Pages
+===================================
+If you are dealing with a massive webpage and want to fine-tune how the pages break, use these helpful flags:
+
+Remove Margins: Prevents content from being clipped at page breaks.
+	wkhtmltopdf -T 0 -B 0 -L 0 -R 0 https://example.com output.pdf
+
+Adjust Page Size: If the web page layout looks squished on standard A4, switch to Letter or a custom viewport size
+	wkhtmltopdf --page-size Letter --viewport-size 1280x1024 https://example.com output.pdf
+
+If the PDF still only shows one page after trying --print-media-type, the website has strict CSS rules like body { overflow: hidden; }.
+You can bypass this by downloading the HTML file locally, removing that specific CSS line from the file, and running:
+	wkhtmltopdf local_file.html output.pdf

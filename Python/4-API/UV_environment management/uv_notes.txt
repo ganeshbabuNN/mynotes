@@ -22,7 +22,7 @@ uv python list #list of python version available in uV
 uv python install latest #latest version of python
 uv python install 3.12
 uv python install 3.14
-uv python pin 3.12  #Set as Default:
+uv python pin 3.12  #Set as Default:con
 uv python pin latest #set latest verion 
 	
 Check UV installed :

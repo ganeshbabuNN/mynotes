@@ -1,0 +1,229 @@
+Tokens
+Comments
+Not basic element
+statements
+indentations
+Expression
+Syntax
+
+Tokens
+======
+-Tokens can be defined as a punctuator mark, reserved words and each individual word in a statement.
+-Token is the smallest unit inside the given program
+
+There are following tokens in Python:
+ Keywords
+ Identifiers
+ Literals
+ operators
+
+Keywords
+--------
+-Keywords are special reserved words which convey a special meaning to the compiler/interpreter. 
+-Each keyword have a special meaning and a specific operation. 
+-These keywords can't be used as variable. 
+
+list of keywords:
+Following is the List of Python Keywords.
+True,False,None,and,as,asset,def,class,continue,break,else,finally,elif,del	,except,global,for,if,from,import,raise	,try,or,return,pass,nonloca,in,not,is,lambda
+
+#to get the list of keywords
+import keyword
+print(keyword.kwlist)
+
+Identifiers
+-------------
+-Each program elements in a program are given a name called identifiers.
+-An identifier is a name given to entities like class, functions, variables, etc. It helps to differentiate one entity from another.
+-An Identifier is used to identify the literals used in the program. 
+
+-The rules to name an identifier are given below.
+*----------------------------------------------*
+1)The first character of the Identifier must be an alphabet or underscore ( _ ).
+	myclass, _myvariable, 
+2)All the characters except the first character may be an alphabet of lower-case(a-z), upper-case (A-Z), underscore or digit (0-9).
+	myClass, Myvarible, My_function,myclass
+3)Identifier name must not contain any white-space, or special character (!, @, #, %, ^, &, *).
+	my class, my!class
+4)Identifier name must not be similar to any keyword defined in the language.
+	global=1
+5)Identifier names are case sensitive 
+	ex : my name, and MyName is not the same.   #this means Python is a case-sensitive language
+
+Examples of valid identifiers : 
+	a123, _n, n_9, etc.
+Examples of invalid identifiers: 
+	1a, n%4, n 9, etc.
+
+Things to remember:
+1)Python is a case-sensitive language. This means Variable and variable are not the same.
+2)Always give the identifiers a name that makes sense. While c = 10 is a valid name, writing count = 10 would make more sense, and it would be easier to figure out what it represents when you look at your code after a long gap
+3)Multiple words can be separated using an underscore, like this_is_a_long_variable
+
+Literals
+--------
+-Literal is a raw data given in a variable or constant. 
+-In Python, there are various types of literals they are as follows:
+1)Numeric Literals(integer,float,complext type)
+2)String literals
+3)Boolean literials(True or False)
+4)Special literals(None)
+5)Collection literals(lists,tuple,dictionary,set)
+
+All the above will be discussed more in the Variable chapters
+
+operators
+---------
+-operators are like +, - , * ...etc
+Ex
+3+3 = 6
+
+in detail will be discussion in Operator chapter
+
+Comments
+========
+-Comments are very important while writing a program. They describe what is going on inside a program, so that a person looking at the source code does not have a hard time figuring it out.
+-this are ignore by the intrepreter
+ 
+Types of comments
+-----------------
+there are three types
+1)single line comment
+2)multi line comment
+3)docstrings
+
+single line comment
+*-----------------*
+we use the hash (#) symbol to start writing a comment
+Ex:
+#print hello
+print('Hello')
+
+Multi-line comment
+*-----------------*
+-We can have comments that extend up to multiple lines.One way is to use the hash(#) symbol at the beginning of each line
+
+#This is a long comment
+#and it extends
+#to multiple lines
+print("Hello world")
+
+-Other way of doing this is to use triple quotes, either ''' or """. 
+These triple quotes are generally used for multi-line strings.
+
+"""This is also a
+perfect example of
+multi-line comments"""
+print("Hello world")
+ 
+how to write a better comments
+**-------------------------**
+-Use comments to describe what a function does and not the specific details on how the function does it.
+-Try to remove as many redundant comments as possible. Try writing code that can explain itself, using better function/variable name choice.
+-Try to make the comments as short and concise as possible
+
+Docstrings in Python
+*-----------------*
+-A docstring is short for documentation string.
+-Python docstrings (documentation strings) are the string literals that appear right after the definition of a function, method, class, or module.
+
+def double(num):
+    """Function to double the value"""
+    return 2*num
+
+-The docstrings are associated with the object as their __doc__ attribute.
+print(double.__doc__)
+
+Statements
+==========
+-Instructions that a Python interpreter can execute are called statements
+-Each statement is not ended with semicolon. its is identified by 
+-For example, 
+
+a = 1 
+print(a) is an assignment statement. 
+
+if statement, for statement, while statement, etc. are other kinds of statements which will be discussed later
+
+Multi-line statement
+--------------------
+In Python, the end of a statement is marked by a newline character. But we can make a statement extend over multiple lines with the line continuation character (\). For example:
+
+     1 + 2 + 3 + \
+    4 + 5 + 6 + \
+    7 + 8 + 9
+
+This is an explicit line continuation. In Python, line continuation is implied inside parentheses ( ), brackets [ ], and braces { }.
+
+   (1 + 2 + 3 +
+    4 + 5 + 6 +
+    7 + 8 + 9)
+
+Here, the surrounding parentheses ( ) do the line continuation implicitly. Same is the case with [ ] and { }. For example:
+colors = ['red',
+          'blue',
+          'green']
+
+We can also put multiple statements in a single line using semicolons, as follows:
+a = 1; b = 2; c = 3
+
+Different type of statements
+----------------------------
+there two type so statements
+1)control flow statements
+2)looping statements.
+
+...we shall learn in details in upcoming chapters.
+
+Indentation
+===========
+-In python each statment are not ended with semicolon(;) but some of the statement like if, for ,while are ended with colon(:)
+-Most of the programming languages like C, C++, and Java use braces { } to define a block of code
+-Python, however, uses indentation
+-A code block (body of a function, loop, etc.) starts with indentation and ends with the first unindented line. The amount of indentation is up to you, but it must be consistent throughout that block
+-Generally, four whitespaces are used for indentation and are preferred over tabs
+
+	for i in range(1,11):
+	    print(i)
+-The enforcement of indentation in Python makes the code look neat and clean
+-Indentation can be ignored in line continuation, but it's always a good idea to indent. It makes the code more readable
+	if True:
+	    print('Hello')
+	    a = 5
+	 and
+	 	if True: print('Hello'); a = 5
+-Incorrect indentation will result in IndentationError.
+
+Expression
+==========
+-An expression is a combination of values, variables, and operators
+-if you type an expression on the command line, the interpreter evaluates it and displays the result:
+
+1+1
+
+-Although expressions contain values, variables, and operators, not every expression contains all of these elements. A value all by itself is considered an expression, and so is a variable.
+-Confusingly, evaluating an expression is not quite the same thing as printing a value
+
+Assign:
+Write a expression for 100 
+50+50
+110-10
+10*10
+
+Syntax
+======
+its nothing but a set of rules for specific purpose
+
+Example:
+print('hello')
+print 'hello' # cannot write like this.
+'hello' print  #cannot write like this as well.
+
+Quiz:
+=====
+
+Assignment:
+===========
+
+Resources:
+=========

@@ -1,0 +1,58 @@
+Class
+=====
+A class is a template or blueprint.
+
+Syntax:
+<class modifiers> class <class name> [extends clause] [implements clause]{ 
+	[field declarations]
+	[constructor declarations] 
+	[method declarations]
+}
+
+The UML (Unified Modeling Language) notation for the class is:
+Refer UML.jpg
+
+Example:
+
+Assume Box is a example
+
+Box
+int Width; 
+int height; 
+int depth;
+Box(int, int, int)
+in volume()
+
+Now we shall construct using the BOX class.
+class Box{
+//Field declaration
+	int width; 
+	int height; 
+	int depth;
+//Constructor
+	Box(int w, int h, int d){ 
+		width = w; 
+		height = h; 
+		depth=d;
+//Method declaration
+	int volume(){
+	return width*height*depth;
+	}
+}
+
+
+Object
+======
+Instance of a class is called as an object. In java, object is created using ?new? keyword. 
+The object creation process involves following three steps:
+*Declaring reference variable
+*Construction an object using ?new? keyword.
+*Assigning Reference value (address) to reference variable.
+
+Example:
+Box b = new Box(1,2,3);
+
+*The fields of a class is also called as attribute, properties, instance variable, or data member.
+*The methods of a class is also called as behavior, operation, instance method, or method member. 
+*The data member and method member of a class is called as member of a class.
+*The new keyword creates an object and returns the reference value to the reference variable.

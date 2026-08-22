@@ -1,0 +1,154 @@
+Discusssion
+===========
+1)Private Method Interface
+2)static private methods
+3)improved try catch block
+4)immutable collections
+5)@SafeVarags annnotations
+6)new method in Streaming API
+7)Jshell 
+8)Modules Transactions
+9)Java 9 Underscore
+
+
+1)Private Method Interface
+==========================
+
+
+2)static private methods
+========================
+
+3)improved try catch block
+==========================
+
+
+4)immutable collections
+=======================
+
+
+5)@SafeVarags annnotations
+==========================
+
+
+
+
+6)new methods in Streaming API
+==============================
+There few methods added to enchance the capability of Streaming API
+a)TakeWhile()
+b)DropWhile()
+c)ofNullable()
+
+
+Ex:-
+package com.ganesh.Streaming;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+public class StreamingDemo {
+	public static void main(String[] args) {
+		List<Integer> ls = Arrays.asList(10, 40, 7, 18, 23, 30);
+		// using the normal stream performing the num divisble by 3, it goes to all the
+		// elements
+		System.out.println(ls.stream().filter(x -> x % 5 == 0).collect(Collectors.toList()));
+
+		// using the takeWhile method , its go in sequences when it returns false it
+		// will stops
+		System.out.println(ls.stream().takeWhile(x -> x % 5 == 0).collect(Collectors.toList()));
+
+		// using the dropWhile method, it goes in sequence and ignore the true, when the
+		// first elements is false, its display rest of the element thou it is true
+		System.out.println(ls.stream().dropWhile(x -> x % 5 == 0).collect(Collectors.toList()));
+
+		//using ofNullab, to avoid null values and avoid null pointer exceptions 
+		List<Integer> ls1 = Arrays.asList(10, 40, 7, 18, 23, 30,null);
+		System.out.println(ls1.stream().flatMap(x -> Stream.ofNullable(x)).collect(Collectors.toList()));
+
+	}
+}
+
+
+7)JSHELL
+========
+-it is a RPEL tool - Read evaluate print loop. General way of using this shell it avoid the developer not to use the write a class .instead of writing the statement.
+-its like a test evironment for the developers. its is already available in other languages like python -->IDLE , swift --> Playground...etc
+
+
+/help intro : For getting more help using the below command
+/list  : helps to see the history of the command you typed
+/Help : list of all the commands
+
+
+Resources
+---------
+https://docs.oracle.com/javase/9/tools/jshell.htm#JSWOR-GUID-C337353B-074A-431C-993F-60C226163F00
+https://www.javatpoint.com/java-shell-tool
+https://www.infoq.com/articles/jshell-java-repl/
+
+
+8)Modules
+=========
+-its called as JPMS (java Platform module systems) 
+-Generally it groups the packages and make one module.
+-This requires a compatable IDE which is supported by java9+ or more.
+-Issues compared with JAR and Module and specified in module-info.java
+	NoClassDefFoundError <-> Reliable
+	Version problems <-> No version problem
+	Everything is pubic <-> Secured
+	Monolithic/Huge <-> Modular
+-Main keywords in modules
+
+In modules, packages are mandatory, without package the compilations unit does not work.
+
+for example
+Use case --> Patient management , Patient Registrations, Patient Billing.
+
+Using one modules to another modules
+------------------------------------
+1)exports-  this keywords exposes that current modules to the other modules
+2)requires-  this keyword imports the from that exposed modules
+
+
+Transitive Dependency
+---------------------
+transitive - this keywords gives the instruction that it is dependent on other module.
+
+Using Static and Cyclic Dependencies
+-------------------------------------
+-static - that module are available in that module at compile time only and cyclic dependencies are not allowed.
+
+Qualifying Exports
+------------------
+-Using the to Keyword in order to limited to that specific modules
+
+Aggregator and package resoultions assignment
+---------------------------------------------
+
+9)Java 9 Underscore
+===================
+-In earlier versions of Java, underscore can be used as identifier and to create variable name also. But in Java 9 release, underscore is a keyword and can't be used as an identifier or variable name.
+-If we use the underscore character ("_") as an identifier, our source code can no longer be compiled.
+-Let's see some examples that explain, how the use of underscore is changed version after after.
+
+
+Example:
+-In java 7,it produce the output without any warning and error.
+-In Java 8,If we compile the same program in Java 8, it will compile but throws a warning message.
+-In Java 9,Program fails to compile and throws compile time error because now it is a keyword and can't be use as a variable name.
+
+
+public class UnderScoreExample {  
+    public static void main(String[] args) {  
+        int _ = 10; // creating variable  
+        System.out.println(_);  
+    }  
+}
+
+
+Resources
+---------
+https://www.oracle.com/corporate/features/understanding-java-9-modules.html
+http://tutorials.jenkov.com/java/modules.html#module-versioning

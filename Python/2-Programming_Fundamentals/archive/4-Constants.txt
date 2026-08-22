@@ -1,0 +1,44 @@
+Introduction
+Delecration of Constants
+Assigning values to Constants
+Rules and Naming Convention for Constants
+
+Introduction
+============
+-A constant is a type of variable whose value cannot be changed
+-You can think of constants as a bag to store some books which cannot be replaced once placed inside the bag
+-In reality, we don't use constants in Python. Naming them in all capital letters is a convention to separate them from variables, however, it does not actually prevent reassignment
+
+Delecration of variables
+=========================
+-In really there is no such called constants in python, but in case if we want to use, lets take the below example.
+
+Assigning values to variable
+=============================
+constants.py
+	PI=31.42
+	SQRTA= 32.
+
+testconstants.py
+	import constants
+	print(constants.PI)
+	print(constants.SQRTA)
+	
+Rules and Naming Convention for Constants
+========================================
+1)Use capital letters possible to declare a constant. For example:
+	PI
+	G
+	MASS
+	SPEED_OF_LIGHT
+	TEMP
+its same as the variables , Refers the variables
+
+Quiz:
+=====
+
+Assignment:
+===========
+
+Resources:
+=========

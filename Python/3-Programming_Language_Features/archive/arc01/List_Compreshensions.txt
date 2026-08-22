@@ -1,0 +1,118 @@
+Introduction
+============
+List comprehensions 
+
+list comprehension
+=================
+-List Comprehension is defined as an elegant way to define, create a list in Python and consists of brackets that contains an expression followed by for clause
+-generally used to apply logic each item in th elist.
+
+The list comprehension starts with '[' and ']'.
+
+[ <expression> for <item> in <list> if <conditional>]
+
+ex: Program to convery string into a list each letter wise.
+#convert the below string to list
+mystring="ganesh babu"
+
+mylist=[]
+for letter in mystring:
+    mylist.append(letter)
+    print(letter) 
+	
+#using list comprehension
+mylist=[letter for letter in mystring]
+
+
+EX:Program to cube of number in a list
+# traditional way
+ lst=[]
+ for x in range(1,10):
+     lst.append(x**3) 
+ print lst
+
+#using list comprehension way
+lst=[]
+lst=[x**3 for x in range(1,11)]
+print lst
+
+ex: Program to even numbers in a list
+#Traditional way
+for i in range(1,20):
+    if i%2==0:
+        print(i)
+
+#using list comp 
+lst =[x for x in range(1,31) if x%2==0]
+print lst
+
+#one way using range method
+lst=[x for x in range(2,21,2)]
+print lst
+
+Ex:program to convert celsius to Fahrenheit
+#https://www.britannica.com/science/Fahrenheit-temperature-scale
+
+cel = [40,28,46,27,88]
+
+fahi=[]
+for i in cel:
+    c = (9/5 * i +32)
+    fahi.append(c)
+
+fahi
+
+#Using list comprehension
+fahi=[(9/5 * i +32) for i in cel]
+
+fahi
+ex: program to convert Product of numbers in a list
+# regular way
+a=[1,2,3,4,5,6]
+b=[6,7,8,9,10,3]
+
+z=[]
+for i in range(len(a)):
+    z.append(a[i]*b[i])
+    
+print z
+
+# using list comprehension
+t=[a[i]*b[i] for i in range(len(a))]
+print t
+
+ex: program to find common element in a list
+# regular way
+a=[2,4,6,8,10]
+b=[1,2,3,4,5,6]
+
+z=[]
+for i in a:
+    if i in b:
+        z.append(i)
+print z
+    
+#using the list comprehension
+result1 =[i for i in a if i in b]
+print result1
+
+Ex: Nested list comprehension
+lst = [ x**2 for x in [x**2 for x in range(11)]]
+lst
+
+Quiz:
+=====
+
+Assignment:
+=========== 
+1.Use for,.split() and if to create a Statement that will print out words that start with 's':
+	st = 'Print only the words that start with s in this sentence'
+2.Use range() to print all the even numbers from 0 to 10.
+3.Use List comprehension to create a list of all numbers between 1 and 50 that are divisible by 3
+4.Go through the string below and if the length of a word is even print "even!"
+st = 'Print every word in this sentence that has an even number of letters'
+5 Write a program that prints the integers from 1 to 100. But for multiples of three print "Fizz" instead of the number, and for the multiples of five #print "Buzz". For numbers which are multiples of both three and five print "FizzBuzz"
+#6.Use List Comprehension to create a list of the first letters of every word in the string below:
+
+Resources
+=========

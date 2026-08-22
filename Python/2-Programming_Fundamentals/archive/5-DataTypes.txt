@@ -1,0 +1,371 @@
+#Data Types
+#Type Hinting
+#Default value of Types
+#To know the type of variable used in Python
+#Mutable, immutable and object reusablity.
+#Strings
+#data structures(collections) in python
+
+DataTypes
+===========
+-Every value in Python has a datatype. 
+-Since everything is an object in Python programming, data types are actually classes and variables are instance (object) of these classes.
+#In Python, variables are dynamically typed, which means you don't have to explicitly declare a data type (like int or string) when you create one. 
+#The type is determined automatically based on the value you assign to it.
+
+In Python, the data types are Organised in five types:
+1)None Type - An object that does not contain any value
+2)Numeric Type - int,float, complex
+3)Sequences  - can hold of other data types like str, bytes, bytearray,list,tuple,Range
+4)sets - Does not allow duplicates
+5)Dict - key and value
+
+None Type
+---------
+None is a special constant in Python. It is a null value. None is not the same as False. None is not 0. None is not an empty string. Comparing None to anything other than None will always return False
+None is the only null value. It has its own datatype (NoneType). We can assign None to any variable, but you can not create other NoneType objects. All variables whose value is None are equal to each other
+
+type(None)
+None == 0 # == operator return True or False
+None == '' 
+None == False
+None == None
+a = None
+a == None
+b = None
+a == b
+
+Numeric Types
+-------------
+Integer type:
+Integers can be of any length, it is only limited by the memory available.
+Ex:
+a=13
+b=10
+c=2
+print(a,b,c)
+type(a)
+
+Signed and Unsigned Integer:
+Note: Variables such as integers can be represent in two ways, i.e., signed and unsigned. 
+Signed numbers use sign flag or can be distinguish between negative values and positive values. 
+Whereas unsigned numbers stored only positive numbers but not negative numbers
+
+floating:
+-A floating-point number is accurate up to 15 decimal places.
+Ex:
+a=13.23
+b=10.12
+c=02.22
+print(a,b,c)
+type(a)
+
+Complex Type:
+Complex() returns a complex number with the value real + imag*1j or converts a string or number to a complex number.
+If the first parameter is a string, it will be interpreted as a complex number and the function must be called without a second parameter. The second parameter can never be a string. Each argument may be any numeric type (including complex). If imag is omitted, it defaults to zero and the constructor serves as a numeric conversion like int and float. If both arguments are omitted, returns 0j.
+If you are doing math or engineering that requires complex numbers (such as dynamics, control systems, or impedance of a circuit) this is a useful tool to have in Python.
+
+ex:
+print(3+5j)
+
+complex(2,3)
+complex(10,1)
+complex('12+2j') #We can also pass strings:
+
+String
+======
+-Strings are a group of characters written inside a single or double-quotes
+-Python does not have a character type so a single character inside quotes is also considered as a string
+
+Syntax:
+	variable_name = <characteral or string literal >
+
+strings = "This is Python" #is a string literal
+char = "C" #is a character literal
+multiline_str = """This is a multiline string with 
+more 
+than one 
+line code."""
+
+raw_str = r"raw \n string" #raw string literal
+
+#printing the output
+print(strings)
+print(char)
+print(multiline_str)	
+print(raw_str)
+
+
+#Type Hinting
+#============
+#While Python doesn't force you to define types, modern Python (3.5+) supports Type Hinting. 
+#This is incredibly helpful for readability and catching bugs in larger projects, 
+#though Python will still allow you to change the type at runtime
+#<variable_Name>: <primtive type> 
+
+a: int 
+user_no: bytes =2
+user_id: int =32
+loan: float = 32.2
+is_running: bool =True
+userName: str="Alice"
+
+#getting value and type
+print(a,type(a)) # value need to be initialized
+a=10
+print(a,type(a))
+print(user_no,type(user_no))
+print(int,type(user_id))
+print(loan,type(loan))
+print(is_running,type(is_running))
+print(userName,type(userName))
+
+Default value of Types
+======================
+for number
+a=0
+
+for string
+a=''
+
+To know the type of variable used in Python
+===========================================
+to know the type of variable used
+Syntax:
+	Type <variable-name or value>
+
+ex:
+print(Type(23.2))     -> <type 'float'>
+print(Type(23))       -> <type 'Int'>
+print(type("Ganesh")) -><type 'str'>
+
+Mutable, immutable and object reusablity.
+========================================
+Every variable in python holds an instance of an object. 
+There are two types of objects in python i.e. Mutable and Immutable objects. 
+Whenever an object is instantiated, it is assigned a unique object id. 
+The type of the object is defined at the runtime and it can’t be changed afterwards. However, it’s state can be changed if it is a mutable object
+
+Immutable Objects : These are of in-built types like int, float, bool, string, unicode, tuple. In simple words, an immutable object can’t be changed after it is created
+
+x=10
+print(x)
+print(id(x)) #140713990005424
+x=11
+print(x)
+print(id(x)) #140713990005456
+
+Mutable Objects : These are of type list, dict, set . Custom classes are generally mutable.
+
+Object reusablity:String is the best example of the object reuablity. it is always memory efficient technique
+s1='python'
+s2='python'
+
+id(s1)
+1407442661616
+id(s2)
+1407442661616
+Both the ID is same and it is refering to the same object.
+
+#check for other objects like int,ext as assignment
+
+Sequences Type or data structure in python
+==========================================
+-In Python, Sequences are the general term for ordered sets
+-Sequences are a generic term for an ordered set which means that the order in which we input the items will be the same when we access them
+
+Python supports six different types of sequences:
+strings, lists, tuples, byte sequences, byte arrays, and range objects
+
+List -stores any values or objects in any order and stored it dynamically
+Set-  Does not allow duplicate
+dictionary - stores in key and value pair
+
+List
+-----
+-the list can contain data of different types. 
+-The items stored in the list are separated with a comma (,) and enclosed within square brackets [].
+-We can use slice [:] operators to access the data of the list. 
+-The concatenation operator (+) and repetition operator (*) works with the list in the same way as they were working with the strings
+
+syntax
+variable_name=[]
+
+Example:
+x=[1,2,4,'ganesh']
+type(x)
+print(a)
+
+#indexing
+x[1]
+
+#Using Slicing
+Syntax: 
+objectType[start:end:skip]
+
+print(x[1:4]) #grab from 1 till 3 
+
+#concatentaion
+x+x
+
+#repeations operator
+x*2
+
+Tuple
+-----
+-A tuple is similar to the list in many ways.
+-Like lists, tuples also contain the collection of the items of different data types.
+-The items of the tuple are separated with a comma (,) and enclosed in parentheses ()
+-A tuple is a read-only data structure as we can't modify the size and value of the items of a tuple
+
+sytnax:
+variable_name=(va1l,val2,val3)
+
+a=(3,2,"gan",4,3)
+
+#printing the tuple
+print(a)
+
+#getting the type 
+print(type(a))
+
+#tuple indexing
+a[1]
+a[4]
+
+#tuple slicing
+a[1:]
+a[0:1]
+
+#tuple concentations
+a+a
+
+#tuple repeatations
+a*3
+
+#tuple adding a value
+a[2]="hi"
+
+Range Type
+-----------
+-Always range starts from 0th index.
+
+syntax
+ variable-name= range(upperbound,lowerbound)
+
+r=range(5) #setting up the lower bond.
+for i in r:
+    print(i)
+
+r=range(1,16) #setting up the lower and upper bond.
+for i in r:
+    print(i)
+
+r=range(1,16,3) #step skips  3rd element
+for i in r:
+    print(i)
+
+Set
+---
+-Python Set is the unordered collection of the data type.
+-It is iterable, mutable(can modify after creation), and has unique elements.
+-The set is created by using a built-in function set() or or a sequence of elements is passed in the curly braces {}
+
+syntax:
+varible={va1l,val2,val3}
+
+#creating a empty set
+st ={}
+#creating a set
+st={32,45,65,78,"gan",78,32}
+
+#checking the type 
+#print(type(st))
+
+st[0] #cannot do indexing
+st[2:] #cannot do slicing
+
+#adding element in set
+st.add(32) 
+
+#removing from set
+# st.remove(32) 
+
+Converting to frozen set
+*-----------------------*
+-you cannot do any operations on this frozen set . only we can do read the eleement
+
+st={32,45,65,78,"gan",78,32}
+f=frozenset(st)
+print(f)
+print(type(f))
+f.remove(20) #cannot do
+
+s = set(f)
+type(s)
+s
+s.remove(4)
+s
+
+Bytes and bytearray
+*----------------*
+-you cannot add or modify the bytes elements
+-and no slicing and repitations are not allowed.
+
+lst=[3,2,32,12,76]
+print(type(lst))
+
+b=bytes(lst)
+print(type(b))  
+
+c=bytearray(lst)
+print(type(c))
+c[3]=33
+print(c)
+
+Dictionary
+----------
+-Dictionary is an unordered set of a key-value pair of items.
+-Key can hold any primitive data type, whereas value is an arbitrary Python object.
+
+Sytnax:
+variable-name={Key:value,key2:value}
+
+Refer Dictionary_representations.jpg
+
+#creating a empty dictionary
+fe1 ={}
+
+#adding a key and value
+fe={
+    "us":59.2,
+    "euro":93.3,
+    "africa":7.30,
+    "uae":0.050,
+    "swiss":88,
+    "singapore":55.35,
+    "russian":73.45,
+    "china":11.26,
+    "australia":55.87,
+    "dum":[1,2,3,4]
+}
+
+#read by keys
+fe["us"]
+
+#read by index
+fe['dum'][2] 
+fe['dum'][1] 
+
+fe.keys() #print all keys
+fe.values() #print all values
+
+Quiz:
+=====
+
+Assignment:
+===========
+
+Resources:
+=========
+

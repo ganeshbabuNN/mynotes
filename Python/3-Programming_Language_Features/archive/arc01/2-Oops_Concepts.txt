@@ -1,0 +1,606 @@
+Oops Introductions
+create a class
+Creating a instance of a class
+Creating a default constructor
+Use Parameterized constructor
+create a atrribute
+Define a instance method
+Create Getter(mutator) and setters (accessor) methods
+Define static field
+count the number of objects
+Inner class
+Mutable and immutable objects
+instance method , class method and static method
+Dunker(magic or special) methods usings in python
+
+Introductions
+=============
+-OOps are Object oriented programming allows programmers to create their own objects that have methods and attributes.
+-recall that after defining a string, list ,dic or ther objects, you were able to call methods off of them with .method_name() sytnax
+-this methods acts as functions that use informations about the object as wellas the object itself to return results or change the current object.
+for ex: includes appending to a list, or counting the occurences of an element in a tuple.
+-Oops allows users to create their own objects.
+-the general format is often cofusing when first encountered and its usefulness may not be competely clear at first.
+-in general OOps allows us to create code that is more usable
+-FOr much larger scripts of python code, functions by themselves aren't enought for orgnaization and repeatability.
+-Common repeated tasks and objects can be defined with OOp to create code that is more usable
+
+Syntax:
+	class NameOfClass():
+
+		def __init__(self,param1,param2):
+			self.param1=param1
+			self.param2=param2
+		def some_method(self):
+			#perform some action
+			print(self.param1)
+
+--Here field name or attribute are like variables
+--Here the methods are like functions.
+
+
+why we need a class
+-------------------
+- So far we learn to use function to achieve different tasks.
+
+lets say a design like
+Banking ---> debiting,crediting, interest,personal informations ?
+
+Do you end of creating different different functions? are there are controll of this functionality there comes the class
+
+create a class
+=============
+class Product():
+    print("This is the product class")
+    pass
+
+Creating a instance of a class
+===============================
+p1 = Product()
+p1
+
+class Product:
+    def __init__(self):
+        print("This is the product")
+
+p2 = Product()  # this generally calling the main method of that product class
+p2
+
+using the special variable __name__ and __main___
+------------------------------------------------
+#another example 1
+import pandas as pd
+def main():
+     statement 1;
+     statement 2;
+if __name__ == '__main__':
+    main()
+    
+#another example 2
+# File1.py 
+print ("File1 __name__ = %s" %__name__) 
+if __name__ == "__main__": 
+    print ("File1 is being run directly")
+else: 
+    print ("File1 is being imported")
+
+# File2.py
+import File1
+print ("File2 __name__ = %s" %__name__)
+if __name__ == "__main__":
+	print ("File2 is being run directly")
+else:
+	print ("File2 is being imported")
+
+ref: 
+https://www.geeksforgeeks.org/__name__-special-variable-python/
+
+Creating a default constructor
+===============================
+-Attribue can be name as a parameter or exact of the parameter
+class product:
+    def __init__(self): 
+        print("Default Constructor")
+     
+p1=Product()
+p2=Product()
+
+Use Parameterized constructor
+=============================
+-Python does not support constructor overloading
+
+class Course:
+    def __init__(self,name,ratings):
+        self.name=name
+        self.ratings=ratings
+        
+c1=Course("Core java",[1,2,3,2,42])
+print c1.name
+print c1.ratings
+        
+c1=Course("Spring",[5,2,4,3,2])
+print c1.name
+print c1.ratings
+
+c1=Course("Hibernate",[6,4,2,1])
+print c1.name
+print c1.ratings
+
+create a atrribute
+==================
+class Product():
+    
+    #class level atrritbue
+    makeModel="India"
+    print("This is the product class")
+    pass
+
+p1 = Product()
+p1.makeModel
+
+Define a instance method
+========================
+ex:Access the instance variable using instance method
+class product:
+    def __init__(self,name,ratings):
+        self.name=name
+        self.ratings=ratings
+        print("2 param constructor")
+    
+    def productDisplay(self): #product display
+        print(name,ratings)
+        
+p1=product("iphone", 3.2)
+p1.productDisplay()
+
+p2=product("samsung", 4.3)
+p2.productDisplay()
+
+ex2:Calling a instance method from constructor
+class Product:
+    def __init__(self,name,ratings):
+        self.name=name
+        self.ratings=ratings
+        print("2 param constructor")
+        self.productDisplay()
+    
+    def productDisplay(self): #product display
+        print(self.name,self.ratings)
+
+p1=Product("iphone", 3.2)
+
+ex3:using the calculating way
+class Product:
+    
+    def __init__(self,name,ratings):
+        self.name=name
+        self.ratings=ratings
+        print("2 param constructor")
+    
+    def productDisplay(self,name,ratings): #product display
+        print(name,ratings)
+        
+    def average(self):  #Getting into the actions
+        tot=len(self.ratings)
+        av=sum(self.ratings)/tot
+        print("average rating of this {} is {}".format(self.name,av))
+
+c1=Course("Core java",[1,2,3,2])
+print c1.name
+print c1.ratings
+c1.average1()
+
+c2=Course("Hibernate",[6,4,2,1])
+print c2.name
+print c2.ratings
+c2.average1()
+
+ex4 Using the non instance variable in instance method.
+class Product:
+    
+    average = 0 #class level static attribute
+    
+    def __init__(self,name,ratings):
+        self.name=name
+        self.ratings=ratings 
+    
+    def productDisplay(self,name,ratings): #product display
+        print(name,ratings)
+        
+    def average(self):  #Getting into the actions
+        tot=len(self.ratings)
+        av=sum(self.ratings)/tot
+        Product.average= av
+        print("average rating of this {} is {}".format(self.name,av))
+    
+    def platform(self,mode):
+        print("the product {} with the rating {} from {}".format(self.name,Product.average,mode))
+
+p1=Product("iphone", [4,2,3.2,4.5,3.3])
+p1.average()
+p1.platform("online")
+
+Create Getter(mutator) and setters (accessor) methods
+====================================================
+class Product:
+    
+    def __init__(self):
+        pass
+    
+    def productDisplay(self,name,ratings): #product display
+        print(name,ratings)
+        
+    def average(self,vendor):  #Getting into the actions
+        tot=len(self.ratings)
+        av=sum(self.ratings)/tot
+        print("average rating of this {} is {} from {}".format(self.name,av,vendor))
+        
+    def setName(self,name):
+        self.name=name
+    
+    def getName(self):
+        return self.name
+    
+    def setRatings(self,ratings):
+        self.ratings=ratings
+        
+    def getRatings(self):
+        return self.ratings
+    
+
+p1 =Product()
+p1.setName("iphone")
+p1.setRatings(34.22)
+
+print(p1.getName())
+print(p1.getRatings())
+
+p2 =Product()
+p2.setName("Samsung")
+p2.setRatings(6.3)
+
+print(p1.getName())
+print(p1.getRatings())
+
+Method overriding and overloading
+=================================
+This is discussed in the Inheritance chapter.
+
+Define static field
+===================
+-Access the static field without using the object name.
+
+class Product:
+    
+    #static field, or class level attribute
+    manuf='India'
+    
+    def __init__(self):
+        pass
+    
+    def productDisplay(self,name,ratings): #product display
+        print(name,ratings)
+        
+    def average(self,vendor):  #Getting into the actions
+        tot=len(self.ratings)
+        av=sum(self.ratings)/tot
+        print("average rating of this {} is {} from {}".format(self.name,av,vendor))
+        
+    def setName(self,name):
+        self.name=name
+    
+    def getName(self):
+        return self.name
+    
+    def setRatings(self,ratings):
+        self.ratings=ratings
+        
+    def getRatings(self):
+        return self.ratings
+        
+p1 =Product()
+p1.setName("iphone")
+p1.setRatings(34.22)
+print(Product.manuf)# access the static field using the class name
+
+print(p1.getName())
+print(p1.getRatings())
+
+p2 =Product()
+p2.setName("Samsung")
+p2.setRatings(6.3)
+print(Product.manuf) # access the static field using the class name
+
+print(p1.getName())
+print(p1.getRatings())
+
+count the number of objects
+==========================
+-mark that method as a @staticmethod
+
+class Objectcounter:
+    numberOfObjects = 0
+    
+    def __init__(self):
+        Objectcounter.numberOfObjects+=1
+    
+    @staticmethod
+    def display():
+        print Objectcounter.numberOfObjects
+
+
+o1=Objectcounter()
+o2=Objectcounter()
+o3=Objectcounter()
+
+Objectcounter.display()
+
+Create a inner class
+====================
+class Employee:
+    def __init__(self,name,age):
+        self.name=name
+        self.age=age
+        
+    
+    class Department:
+        def __init__(self,designation,deptName):
+            self.designation=designation
+            self.deptName=deptName
+            
+        def display(self):
+            print self.designation
+            print self.deptName
+            
+
+e1=Employee("ganesh","32")
+d1=e1.Department("software enginner", "sales")
+print e1.age
+print e1.name
+d1.display()
+
+Mutable and immutable objects
+=============================
+Immutable Objects:
+------------------
+-These are of in-built types like int, float, bool, string, unicode, tuple. In simple words, an immutable object can’t be changed after it is created
+tuple1 = (0, 1, 2, 3)  
+tuple1[0] = 4
+print(tuple1)
+
+message = "Welcome to GeeksforGeeks"
+message[0] = 'p'
+print(message)
+
+
+Mutable Objects : These are of type list, dict, set . Custom classes are generally mutable.
+color = ["red", "blue", "green"] 
+print(color) 
+  
+color[0] = "pink"
+color[-1] = "orange"
+print(color)
+
+Note:
+-Mutable and immutable objects are handled differently in python. Immutable objects are quicker to access and are expensive to change because it involves the creation of a copy
+Whereas mutable objects are easy to change.
+-Use of mutable objects is recommended when there is a need to change the size or content of the object.
+-Exception : However, there is an exception in immutability as well. We know that tuple in python is immutable. But the tuple consists of a sequence of names with unchangeable bindings to objects.
+Consider a tuple
+
+ tup = ([3, 4, 5], 'myname') 
+The tuple consists of a string and a list. Strings are immutable so we can’t change its value. But the contents of the list can change. The tuple itself isn’t mutable but contain items that are mutable.
+
+As a rule of thumb, Generally Primitive-like types are probably immutable and Customized Container-like types are mostly mutable.
+
+Ref:
+https://www.geeksforgeeks.org/mutable-vs-immutable-objects-in-python/  # best
+https://medium.com/@meghamohan/mutable-and-immutable-side-of-python-c2145cf72747#:~:text=Simple%20put%2C%20a%20mutable%20object,Custom%20classes%20are%20generally%20mutable.
+https://www.tutorialspoint.com/difference-between-mutable-and-immutable-in-python
+
+instance method , class method and static method
+===============================================
+instance method: 
+-Can modify object instance state
+-can modify class state
+
+Class method: use the decorator @classmethod
+-Cannot  modify object instance state
+-can modify class state
+
+static method: use the decorator @staticmethod
+-Cannot  modify object instance state
+-cannot modify class state
+
+ex:
+class MyClass:
+    def instanceMethod(self):
+        return "instance method called ",self
+    
+    @classmethod
+    def classMethod(cls):
+        return "class method called ",cls
+    
+    @staticmethod
+    def staticMethod():
+        return "static method called"
+
+Using the instance:
+obj=MyClass()
+obj.instanceMethod()  #access the instance method
+obj.classMethod()  #access the class method
+obj.staticMethod() #access the static method
+
+but the key difference is 
+MyClass.classMethod()  #access the static method using the class without creating the instance
+MyClass.staticMethod() #access the class method using the class without creating the instance
+MyClass.instanceMethod()  #cannot the instance method using the class without creating the instance, it should have instance.
+
+refer:
+https://realpython.com/instance-class-and-static-methods-demystified/#delicious-pizza-factories-with-classmethod
+
+Dunker methods usings in python
+===============================
+Dunder methods can be used to emulate behaviour of built-in types to user defined objects and is core Python feature that should be used as needed.
+
+there are few methods which are importent
+-Object Initialization: __init__
+-Object Representation: __str__ 
+-Iteration: __len__ ,__setitem__ and __getItem__
+-Deletions: __del__ 
+-Object Invocation: __call__
+
+Initialization of new objects
+--------------------------------
+The constructor takes care of setting up the object
+
+
+Object Representation: __str__, __repr__
+----------------------------------------
+representaitons of the objects __repr__ is similar like __str__
+
+for ex:
+using list.
+lst = [1,2,3,4]
+lst  # this object represent a list
+
+#lets check in class
+class Book:
+    def __init__(self,name,author,page):
+        self.name=name
+        self.author=author
+        self.page=page
+
+b1 = Book()
+print(b1) # this represent some sort of memory location where the object stored
+
+#lets implementations string reprsenations
+class Book:
+    def __init__(self,name,author,page):
+        self.name=name
+        self.author=author
+        self.page=page
+    
+    def __str__(self):
+        return f"the book name was {self.name} by {self.author}"
+
+b1 = Book("Python Super","Ganesh",150)
+print(b1)
+
+Ref-https://dbader.org/blog/python-repr-vs-str
+
+Iteration: __len__ ,__setitem__ and __getItem__
+-------------------------------------------------
+Python built-in types list, str, and bytes can use the slicing operator [] to access range of elements. Implementing __getitem__, __setitem__in a class allows its instances to use the [] (indexer) operator. 
+Therefore, the __getitem__ and __setitem__dunder methods is used for list indexing, dictionary lookups, or accessing ranges of values
+
+class Book:
+    def __init__(self,num):
+        self.my_list=[ran.randrange(1,101,1) for _ in range(num)]
+    
+    def __str__(self):
+        return str(self.my_list)
+    
+    def __len__(self):
+        return len(self.my_list)
+    
+    def __setitem__(self,index,value):
+        self.my_list[index]=value
+    
+    def __getitem__(self,index):
+        return self.my_list[index]
+
+b1=Book(5) 
+print(b1) #calls the __str__
+len(b1) # call the __len __ 
+b1[2] #calls __getitem__ method
+for item in b1:
+    print(item)
+
+
+-Deletions: __del__ 
+-------------------
+- generally to remove the object
+
+lst = [1,2,3,4]
+lst  # this object represent a list
+len(lst)
+del lst # delete the list
+
+#lets try at class level.
+class Book:
+    def __init__(self,name,author,page):
+        self.name=name
+        self.author=author
+        self.page=page
+    
+    def __str__(self):
+        return f"the book name was {self.name} by {self.author}"
+    
+    def __len__(self):
+        return self.page
+    
+    def __del__(self):
+        print("Deleted this object")
+
+#intialising
+b1 = Book("Python Super","Ganesh",150)
+print(len(b1))
+
+#deleting the object
+del(b1)
+
+#now check the object exists
+print(len(b1))
+
+Object Invocation: __call__
+--------------------------
+We can make any object callable like a regular function by adding the __call__ dunder method. 
+
+class Book:
+    def __init__(self,name,author,page):
+        self.name=name
+        self.author=author
+        self.page=page
+    
+    def __str__(self):
+        return f"the book name was {self.name} by {self.author}"
+    
+    def __len__(self):
+        return self.page 
+    
+    def __call__(self):
+        print(f'Student:{self.name}, Age : {self.author}')
+
+b1=Book("Python Super","Ganesh",150)
+b1()  #now the __call_ method is invoked
+
+Ref:
+https://dbader.org/blog/python-dunder-methods#:~:text=In%20Python%2C%20special%20methods%20are,__%20or%20__str__%20.
+https://medium.com/python-features/magic-methods-demystified-3c9e93144bf7
+
+Quiz:
+=====
+
+Assignment:
+===========
+1-Create a line class cotaining two methods which accepts the co-ordintates as a pair of tuples and return slop and distance of line
+	ex: coordinate1= (3,2)
+	    coordinate1= (34,22)
+	   li = Line(coordinate1,coordinate2)
+Note: get the formulae of slop and distiance formulae from internet
+2-Create a Cylinder class containing two method volume and surface area which accepts height and radius 
+	Ex:	c = Cylinder(2,3)
+		c.volume()
+		c.surface_area()
+Note: get the formulae volume of cyclinder and surface area of the cyclinder.
+3-create a bank account class that has two attributes for owner and balance and two methods deposit,withdraw. As an added requirement, withdrawals may not exceed the available balance. 
+Instantiate your class, make several deposits and withdrawals, and test to make sure the account can't be overdrawn.
+
+Resources
+=========
+https://realpython.com/instance-class-and-static-methods-demystified/#lets-see-them-in-action  #for instance, class and static methods
+https://www.geeksforgeeks.org/mutable-vs-immutable-objects-in-python/  #mutable and immutable objects
+https://jeffknupp.com/blog/2014/06/18/improve-your-python-python-classes-and-object-oriented-programming/
+http://www.tutorialspoint.com/python/python_classes_objects.htm
+https://docs.python.org/3/tutorial/classes.html

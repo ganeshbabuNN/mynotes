@@ -167,8 +167,7 @@ id(s2)
 1407442661616
 Both the ID is same and it is refering to the same object.
 
-#check for other objects like int,ext
-
+#check for other objects like int,ext as assignment
 
 Sequences Type or data structure in python
 ==========================================
@@ -210,7 +209,7 @@ print(x[1:4]) #grab from 1 till 3
 x+x
 
 #repeations operator
-x*x
+x*2
 
 Tuple
 -----
@@ -267,7 +266,7 @@ for i in r:
     print(i)
 
 Set
-----
+---
 -Python Set is the unordered collection of the data type.
 -It is iterable, mutable(can modify after creation), and has unique elements.
 -The set is created by using a built-in function set() or or a sequence of elements is passed in the curly braces {}
@@ -301,6 +300,12 @@ f=frozenset(st)
 print(f)
 print(type(f))
 f.remove(20) #cannot do
+
+s = set(f)
+type(s)
+s
+s.remove(4)
+s
 
 Bytes and bytearray
 *----------------*

@@ -1,0 +1,50 @@
+Accesst Controls
+=================
+Modifiers
+Accessibility modifiers
+Import
+Generate Java API Documentation
+
+
+
+Modifiers in java
+==================
+There are 13 modifiers in java:
+Private 
+default 
+Protected 
+Public 
+Final
+Static 
+Abstract 
+Interface 
+Synchronized 
+Transient 
+Native
+Strictfp 
+volatile
+
+Accessibility Modifiers
+-----------------------
+In java, there are 4 accessibility modifiers: private, no (or default or package) modifier, protected, and
+public.
+The below table summarizes the scope of accessibility modifiers:
+
+Refer Modifier.jpg
+
+Note:
+1)The scope of the private members is anywhere within the class.
+2)The scope of the default members is anywhere within the same package.
+3)The scope of the protected members is anywhere with in the same package as well as only subclass of the different package.
+4)The scope of the public members is anywhere.
+5)The default modifier is also know as package modifier.
+
+Imports
+-------
+The given class can be accessible from outside the package using fully qualified type name, however, writing long names can become tedious.
+Example:
+edu.aspire.One obj = new edu.aspire.One();
+
+The import facility in java makes it easier to access classes from different packages, which will be declared once using import statement and used it for any number of times just with simple type name.
+Example:
+import edu.aspire.One; One obj = new One();

@@ -1,0 +1,173 @@
+Array
+=====
+Introduction
+Array Declaration and constructions
+Is Python list same as an Array
+Disadvantages with arrays
+
+
+Introduction
+=============
+-Python does not have built-in support for Arrays, but Python Lists can be used instead.
+Array is a container which can hold a fix number of items and these items should be of the same type.
+The important terms to understand the concept of Array
+
+	Element− Each item stored in an array is called an element.
+	Index − Each location of an element in an array has a numerical index, which is used to identify the element.
+
+
+Array Represenations
+--------------------
+Arrays can be declared in various ways in different languages. Below is an illustration.
+
+Refer array_declaration.jpg
+As per the above illustration, following are the important points to be considered.
+*Index starts with 0.
+*Array length is 10 which means it can store 10 elements.
+*Each element can be accessed via its index. For example, we can fetch an element at index 6 as 9.
+
+Basic Operations
+----------------
+Following are the basic operations supported by an array.
+
+Traverse − print all the array elements one by one.
+Insertion − Adds an element at the given index.
+Deletion − Deletes an element at the given index.
+Search − Searches an element using the given index or by the value.
+Update − Updates an element at the given index.
+
+Array Declaration and constructions
+===================================
+Array is created in Python by importing array module to the python program. Then the array is declared as shown eblow
+
+sytnax:
+from array import *
+	arrayName = array(typecode, [Initializers])
+	
+import array as arr
+	arrayName=arr.array(typecode, [Initializers])
+	
+Typecode are the codes that are used to define the type of value the array will hold. Some common typecodes used are:
+
+Typecode	Value
+b			Represents signed integer of size 1 byte.
+B			Represents unsigned integer of size 1 byte
+c			Represents character of size 1 byte
+i			Represents signed integer of size 2 bytes
+I			Represents unsigned integer of size 2 bytes
+f			Represents floating point of size 4 bytes
+d			Represents floating point of size 8 bytes
+
+Lets take an example:
+
+from array import *
+myarray1 = array('i',[10,30,43,40,69,45,25,17,25,36])
+type(myarray1)
+
+len(myarray1)
+
+Accessing Array Element
+-----------------------
+We can access each element of an array using the index of the element.
+we can use indexing and slicing approach:
+
+Refer array diagram.jpg
+
+The below code shows how
+
+myarray1[0] #accessing the value 10 at 0  index
+myarray1[2] #accessing the value 43 at 2  index
+
+Using Slicing approach
+myarray1[0:] # start point
+myarray1[0:3] # start point and end point
+myarray1[0:6:2] # start point and end point with skip point
+
+using looping 
+for x in myarray1:
+    print(x)
+
+Finding the Length of an Array
+------------------------------
+Length of an array is the number of elements that are actually present in an array.
+The len() function returns an integer value that is equal to the number of elements present in that array
+
+Synx:
+len(array_name)
+
+len(myarray1)
+
+Insertion Operation
+-------------------
+Insert operation is to insert one or more data elements into an array. Based on the requirement, a new element can be added at the beginning, end, or any given index of array.
+
+myarray1.insert(1,40) #inserting at 1st index
+myarray1.insert(3,100) #inserting at 3rd index
+
+we can using even the append(),extend() function also
+
+import array as arr
+a=arr.array('f',[3.2,3.3,5.6,9.2,7.8])
+a=arr.array('f',[3.2,3.3,5.6,9.2,7.8])
+a.append(39.3)
+a.extend([12.3,36.6,24.3])
+
+Deletion Operation
+------------------
+Deletion refers to removing an existing element from the array and re-organizing all elements of an array.
+Here, we remove a data element at the middle of the array using the python in-built remove() method.
+
+myarray1.remove(60) 
+myarray1.remove(100) 
+
+other way of using is  pop() function can also be done.The difference between these two functions is that the former returns the deleted value whereas the latter does not
+The pop() function takes either no parameter or the index value as its parameter. When no parameter is given, this function pops() the last element and returns it
+
+myarray1.pop() #remove the last index of an array
+myarray1.pop(1) #remove the specified index of an array
+
+Search Operation
+----------------
+You can perform a search for an array element based on its value or its index.
+Here, we search a data element using the python in-built index() method.
+
+myarray1.index(100)
+
+Update Operation
+----------------
+Update operation refers to updating an existing element from the array at a given index.
+
+myarray1[1]=60
+myarray1[3]=60
+
+Array Concentations
+-------------------
+Arrays can be merged as well by performing array concatenation
+
+a=arr.array('f',[3.2,3.3,5.6,9.2,7.8])
+b=arr.array('f',[6.3,8.2,9.6])
+print(a)
+print(b)
+c=a+b
+print(c)
+
+Is Python list same as an Array
+===============================
+Python Arrays and lists are store values in a similar way.But there is a key difference between the two i.e the values that they store
+A list can store any type of values such as intergers, strings, etc. An arrays, on the other hand, stores single data type values. Therefore, you can have an array of integers, an array of strings, etc
+
+Python also provide Numpy Arrays which are a grid of values used in Data Science.
+
+
+Disadvantages with arrays
+=========================
+the major it can hold only single data type 
+
+Quiz:
+=====
+
+Assignment:
+===========
+
+Resources
+=========

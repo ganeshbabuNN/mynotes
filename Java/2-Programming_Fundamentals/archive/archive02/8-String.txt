@@ -1,0 +1,537 @@
+Intro
+Creating Strings
+Printing Strings
+String Indexing and Slicing
+String Properties
+Escape characters
+String Formatting(Huge chapters)
+String Regular expressions
+String Methods
+
+
+Intro
+=====
+-Strings are used in Python to record text information, such as names. 
+-Remember string is immutable objects
+-Strings in Python are actually a sequence, which basically means Python keeps track of every element in the string as a sequence. 
+For example, Python understands the string "hello' to be a sequence of letters in a specific order. 
+-This means we will be able to use indexing to grab particular letters (like the first letter, or the last letter).
+-This idea of a sequence is an important one in Python and we will touch upon it later on in the future.
+
+Creating a String
+================
+-To create a string in Python you need to use either single quotes or double quotes.
+# Single word
+'hello'
+'This is also a string' # Entire phrase
+
+# We can also use double quote
+"String built with double quotes"
+
+# Be careful with quotes!
+' I'm using single quotes, but this will create an error'
+
+The reason for the error above is because the single quote in I'm stopped the string. You can use combinations of double and single quotes to get the complete statement
+
+"Now I'm ready to use the single quotes inside a string!"
+
+literals
+--------
+strings = "This is Python" #is a string literal
+char = "C" #is a character literal
+multiline_str = """This is a multiline string with 
+more 
+than one 
+line code."""
+
+raw_str = r"raw \n string" #raw string literal
+
+print(strings)
+print(char)
+print(multiline_str)	
+print(raw_str)
+
+Printing a String
+=================
+Using Jupyter notebook with just a string in a cell will automatically output strings, but the correct way to display strings in your output is by using a print function
+
+# We can simply declare a string
+'Hello World'
+
+# Note that we can't output multiple strings this way
+'Hello World 1'
+'Hello World 2'
+
+#We can use a print statement to print a string.
+print('Hello World 1')
+print('Hello World 2')
+print('See what I mean?')
+
+Accessing String using Indexing & slicing
+==========================================
+We know strings are a sequence, which means Python can use indexes to call parts of the sequence. Let's learn how this works.
+
+Indexing
+--------
+In Python, we use brackets [] after an object to call its index. We should also note that indexing starts at 0 for Python. Let's create a new object called <code>s</code> and then walk through a few examples of indexing.
+
+Syntax:
+string['index number]
+
+s = 'Hello World' # Assign s as a string
+H	e	l	l	o		w	o	r	l	d
+0	1	2	3	4	5	6	7	8	9	10  - index number
+0	-10 -9	-8	-7	-6	-5	-4	-3	-2	-1   -reverse index
+
+s #Check
+print(s) # Print the object 
+print(s[0]) #grab the first element
+print(type(x))
+print(s[1]) #grab the second element
+print(s[-1]) #grab the revesre element
+print(s[-2]) #grab the revesre element
+print(s[3])
+
+slicing
+-------
+We can use a : to perform *slicing* which grabs everything up to a designated point. 
+
+Sytnax:
+slice(start:stop:step)
+
+start (optional) - Starting integer where the slicing of the object starts. Default to None if not provided.
+stop - Integer until which the slicing takes place. The slicing stops at index stop -1 (last element).
+step (optional) - Integer value which determines the increment between each index for slicing. Defaults to None if not provided
+
+For example:
+s[1:] # Grab everything past the first term all the way to the length of s which is len(s)
+s # Note that there is no change to the original s
+s[:3] # Grab everything UP TO the 3rd index
+
+Note the above slicing. Here we're telling Python to grab everything from 0 up to 3. It doesn't include the 3rd index. You'll notice this a lot in Python, where statements and are usually in the context of "up to, but not including".
+s[:] #Everything
+
+We can also use negative indexing to go backwards.
+s[-1] # Last letter (one index behind 0 so it loops back around)
+s[:-1] # Grab everything but the last letter
+print(s[-2:-1]) #-3 represent the last index
+
+We can also use index and slice notation to grab elements of a sequence by a specified step size (the default is 1). 
+For instance we can use two colons in a row and then a number specifying the frequency to grab elements. For example:
+s[::1] # Grab everything, but go in steps size of 1
+s[::2] # Grab everything, but go in step sizes of 2
+s[::-1] # We can use this to print a string backwards
+
+String Properties
+=================
+It's important to note that strings have an important property known as *immutability*. This means that once a string is created, the elements within it can not be changed or replaced. For example:
+
+s = 'Hello World' # Assign s as a string
+s
+s[0] = 'x' # Let's try to change the first letter to 'x'
+
+Notice how the error tells us directly what we can't do, change the item assignment!
+Something we can do is concatenate strings!
+
+s
+s + ' concatenate me!' # Concatenate strings!
+s = s + ' concatenate me!' # We can reassign s completely though! #dont overrun same variable. agin and again
+print(s)
+s
+
+We can use the multiplication symbol to create repetition!
+letter = 'z'
+letter*10
+
+be aware of the string numbers 
+sum = '2' + '3'
+print(sum) # what is the output?
+
+
+Escape characters
+=================
+Escape Sequences for Character Values
+There are a number of escape sequences that are used for special characters:
+
+the Escape Sequence	Resulting Character
+\b	Backspace
+\f	Form feed
+\n	Linefeed character - note that it produces exactly one character, Unicode 10 (\u000A in hex)
+\r	Carriage return
+\t	Tab
+\"	Quote mark
+\'	Apostrophe
+\\	Backslash
+\uNNNN	Unicode value, where N is a base 16 digit from 0 through F; valid values are \u0000 through \uFFFF
+\NNN	Value expressed in octal; ranging from \000 to \377
+The escape sequences can either be used for single characters or within strings of text:
+
+char c = '\u1234';
+System.out.println("\t\tHello\n\t\tWorld");
+
+Ref
+https://www.webucator.com/tutorial/learn-java/java-basics.cfm
+String Formatting
+=================
+String formatting lets you inject items into a string rather than trying to chain items together using commas or string concatenation. As a quick comparison, consider:
+
+for example
+company='Novo nordisk'
+experience='7'
+name ='Ganesh babu'
+
+" Myself, '+name+' working in '+company+' for past '+experience+' years." # concatenation classical way
+f"Myself, {name} working in {company} for past {experience} years." #string formatting put f as prefix
+
+There are three ways to perform string formatting
+-The oldest method involves placeholders using the modulo % character.
+-An improved technique uses the .format() string method.
+-The newest method, introduced with Python 3.6, uses formatted string literals, called f-strings.
+Since you will likely encounter all three versions in someone else's code, we describe each of them here
+
+Formatting with placeholders (%)
+-------------------------------
+You can use %s to inject strings into your print statements. The modulo % is referred to as a "string formatting operator".
+print('Myself, %s working in %s for past %s years.')
+
+You can pass multiple items by placing them inside a tuple after the % operator.
+print("Myself, %s working in %s for past %s years."%('Ganesh Babu','Novo Nordisk','7+'))
+
+You can also pass variable names:
+company='Novo nordisk'
+experience='7'
+name ='Ganesh babu'
+print("Myself, %s working in %s for past %s years."%(name,company,experience))
+
+Format conversion methods using %
+*--------------------------------*
+It should be noted that two methods %s and %r convert any python object to a string using two separate methods: str() and repr(). 
+We will learn more about these functions later on in the course, but you should note that %r and repr() deliver the string representation of the object, including quotation marks and any escape characters.
+
+print("my name is %s" %'Ganesh Babu') #%s converts the format into strings
+print("my name is %r" %'Ganesh Babu') #%r retruns the string representations of a object
+
+As another example, \t inserts a tab into a string.
+print("my name is %s" %'Ganesh \t Babu')  
+print("my name is %r" %'Ganesh \tBabu')  
+
+The %s operator converts whatever it sees into a string, including integers and floats. The %d operator converts numbers to integers first, without rounding. 
+Note the difference below:
+print("my salary is %s per day " %960.36) #%s operator converts whatever it sees into a string, including integers and floats
+print("my salary is %d per day " %960.36) #The %d operator converts numbers to integers first, without rounding
+
+Padding and Precision of Floating Point Numbers
+*---------------------------------------------*
+Floating point numbers use the format %5.2f. Here, 5 would be the minimum number of characters the string should contain; these may be padded with whitespace if the entire number does not have this many digits. Next to this, .2f stands for how many numbers to show past the decimal point. Let's see some examples:
+
+print("my daily work day consumptions is %10.2f per year " %36512.2432) #365 days 12 months 24 hours 32 mins
+print("my daily work day consumptions is %1.0f per year " %36512.2432)
+print("my daily work day consumptions is %1.5f per year " %36512.2432)
+print("my daily work day consumptions is %10.2f per year " %36512.2432)
+print("my daily work day consumptions is %25.2f per year " %36512.2432)
+
+for more informations :https://docs.python.org/3/library/stdtypes.html#old-string-formatting
+
+Multiple Formatting
+*-----------------*
+print("myself %s working %5.2f per year, %r" %('Ganesh Babu',36512.2432,'Bye!'))
+
+
+Using format()
+--------------
+A better way to format objects into your strings for print statements is with the string .format()
+
+Syntax:
+String here{} then also {}'.format('INSERTED'))
+
+# insert the first string in the format index
+print('Myself {}'.format('Ganesh Babu ')) 
+
+# Inserted objects can be called by index position
+print("Myself, {} working in {} for past {} years.".format('Ganesh Babu','Novo Nordisk','7+')) 
+
+#Inserted objects can be assigned keywords
+print("Myself, {a} working in {b} for past {c} years.".format(a='Ganesh Babu',b='Novo Nordisk',c='7+'))  
+
+#Inserted objects can be reused, avoiding duplication:
+print('A %s saved is a %s earned.' %('penny','penny'))
+# vs.
+print('A {p} saved is a {p} earned.'.format(p='penny'))
+
+Alignment, padding and precision with .format()
+----------------------------------------------
+Within the curly braces you can assign field lengths, left/right alignments, rounding parameters and more
+print('{0:8} | {1:9}'.format('Fruit', 'Quantity'))
+print('{0:8} | {1:9}'.format('Apples', 3.))
+print('{0:8} | {1:9}'.format('Oranges', 10))
+
+#By default, .format() aligns text to the left, numbers to the right. You can pass an optional <,^, or > to set a left, center or right alignment:
+print('{0:<8} | {1:^8} | {2:>8}'.format('Left','Center','Right'))
+print('{0:<8} | {1:^8} | {2:>8}'.format(11,22,33))
+
+#You can precede the aligment operator with a padding character
+print('{0:=<8} | {1:-^8} | {2:.>8}'.format('Left','Center','Right'))
+print('{0:=<8} | {1:-^8} | {2:.>8}'.format(11,22,33))
+
+#Field widths and float precision are handled in a way similar to placeholders. The following two print statements are equivalent:
+print('This is my ten-character, two-decimal number:%10.2f' %13.579)
+print('This is my ten-character, two-decimal number:{0:10.2f}'.format(13.579))
+
+Note that there are 5 spaces following the colon, and 5 characters taken up by 13.58, for a total of ten characters.
+For more information on the string .format() method visit https://docs.python.org/3/library/string.html#formatstrings
+
+Formatted String Literals (f-strings)
+-------------------------------------
+Introduced in Python 3.6, f-strings offer several benefits over the older `.format()` string method described above. 
+For one, you can bring outside variables immediately into to the string rather than pass them as arguments through `.format(var)`.
+
+company='Novo nordisk'
+experience='7'
+name ='Ganesh babu'
+
+Where with the .format() method you might see {value:10.4f}, with f-strings this can become {value:{10}.{6}}
+print(f"myself name is {name}")
+
+Pass !r to get the string representation:
+print(f"myself name is {name!r}")
+
+Float formatting follows "result: {value:{width}.{precision}}"
+Where with the .format() method you might see {value:10.4f}, with f-strings this can become {value:{10}.{6}}
+num = 23.45678
+print("My 10 character, four decimal number is:{0:10.4f}".format(num))
+print(f"My 10 character, four decimal number is:{num:{10}.{6}}")
+
+Note that with f-strings, precision refers to the total number of digits, not just those following the decimal. This fits more closely with scientific notation and statistical analysis. Unfortunately, f-strings do not pad to the right of the decimal, even if precision allows it:
+num = 23.45
+print("My 10 character, four decimal number is:{0:10.4f}".format(num))
+print(f"My 10 character, four decimal number is:{num:{10}.{6}}")
+
+If this becomes important, you can always use .format() method syntax inside an f-string:
+num = 23.45
+print("My 10 character, four decimal number is:{0:10.4f}".format(num))
+print(f"My 10 character, four decimal number is:{num:10.4f}")
+
+For more info on formatted string literals visit https://docs.python.org/3/reference/lexical_analysis.html#f-strings
+That is the basics of string formatting!
+
+String Regular expressions
+==========================
+The regular expressions can be defined as the sequence of characters which are used to search for a pattern in a string. 
+-The module re provides the support to use regex in the python program. 
+-The re module throws an exception if there is some error while using the regular expression.
+
+The details concepts are explained in API/Regular Expressions chapters.
+
+Basic Built-in String methods
+=============================
+Objects in Python usually have built-in methods. These methods are functions inside the object (we will learn about these in much more depth later) that can perform actions or commands on the object itself.
+We call methods with a period and then the method name. 
+Methods are in the form:
+object.method(parameters)
+
+Where parameters are extra arguments we can pass into the method. Don't worry if the details don't make 100% sense right now. Later on we will be creating our own objects and functions!
+Here are some examples of built-in methods in strings:
+
+split case
+---------
+s ='Hello World' 
+s.split() # Split a string by blank space (this is the default)
+s.split('W') # Split by a specific element (doesn't include the element that was split on)
+print(len(a)) #length of a string
+
+There are many more methods than the ones covered here. Visit the Advanced String section to find out more!
+
+Strips the spaces
+-----------------
+#generally used to trimt he leading and lagging spaces in the given string.
+c=""" ganesh babu """;
+print(c.strip())  #striping the lead and lagging
+print(c.lstrip()) #striping left
+print(c.rstrip()) #striping left
+
+x="ganesh \nbabu " #The splitlines() method splits a string into a list. The splitting is done at line breaks.
+
+
+x.splitlines() 
+
+find functions
+--------------
+Searches the string for a specified value and returns the position of where it was found
+
+print(c.find("ba")) #return the count of the index where search starts
+print(c.find("ba"),0,len(c)) #used 0 outside the find functions
+print(c.find("ab",9,len(c))) #start with 9 with max leng where the search looked into
+x.rfind('a')  #The rfind() method finds the last occurrence of the specified value.
+
+count function get the occurrence of a string.
+-----------------------------------------------
+print(c.count("h"))
+
+replace
+-------
+print(c.replace("ga","hh"))
+
+case changes
+------------
+print(c.upper()) #convert to uppper case
+print(c.lower()) #covnert to lower case
+print(c.casefold()) #convert to lower case
+print(c.title()) #its upper the first letter of each word
+print(c.capitalize()) #its upper the first letter of the string
+print(c.islower()) #The islower() method returns True if all the characters are in lower case, otherwise False.
+x.swapcase() #Swaps cases, lower case becomes upper case and vice versa
+
+
+alignment 
+---------
+x='  Ganesh Babu'
+x.center(20) # The center() method will center align the string, using a specified character (space is default) as the fill character.
+x.ljust(20) #for left 
+x.rjust(20) #for right
+
+
+length of the string
+--------------------
+We can also use a function called len() to check the length of a string!
+len('Hello World')
+
+Concatentations
+---------------
+"ganesh" + "Babu" # concatenation
+x="ganesh"
+x+"babu"
+
+start and end of string
+-----------------------
+str.startswith(('g','a','s')) # start with the letter single or multiple(tuple)
+str.endswith(('h','a')) # end with the letter single or multiple(tuple)
+
+checking numeric or string
+--------------------------
+str12.isnumeric() #Return True if all characters in the string are numeric characters, and there is at least one character
+str13.isdigit() #Return True if all characters in the string are digits and there is at least one character
+#detecting a floating point in a string using regex(this will cover later)
+s="ganesh babu st 323.22  and 23.22 , 2.1.1 and 43"
+re.findall(r"[-+]?\d*\.\d+|\d+",s)
+
+using membership operators
+---------------------------
+'f' in name
+name="ganesh"
+'a' in name # in operator
+'f' in name
+'a' not in name #not in operator
+'f' not in name
+
+Occurence of character in string
+--------------------------------
+-c.count('er') #
+
+
+encoding the string
+-------------------
+#The encode() method encodes the string, using the specified encoding. If no encoding is specified, UTF-8 will be used.
+x='  Ganesh Babu'
+x.encode() 
+
+txt = "My name is Ståle"
+print(txt.encode(encoding="ascii",errors="backslashreplace"))
+print(txt.encode(encoding="ascii",errors="ignore"))
+print(txt.encode(encoding="ascii",errors="namereplace"))
+print(txt.encode(encoding="ascii",errors="replace"))
+print(txt.encode(encoding="ascii",errors="xmlcharrefreplace"))
+
+Tabing the string
+------------------
+The expandtabs() method sets the tab size to the specified number of whitespaces.
+
+x='G\ta\tn\te\ts\th\tB\ta\tb\tu'
+x.expandtabs()
+
+index
+------
+The index() method finds the first occurrence of the specified value.
+The index() method raises an exception if the value is not found.
+The index() method is almost the same as the find() method, the only difference is that the find() method returns -1 if the value is not found. (See example below)
+
+x='ganesh babu'x.index('e')
+x.index('e')
+
+#not found
+x.index('z')
+x.find('z')
+
+recongizing the string or number
+--------------------------------
+x='ganesh babu12'
+x.isalnum() #The isalnum() method returns True if all the characters are alphanumeric, meaning alphabet letter (a-z) and numbers (0-9). characters that are not alphanumeric: (space)!#%&? etc
+x.isalpha() #The isalpha() method returns True if all the characters are alphabet letters (a-z).
+
+x='1222'
+x.isdecimal()  #The isdigit() method returns True if all the characters are digits, otherwise False.if floating type is not digit
+#The isnumeric() method returns True if all the characters are numeric (0-9), otherwise False.
+
+
+Identifier
+----------
+The isidentifier() method returns True if the string is a valid identifier, otherwise False.
+A string is considered a valid identifier if it only contains alphanumeric letters (a-z) and (0-9), or underscores (_). A valid identifier cannot start with a number, or contain any spaces.
+
+a = "MyFolder"
+b = "Demo002"
+c = "2bring"
+d = "my demo"
+
+print(a.isidentifier())
+print(b.isidentifier())
+print(c.isidentifier())
+print(d.isidentifier())
+
+isprintable
+-----------
+The isprintable() method returns True if all the characters are printable, otherwise False. Example of none printable character can be carriage return and line feed.
+
+txt = "Hello! Are you #1?"
+x = txt.isprintable()
+print(x)
+
+txt = "Hello!\nAre you #1?"
+x = txt.isprintable()
+print(x)
+
+partitions
+----------
+The partition() method searches for a specified string, and splits the string into a tuple containing three elements.
+The first element contains the part before the specified string.
+The second element contains the specified string.
+The third element contains the part after the string.
+
+txt = "I could eat bananas all day"
+x = txt.partition("bananas")
+print(x)
+
+txt = "I could eat bananas all day"
+x = txt.partition("apples")
+print(x)
+
+fill
+----
+The zfill() method adds zeros (0) at the beginning of the string, until it reaches the specified length.
+
+x.zfill(10) 
+
+Python's built-in len() function counts all of the characters in the string, including spaces and punctuation.
+https://docs.python.org/3/library/stdtypes.html#sequence-types-list-tuple-range  # for string methods
+
+Quiz:
+=====
+
+Assignment:
+===========
+
+Resources:
+=========
+https://pyformat.info/
+
+
+
